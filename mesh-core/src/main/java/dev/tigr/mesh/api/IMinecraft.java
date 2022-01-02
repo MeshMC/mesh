@@ -1,5 +1,6 @@
 package dev.tigr.mesh.api;
 
+import dev.tigr.mesh.api.util.IProfiler;
 import dev.tigr.mesh.api.util.ISession;
 
 /**
@@ -9,5 +10,7 @@ import dev.tigr.mesh.api.util.ISession;
  * @author Tigermouthbear 1/1/22
  */
 public interface IMinecraft {
+    IProfiler getProfiler();
+
     ISession getSession();
 }

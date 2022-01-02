@@ -3,5 +3,10 @@
   "minVersion": "0.8",
   "package": "dev.tigr.mesh.impl.mixin",
   "compatibilityLevel": "JAVA_16",
-  "mixins": []
+  "mixins": [
+    "client.MixinClientPlayerEntity",
+    "client.MixinClientWorld",
+    "client.MixinEntity",
+    "client.MixinMinecraftClient"
+  ]
 }
