@@ -1,0 +1,16 @@
+[
+{
+  "modid": "mesh",
+  "name": "Mesh",
+  "description": "Mesh is a cross-version minecraft mod platform",
+  "version": "${version}",
+  "mcversion": "1.12.2",
+  "url": "https://tigr.dev/",
+  "updateUrl": "",
+  "authorList": ["Tigermouthbear"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

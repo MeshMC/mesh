@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "examplemod",
+  "version": "1.0-SNAPSHOT",
+
+  "name": "Example Mod",
+  "description": "An example mod using the Mesh platform",
+  "authors": [
+    "Tigermouthbear"
+  ],
+  "contact": {
+    "homepage": "https://tigr.dev/"
+  },
+  "environment": "*",
+  "suggests": {
+    "flamingo": "*"
+  }
+}

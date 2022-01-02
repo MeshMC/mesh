@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "mesh",
+  "version": "${version}",
+
+  "name": "Mesh",
+  "description": "Mesh is a cross-version minecraft mod platform",
+  "authors": [
+    "Tigermouthbear"
+  ],
+  "contact": {
+    "homepage": "https://tigr.dev/"
+  },
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.tigr.mesh.impl.MeshImpl"
+    ]
+  },
+  "mixins": [
+    "mesh.mixins.json"
+  ],
+  "suggests": {
+    "flamingo": "*"
+  }
+}

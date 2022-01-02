@@ -1,0 +1,17 @@
+pluginManagement {
+    repositories {
+        maven {
+            name = "Fabric"
+            url = "https://maven.fabricmc.net/"
+        }
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = "mesh"
+
+include "mesh-core"
+include "example"
+include "mesh-forge-1.12.2"
+include "mesh-fabric-1.18.1"
+

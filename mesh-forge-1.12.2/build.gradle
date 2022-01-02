@@ -1,0 +1,94 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
+buildscript {
+    repositories {
+        gradlePluginPortal()
+        maven {
+            name = "Forge"
+            url = "https://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = "SpongePowered"
+            url = "https://repo.spongepowered.org/repository/maven-public/"
+        }
+    }
+    dependencies {
+        classpath "net.minecraftforge.gradle:ForgeGradle:5+"
+        classpath "org.spongepowered:mixingradle:0.7-SNAPSHOT"
+        classpath "gradle.plugin.com.github.jengelman.gradle.plugins:shadow:7.0.0"
+    }
+}
+apply plugin: "net.minecraftforge.gradle"
+apply plugin: "org.spongepowered.mixin"
+apply plugin: "com.github.johnrengelman.shadow"
+
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+
+minecraft {
+    mappings channel: "stable", version: "39-1.12"
+}
+
+dependencies {
+    // minecraftforge dependency
+    minecraft "net.minecraftforge:forge:1.12.2-14.23.5.2854"
+
+    // mesh core
+    implementation(project(":mesh-core")) {
+        exclude group: "org.apache.logging.log4j", module: "log4j-api"
+        exclude group: "com.google.guava", module: "guava"
+    }
+    shadow(project(":mesh-core")) {
+        exclude group: "org.apache.logging.log4j", module: "log4j-api"
+        exclude group: "com.google.guava", module: "guava"
+    }
+
+    // mixins
+    implementation "org.spongepowered:mixin:0.7.11-SNAPSHOT"
+    shadow("org.spongepowered:mixin:0.7.11-SNAPSHOT") {
+        exclude module: "launchwrapper"
+        exclude module: "guava"
+        exclude module: "gson"
+        exclude module: "commons-io"
+        exclude module: "log4j-core"
+    }
+    annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+        expand "version": project.version
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    }
+}
+
+mixin {
+    defaultObfuscationEnv "searge"
+    add sourceSets.main, "mesh.mixins.refmap.json"
+}
+
+task customShadowJar(type: ShadowJar) {
+    configurations = [project.configurations.shadow]
+    archiveClassifier.set("all")
+    from project.file("build/libs/mesh-forge-1.12.2-${project.meshVersion}.jar")
+    exclude("META-INF/MUMFREY.RSA")
+    exclude("META-INF/MUMFREY.SF")
+
+    //noinspection GroovyAssignabilityCheck
+    manifest {
+        attributes(
+                "MixinConfigs": "mesh.mixins.json",
+                "TweakClass": "org.spongepowered.asm.launch.MixinTweaker",
+                "TweakOrder": 0,
+                "FMLCorePluginContainsFMLMod": "true",
+                "FMLCorePlugin": "dev.tigr.mesh.impl.mixin.MixinLoader",
+                "ForceLoadAsMod": "true"
+        )
+    }
+}
+build.dependsOn(customShadowJar)
