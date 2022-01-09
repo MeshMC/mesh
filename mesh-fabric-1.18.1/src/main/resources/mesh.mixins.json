@@ -4,9 +4,15 @@
   "package": "dev.tigr.mesh.impl.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
+    "accessors.BoxAccessor",
+    "accessors.Vec3dAccessor",
+    "accessors.Vec3iAccessor",
     "client.MixinClientPlayerEntity",
     "client.MixinClientWorld",
     "client.MixinEntity",
     "client.MixinMinecraftClient"
+  ],
+  "client": [
+    "accessors.Vec2fAccessor"
   ]
 }

@@ -7,6 +7,12 @@
     "client.MixinEntity",
     "client.MixinEntityPlayerSP",
     "client.MixinMinecraft",
-    "client.MixinWorld"
+    "client.MixinWorld",
+    "math.MixinAxisAlignedBB",
+    "math.MixinVec3d",
+    "math.MixinVec3i"
+  ],
+  "client": [
+    "math.MixinVec2f"
   ]
 }

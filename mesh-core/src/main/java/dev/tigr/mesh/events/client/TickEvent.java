@@ -5,6 +5,8 @@ import dev.tigr.mesh.events.Era;
 import dev.tigr.simpleevents.event.Event;
 
 /**
+ * All events which are called every tick
+ *
  * @author Makrennel 2022/01/02
  */
 public class TickEvent extends Event {

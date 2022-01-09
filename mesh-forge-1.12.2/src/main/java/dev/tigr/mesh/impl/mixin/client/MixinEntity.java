@@ -17,12 +17,14 @@ public class MixinEntity {
 
     @Inject(method = "onUpdate", at = @At("HEAD"))
     public void preTick(CallbackInfo ci) {
+        if(Minecraft.getMinecraft().world == null) return;
         if(Minecraft.getMinecraft().world.getEntityByID(entityId) instanceof EntityPlayer)
             TickEvent.Player.post(Era.BEFORE, entityId);
     }
 
     @Inject(method = "onUpdate", at = @At("RETURN"))
     public void postTick(CallbackInfo ci) {
+        if(Minecraft.getMinecraft().world == null) return;
         if(Minecraft.getMinecraft().world.getEntityByID(entityId) instanceof EntityPlayer)
             TickEvent.Player.post(Era.AFTER, entityId);
     }
