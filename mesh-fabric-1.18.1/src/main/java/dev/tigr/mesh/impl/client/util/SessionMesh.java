@@ -1,37 +1,33 @@
 package dev.tigr.mesh.impl.client.util;
 
-import dev.tigr.mesh.api.util.ISession;
 import net.minecraft.client.util.Session;
 
 /**
- * Mesh API interface for minecraft Session util class
- *
- * @author Tigermouthbear 1/1/22
+ * @author Tigermouthbear 1/10/22
  */
-public class SessionMesh implements ISession {
-    private final Session session;
-
-    public SessionMesh(Session session) {
-        this.session = session;
+public class SessionMesh extends dev.tigr.mesh.api.util.Session<Session> {
+    public SessionMesh(net.minecraft.client.util.Session value) {
+        super(value);
     }
 
     @Override
     public String getSessionId() {
-        return session.getSessionId();
+        return getMeshValue().getSessionId();
     }
 
     @Override
     public String getUuid() {
-        return session.getUuid();
+        return getMeshValue().getUuid();
     }
 
     @Override
     public String getUsername() {
-        return session.getUsername();
+        return getMeshValue().getUsername();
     }
 
     @Override
     public String getAccessToken() {
-        return session.getAccessToken();
+        return getMeshValue().getAccessToken();
     }
+
 }

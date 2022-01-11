@@ -1,6 +1,9 @@
 package dev.tigr.mesh.example;
 
 import dev.tigr.mesh.Mesh;
+import dev.tigr.mesh.events.client.TickEvent;
+import dev.tigr.simpleevents.listener.EventHandler;
+import dev.tigr.simpleevents.listener.EventListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,5 +18,15 @@ public class ExampleMod {
 
         // woah, platform independent code!!!
         LOGGER.info("Hello {}!", MESH.getMinecraft().getSession().getUsername());
+
+        // registering and event listener
+        MESH.getEventManager().register(this);
     }
+
+    @EventHandler
+    public EventListener<TickEvent> tickEventListener = new EventListener<>(event -> {
+        if(event.getType() == TickEvent.Type.MOTION) {
+            LOGGER.info("{} moved!", MESH.getMinecraft().getSession().getUsername());
+        }
+    });
 }
