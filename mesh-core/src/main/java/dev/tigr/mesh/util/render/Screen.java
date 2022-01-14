@@ -1,10 +1,10 @@
-package dev.tigr.mesh.util;
+package dev.tigr.mesh.util.render;
 
 /**
  * Represents a minecraft gui screen across versions
  * @author Tigermouthbear 1/10/22
  */
-public interface GuiScreen {
+public interface Screen {
     void drawScreen(int mouseX, int mouseY, float partialTicks);
 
     void mouseClicked(int mouseX, int mouseY, int mouseButton);

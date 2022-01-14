@@ -1,6 +1,6 @@
 package dev.tigr.mesh.impl.util;
 
-import dev.tigr.mesh.util.math.Box;
+import dev.tigr.mesh.api.math.Box;
 import dev.tigr.mesh.util.render.Color;
 import dev.tigr.mesh.util.render.IRenderStack;
 import dev.tigr.mesh.util.render.IRenderer;
@@ -182,7 +182,7 @@ public class CustomRenderer extends HashMap<String, DynamicTexture> implements I
     }
 
     @Override
-    public void drawBox(Box box, Color fillColor, Color lineColor, int... ignoredSides) {
+    public void drawBox(Box<?> box, Color fillColor, Color lineColor, int... ignoredSides) {
         // TODO: THIS
         /*EnumFacing[] sides = new EnumFacing[6];
         for(int side: ignoredSides) {

@@ -1,6 +1,6 @@
 package dev.tigr.mesh.util.render;
 
-import dev.tigr.mesh.util.math.Box;
+import dev.tigr.mesh.api.math.Box;
 
 /**
  * provides abstraction for rendering
@@ -31,5 +31,5 @@ public interface IRenderer {
 
     void end3d();
 
-    void drawBox(Box box, Color fillColor, Color lineColor, int... ignoredSides);
+    void drawBox(Box<?> box, Color fillColor, Color lineColor, int... ignoredSides);
 }

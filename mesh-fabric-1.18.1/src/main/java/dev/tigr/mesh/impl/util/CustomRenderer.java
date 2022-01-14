@@ -1,7 +1,7 @@
 package dev.tigr.mesh.impl.util;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import dev.tigr.mesh.util.math.Box;
+import dev.tigr.mesh.api.math.Box;
 import dev.tigr.mesh.util.render.Color;
 import dev.tigr.mesh.util.render.IRenderStack;
 import dev.tigr.mesh.util.render.IRenderer;
@@ -182,7 +182,7 @@ public class CustomRenderer extends HashMap<LocationIdentifier, AbstractTexture>
     }
 
     @Override
-    public void drawBox(Box box, Color fillColor, Color lineColor, int... ignoredSides) {
+    public void drawBox(Box<?> box, Color fillColor, Color lineColor, int... ignoredSides) {
         // TODO: THIS + MORE RENDERING SHIT
         /*Direction[] sides = new Direction[6];
         for(int side: ignoredSides) {
