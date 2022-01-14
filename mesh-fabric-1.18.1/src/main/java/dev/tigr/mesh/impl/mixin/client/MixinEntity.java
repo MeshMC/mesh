@@ -1,6 +1,7 @@
 package dev.tigr.mesh.impl.mixin.client;
 
-import dev.tigr.mesh.events.Era;
+import dev.tigr.mesh.Mesh;
+import dev.tigr.mesh.events.MeshEvent;
 import dev.tigr.mesh.events.client.TickEvent;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
@@ -19,13 +20,13 @@ public abstract class MixinEntity {
     public void preTick(CallbackInfo ci) {
         if(MinecraftClient.getInstance().world == null) return;
         if(MinecraftClient.getInstance().world.getEntityById(id) instanceof PlayerEntity)
-            TickEvent.Player.post(Era.BEFORE, id);
+            Mesh.getMesh().getEventManager().post(new TickEvent(TickEvent.Type.PLAYER, MeshEvent.Era.BEFORE));
     }
 
     @Inject(method = "tick", at = @At("RETURN"))
     public void postTick(CallbackInfo ci) {
         if(MinecraftClient.getInstance().world == null) return;
         if(MinecraftClient.getInstance().world.getEntityById(id) instanceof PlayerEntity)
-            TickEvent.Player.post(Era.AFTER, id);
+            Mesh.getMesh().getEventManager().post(new TickEvent(TickEvent.Type.PLAYER, MeshEvent.Era.AFTER));
     }
 }

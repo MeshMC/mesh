@@ -6,3 +6,7 @@ dependencies {
     implementation "com.mojang:brigadier:1.0.17"
     implementation "com.google.guava:guava:31.0.1-jre"
 }
+
+jar {
+    exclude "dev/tigr/mesh/api/MeshStatics.class"
+}

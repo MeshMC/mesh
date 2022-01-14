@@ -1,22 +1,22 @@
 package dev.tigr.mesh.impl.client.util;
 
-import dev.tigr.mesh.api.util.IProfiler;
-import net.minecraft.profiler.Profiler;
+import dev.tigr.mesh.api.util.Profiler;
 
-public class ProfilerMesh implements IProfiler {
-    private final Profiler profiler;
-
-    public ProfilerMesh(Profiler profiler) {
-        this.profiler = profiler;
+/**
+ * @author Tigermouthbear 1/10/22
+ */
+public class ProfilerMesh extends Profiler<net.minecraft.profiler.Profiler> {
+    public ProfilerMesh(net.minecraft.profiler.Profiler value) {
+        super(value);
     }
 
     @Override
     public void pushSection(String name) {
-        profiler.startSection(name);
+        getMeshValue().startSection(name);
     }
 
     @Override
     public void popSection() {
-        profiler.endSection();
+        getMeshValue().endSection();
     }
 }

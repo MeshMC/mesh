@@ -1,6 +1,8 @@
 package dev.tigr.mesh;
 
-import dev.tigr.mesh.api.IMinecraft;
+import dev.tigr.mesh.api.Minecraft;
+import dev.tigr.mesh.events.MeshEventManager;
+import dev.tigr.mesh.util.render.IRenderer;
 import dev.tigr.simpleevents.EventManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -79,7 +81,7 @@ public abstract class Mesh {
     private final String loaderVersion;
 
     // The event manager for mesh, all game, render, and client events are posted through this
-    private final EventManager eventManager = new EventManager();
+    private final EventManager eventManager = new MeshEventManager(this);
 
     // List of all Mesh mods that have been initialized
     private final List<Mod> mods = new ArrayList<>();
@@ -162,9 +164,15 @@ public abstract class Mesh {
 
     /**
      * Gets the Mesh interface for Minecraft's main instance
-     * @return The current {@link IMinecraft} instance
+     * @return The current {@link Minecraft} instance
      */
-    public abstract IMinecraft getMinecraft();
+    public abstract Minecraft<?> getMinecraft();
+
+    /**
+     * Gets the Mesh interface for rendering
+     * @return A {@link IRenderer} for rendering
+     */
+    public abstract IRenderer getRenderer();
 
     /**
      * Gets the current implementation of Mesh
