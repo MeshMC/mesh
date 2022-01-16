@@ -61,6 +61,9 @@ public class ExampleMod {
         bufferBuilder.vertex(100, 0).texture(1, 0).color(Color.RED).next();
         bufferBuilder.vertex(50, 0).texture(0, 0).color(Color.RED).next();
         MESH.getRenderer().draw();
+
+        // draw text using minecraft's font renderer
+        MESH.getMinecraft().getTextRenderer().drawText("Hello from Mesh!", 2, 55, Color.WHITE);
         MESH.getRenderer().getRenderState().texture(false);
 
         // draw a line with color

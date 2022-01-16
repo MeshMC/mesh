@@ -1,5 +1,6 @@
 package dev.tigr.mesh.api;
 
+import dev.tigr.mesh.api.render.TextRenderer;
 import dev.tigr.mesh.api.util.Profiler;
 import dev.tigr.mesh.api.util.Session;
 
@@ -13,6 +14,8 @@ public abstract class Minecraft<T> extends AbstractMesh<T> {
     }
 
     public abstract Profiler<?> getProfiler();
+
+    public abstract TextRenderer<?> getTextRenderer();
 
     public abstract Session<?> getSession();
     public abstract void setSession(Session<?> session);
