@@ -6,7 +6,8 @@
   "name": "Example Mod",
   "description": "An example mod using the Mesh platform",
   "authors": [
-    "Tigermouthbear"
+    "Tigermouthbear",
+    "Makrennel"
   ],
   "contact": {
     "homepage": "https://tigr.dev/"

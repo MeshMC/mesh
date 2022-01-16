@@ -6,7 +6,8 @@
   "name": "Mesh",
   "description": "Mesh is a cross-version minecraft mod platform",
   "authors": [
-    "Tigermouthbear"
+    "Tigermouthbear",
+    "Makrennel"
   ],
   "contact": {
     "homepage": "https://tigr.dev/"
