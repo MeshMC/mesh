@@ -4,7 +4,8 @@ import dev.tigr.mesh.MeshStatics;
 import dev.tigr.mesh.util.math.Facing;
 
 /**
- * Represents a block in a position in the minecraft world
+ * Provides a mesh interface for interfacing with a block position vec3i
+ * @author Tigermouthbear 1/13/22
  */
 public abstract class BlockPos<T> extends Vec3i<T> {
     public BlockPos(T value) {

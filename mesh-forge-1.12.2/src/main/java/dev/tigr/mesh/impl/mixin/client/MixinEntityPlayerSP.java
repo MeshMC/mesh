@@ -1,8 +1,8 @@
 package dev.tigr.mesh.impl.mixin.client;
 
 import dev.tigr.mesh.Mesh;
-import dev.tigr.mesh.events.MeshEvent;
-import dev.tigr.mesh.events.client.TickEvent;
+import dev.tigr.mesh.event.MeshEvent;
+import dev.tigr.mesh.event.events.TickEvent;
 import net.minecraft.client.entity.EntityPlayerSP;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

@@ -1,15 +1,10 @@
 package dev.tigr.mesh;
 
-import dev.tigr.mesh.api.math.BlockPos;
-import dev.tigr.mesh.api.math.Box;
-import dev.tigr.mesh.api.math.Vec3d;
-import dev.tigr.mesh.api.math.Vec3i;
+import dev.tigr.mesh.api.math.*;
 import dev.tigr.mesh.api.util.Session;
-import dev.tigr.mesh.impl.client.math.BlockPosMesh;
-import dev.tigr.mesh.impl.client.math.BoxMesh;
-import dev.tigr.mesh.impl.client.math.Vec3dMesh;
-import dev.tigr.mesh.impl.client.math.Vec3iMesh;
-import dev.tigr.mesh.impl.client.util.SessionMesh;
+import dev.tigr.mesh.impl.math.*;
+import dev.tigr.mesh.impl.util.SessionMesh;
+import org.lwjgl.util.vector.Vector3f;
 
 /**
  * @author Tigermouthbear 1/10/22
@@ -26,6 +21,10 @@ public class MeshStatics {
 
     public static Vec3d<?> createVec3d(double x, double y, double z) {
         return new Vec3dMesh(new net.minecraft.util.math.Vec3d(x, y, z));
+    }
+
+    public static Vec3f<?> createVec3f(float x, float y, float z) {
+        return new Vec3fMesh(new Vector3f(x, y, z));
     }
 
     public static Vec3i<?> createVec3i(int x, int y, int z) {

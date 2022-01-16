@@ -24,6 +24,10 @@ public class MeshStatics {
         throw new RuntimeException();
     }
 
+    public static Vec3f<?> createVec3f(float x, float y, float z) {
+        throw new RuntimeException();
+    }
+
     public static Vec3i<?> createVec3i(int x, int y, int z) {
         throw new RuntimeException();
     }

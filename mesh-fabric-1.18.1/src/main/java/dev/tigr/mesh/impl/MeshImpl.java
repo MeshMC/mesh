@@ -1,9 +1,8 @@
 package dev.tigr.mesh.impl;
 
 import dev.tigr.mesh.Mesh;
-import dev.tigr.mesh.impl.client.MinecraftMesh;
-import dev.tigr.mesh.impl.util.CustomRenderer;
-import dev.tigr.mesh.util.render.IRenderer;
+import dev.tigr.mesh.api.render.Renderer;
+import dev.tigr.mesh.impl.render.RendererMesh;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.MinecraftClient;
 
@@ -14,7 +13,7 @@ import net.minecraft.client.MinecraftClient;
  */
 public class MeshImpl extends Mesh implements ModInitializer {
     private static MinecraftMesh MINECRAFT;
-    private static CustomRenderer RENDERER;
+    private static RendererMesh RENDERER;
 
     public MeshImpl() {
         super(LoaderType.FABRIC, "1.18.1");
@@ -23,7 +22,7 @@ public class MeshImpl extends Mesh implements ModInitializer {
     @Override
     public void onInitialize() {
         MINECRAFT = new MinecraftMesh(MinecraftClient.getInstance());
-        RENDERER = new CustomRenderer();
+        RENDERER = new RendererMesh();
 
         initializeMods();
     }
@@ -34,7 +33,7 @@ public class MeshImpl extends Mesh implements ModInitializer {
     }
 
     @Override
-    public IRenderer getRenderer() {
+    public Renderer getRenderer() {
         return RENDERER;
     }
 }

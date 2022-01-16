@@ -1,8 +1,8 @@
 package dev.tigr.mesh;
 
 import dev.tigr.mesh.api.Minecraft;
-import dev.tigr.mesh.events.MeshEventManager;
-import dev.tigr.mesh.util.render.IRenderer;
+import dev.tigr.mesh.api.render.Renderer;
+import dev.tigr.mesh.event.MeshEventManager;
 import dev.tigr.simpleevents.EventManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -170,9 +170,9 @@ public abstract class Mesh {
 
     /**
      * Gets the Mesh interface for rendering
-     * @return A {@link IRenderer} for rendering
+     * @return A {@link Renderer} for rendering
      */
-    public abstract IRenderer getRenderer();
+    public abstract Renderer getRenderer();
 
     /**
      * Gets the current implementation of Mesh

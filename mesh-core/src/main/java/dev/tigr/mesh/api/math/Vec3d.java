@@ -19,7 +19,7 @@ public abstract class Vec3d<T> extends AbstractMesh<T> {
     }
 
     public static Vec3d<?> create(Vec3i<?> vec3i) {
-        return MeshStatics.createVec3d(vec3i.getX(), vec3i.getY(), vec3i.getZ());
+        return create(vec3i.getX(), vec3i.getY(), vec3i.getZ());
     }
 
     public abstract double getX();

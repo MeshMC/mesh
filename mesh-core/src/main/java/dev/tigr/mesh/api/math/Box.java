@@ -4,7 +4,8 @@ import dev.tigr.mesh.MeshStatics;
 import dev.tigr.mesh.api.AbstractMesh;
 
 /**
- * Represents a box around an area
+ * Provides a mesh interface for interfacing with a 3d box
+ * @author Tigermouthbear 1/13/22
  */
 public abstract class Box<T> extends AbstractMesh<T> {
     public Box(T value) {

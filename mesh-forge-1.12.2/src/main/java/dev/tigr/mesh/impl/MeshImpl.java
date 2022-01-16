@@ -1,10 +1,10 @@
 package dev.tigr.mesh.impl;
 
 import dev.tigr.mesh.Mesh;
-import dev.tigr.mesh.impl.client.MinecraftMesh;
-import dev.tigr.mesh.impl.util.CustomRenderer;
-import dev.tigr.mesh.util.render.IRenderer;
+import dev.tigr.mesh.api.render.Renderer;
+import dev.tigr.mesh.impl.render.RendererMesh;
 import net.minecraft.client.Minecraft;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 @Mod(name = "Mesh", modid = "mesh")
 public class MeshImpl extends Mesh {
     private static MinecraftMesh MINECRAFT;
-    private static CustomRenderer RENDERER;
+    private static RendererMesh RENDERER;
 
     public MeshImpl() {
         super(LoaderType.FORGE, "1.12.2");
@@ -25,9 +25,11 @@ public class MeshImpl extends Mesh {
     @net.minecraftforge.fml.common.Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         MINECRAFT = new MinecraftMesh(Minecraft.getMinecraft());
-        RENDERER = new CustomRenderer();
+        RENDERER = new RendererMesh();
 
         initializeMods();
+
+        MinecraftForge.EVENT_BUS.register(new ForgeEvents());
     }
 
     @Override
@@ -36,7 +38,7 @@ public class MeshImpl extends Mesh {
     }
 
     @Override
-    public IRenderer getRenderer() {
+    public Renderer getRenderer() {
         return RENDERER;
     }
 }
