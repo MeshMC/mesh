@@ -20,6 +20,10 @@ public class MeshEvent extends Event {
         this.era = era;
     }
 
+    public MeshEvent(String name) {
+        this(name, null);
+    }
+
     public String getName() {
         return name;
     }

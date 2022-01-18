@@ -37,7 +37,7 @@ public class ExampleMod {
 
     @EventHandler
     public EventListener<TickEvent> tickEventListener = new EventListener<>(event -> {
-        if(event.getType() == TickEvent.Type.CLIENT && event.getEra() == MeshEvent.Era.AFTER && MESH.getMinecraft().getWorld() != null) {
+        if(event.getType() == TickEvent.Type.CLIENT && event.getEra() == MeshEvent.Era.AFTER && MESH.getMinecraft().getWorld().isNotNull()) {
             int num = 0;
             for(Entity<?> entity: MESH.getMinecraft().getWorld().getEntities()) {
                 if(entity.getEntityType() == EntityType.PLAYER) num++;

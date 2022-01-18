@@ -17,39 +17,33 @@ import net.minecraft.client.MinecraftClient;
  * @author Tigermouthbear 1/10/22
  */
 public class MinecraftMesh extends AbstractMesh<MinecraftClient> implements Minecraft<MinecraftClient> {
-    private final Profiler<?> profiler = new ProfilerMesh(getMeshValue().getProfiler());
-    private TextRenderer<?> textRenderer = null; // lazy init bc its also lazy loaded in minecraft
-    private Session<?> session = new SessionMesh(getMeshValue().getSession());
-
     public MinecraftMesh(MinecraftClient value) {
         super(value);
     }
 
     @Override
     public Profiler<?> getProfiler() {
-        return profiler;
+        return new ProfilerMesh(getMeshValue().getProfiler());
     }
 
     @Override
     public TextRenderer<?> getTextRenderer() {
-        if(textRenderer == null && getMeshValue().textRenderer != null) textRenderer = new TextRendererMesh(getMeshValue().textRenderer);
-        return textRenderer;
+        return new TextRendererMesh(getMeshValue().textRenderer);
     }
 
     @Override
     public Session<?> getSession() {
-        return session;
+        return new SessionMesh(getMeshValue().getSession());
     }
 
     @Override
     public void setSession(Session<?> session) {
-        this.session = session;
         ((MinecraftClientAccessor) getMeshValue()).setSession((net.minecraft.client.util.Session) session.getMeshValue());
     }
 
     @Override
     public ClientWorld<?> getWorld() {
-        return getMeshValue().world == null ? null : new ClientWorldMesh(getMeshValue().world);
+        return new ClientWorldMesh(getMeshValue().world);
     }
 
     @Override

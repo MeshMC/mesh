@@ -7,6 +7,6 @@ import dev.tigr.mesh.event.MeshEvent;
  */
 public class HudRenderEvent extends MeshEvent {
     public HudRenderEvent() {
-        super("hud_render", null);
+        super("hud_render");
     }
 }
