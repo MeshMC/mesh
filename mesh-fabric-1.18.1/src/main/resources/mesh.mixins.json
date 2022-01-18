@@ -5,6 +5,8 @@
   "compatibilityLevel": "JAVA_16",
   "mixins": [
     "accessors.MinecraftClientAccessor",
+    "accessors.entity.EntityAccessor",
+    "accessors.entity.PlayerEntityAccessor",
     "client.MixinClientPlayerEntity",
     "client.MixinClientWorld",
     "client.MixinEntity",

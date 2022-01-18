@@ -51,29 +51,32 @@ public abstract class Vec3i<T> extends AbstractMesh<T> {
         return create(getY() * vec.getZ() - getZ() * vec.getY(), getZ() * vec.getX() - getX() * vec.getZ(), getX() * vec.getY() - getY() * vec.getX());
     }
 
-    public double getDistance(int xIn, int yIn, int zIn) {
-        double d0 = getX() - xIn;
-        double d1 = getY() - yIn;
-        double d2 = getZ() - zIn;
+    public double distanceTo(Vec3f<?> vec) {
+        float d0 = vec.getX() - getX();
+        float d1 = vec.getY() - getY();
+        float d2 = vec.getZ() - getZ();
         return Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
     }
 
-    public double distanceSq(double toX, double toY, double toZ) {
-        double d0 = (double) getX() - toX;
-        double d1 = (double) getY() - toY;
-        double d2 = (double) getZ() - toZ;
+    public double distanceTo(int x, int y, int z) {
+        int d0 = x - getX();
+        int d1 = y - getY();
+        int d2 = z - getZ();
+        return Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
+    }
+
+    public int squareDistanceTo(Vec3i<?> vec) {
+        int d0 = vec.getX() - getX();
+        int d1 = vec.getY() - getY();
+        int d2 = vec.getZ() - getZ();
         return d0 * d0 + d1 * d1 + d2 * d2;
     }
 
-    public double distanceSqToCenter(double xIn, double yIn, double zIn) {
-        double d0 = (double) getX() + 0.5D - xIn;
-        double d1 = (double) getY() + 0.5D - yIn;
-        double d2 = (double) getZ() + 0.5D - zIn;
+    public float squareDistanceTo(int xIn, int yIn, int zIn) {
+        int d0 = xIn - getX();
+        int d1 = yIn - getY();
+        int d2 = zIn - getZ();
         return d0 * d0 + d1 * d1 + d2 * d2;
-    }
-
-    public double distanceSq(Vec3i<?> to) {
-        return distanceSq(to.getX(), to.getY(), to.getZ());
     }
 
     public String toString() {

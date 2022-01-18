@@ -1,8 +1,12 @@
 package dev.tigr.mesh.example;
 
 import dev.tigr.mesh.Mesh;
+import dev.tigr.mesh.api.entity.Entity;
+import dev.tigr.mesh.api.entity.EntityType;
 import dev.tigr.mesh.api.render.BufferBuilder;
 import dev.tigr.mesh.api.render.Renderer;
+import dev.tigr.mesh.event.MeshEvent;
+import dev.tigr.mesh.event.events.TickEvent;
 import dev.tigr.mesh.event.events.render.HudRenderEvent;
 import dev.tigr.mesh.util.render.Color;
 import dev.tigr.mesh.util.render.GlState;
@@ -18,6 +22,7 @@ public class ExampleMod {
     public static final Mesh MESH = Mesh.getMesh();
 
     private static final LocationIdentifier HELMET_IMAGE = new LocationIdentifier("examplemod", "helmet.png");
+    private String text = "Hello from Mesh!";
 
     public void init() {
         LOGGER.info("Example Mod loaded in {} {}!",
@@ -29,6 +34,17 @@ public class ExampleMod {
         // registering and event listener
         MESH.getEventManager().register(this);
     }
+
+    @EventHandler
+    public EventListener<TickEvent> tickEventListener = new EventListener<>(event -> {
+        if(event.getType() == TickEvent.Type.CLIENT && event.getEra() == MeshEvent.Era.AFTER && MESH.getMinecraft().getWorld() != null) {
+            int num = 0;
+            for(Entity<?> entity: MESH.getMinecraft().getWorld().getEntities()) {
+                if(entity.getEntityType() == EntityType.PLAYER) num++;
+            }
+            text = "Hello from Mesh, to " + num + " players!";
+        }
+    });
 
     @EventHandler
     public EventListener<HudRenderEvent> hudRenderEventListener = new EventListener<>(event -> {
@@ -63,7 +79,7 @@ public class ExampleMod {
         MESH.getRenderer().draw();
 
         // draw text using minecraft's font renderer
-        MESH.getMinecraft().getTextRenderer().drawText("Hello from Mesh!", 2, 55, Color.WHITE);
+        MESH.getMinecraft().getTextRenderer().drawText(text, 2, 55, Color.WHITE);
         MESH.getRenderer().getRenderState().texture(false);
 
         // draw a line with color

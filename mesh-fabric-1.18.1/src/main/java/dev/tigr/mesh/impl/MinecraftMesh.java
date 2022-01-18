@@ -1,19 +1,22 @@
 package dev.tigr.mesh.impl;
 
+import dev.tigr.mesh.api.AbstractMesh;
 import dev.tigr.mesh.api.Minecraft;
 import dev.tigr.mesh.api.render.TextRenderer;
 import dev.tigr.mesh.api.util.Profiler;
 import dev.tigr.mesh.api.util.Session;
+import dev.tigr.mesh.api.world.ClientWorld;
 import dev.tigr.mesh.impl.render.TextRendererMesh;
 import dev.tigr.mesh.impl.util.ProfilerMesh;
 import dev.tigr.mesh.impl.util.SessionMesh;
 import dev.tigr.mesh.impl.mixin.accessors.MinecraftClientAccessor;
+import dev.tigr.mesh.impl.world.ClientWorldMesh;
 import net.minecraft.client.MinecraftClient;
 
 /**
  * @author Tigermouthbear 1/10/22
  */
-public class MinecraftMesh extends Minecraft<MinecraftClient> {
+public class MinecraftMesh extends AbstractMesh<MinecraftClient> implements Minecraft<MinecraftClient> {
     private final Profiler<?> profiler = new ProfilerMesh(getMeshValue().getProfiler());
     private TextRenderer<?> textRenderer = null; // lazy init bc its also lazy loaded in minecraft
     private Session<?> session = new SessionMesh(getMeshValue().getSession());
@@ -42,5 +45,15 @@ public class MinecraftMesh extends Minecraft<MinecraftClient> {
     public void setSession(Session<?> session) {
         this.session = session;
         ((MinecraftClientAccessor) getMeshValue()).setSession((net.minecraft.client.util.Session) session.getMeshValue());
+    }
+
+    @Override
+    public ClientWorld<?> getWorld() {
+        return getMeshValue().world == null ? null : new ClientWorldMesh(getMeshValue().world);
+    }
+
+    @Override
+    public void setWorld(ClientWorld<?> worldIn) {
+        getMeshValue().world = (net.minecraft.client.world.ClientWorld) worldIn.getMeshValue();
     }
 }

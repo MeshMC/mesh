@@ -70,6 +70,13 @@ public abstract class Vec3f<T> extends AbstractMesh<T> {
         return Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
     }
 
+    public double distanceTo(float x, float y, float z) {
+        double d0 = x - getX();
+        double d1 = y - getY();
+        double d2 = z - getZ();
+        return Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
+    }
+
     public float squareDistanceTo(Vec3f<?> vec) {
         float d0 = vec.getX() - getX();
         float d1 = vec.getY() - getY();
