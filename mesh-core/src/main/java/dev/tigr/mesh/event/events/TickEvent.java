@@ -9,7 +9,7 @@ import dev.tigr.mesh.event.MeshEvent;
  */
 public class TickEvent extends MeshEvent {
     public enum Type {
-        CLIENT, GAMELOOP, PLAYER, WORLD, MOTION
+        CLIENT, GAMELOOP, WORLD, MOTION
     }
 
     private final Type type;

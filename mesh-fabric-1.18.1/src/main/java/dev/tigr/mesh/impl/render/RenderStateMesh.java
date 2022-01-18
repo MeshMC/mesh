@@ -1,11 +1,12 @@
 package dev.tigr.mesh.impl.render;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.tigr.mesh.api.render.IRenderState;
 import dev.tigr.mesh.util.render.GlState;
 
 /**
- * @author Tigermouthbear 1/15/22
+ * @author Tigermouthbear & Makrennel 1/15/22
  */
 public class RenderStateMesh implements IRenderState {
     @Override
@@ -44,6 +45,37 @@ public class RenderStateMesh implements IRenderState {
     @Override
     public IRenderState depthMask(boolean state) {
         RenderSystem.depthMask(state);
+        return this;
+    }
+
+    @Override
+    public IRenderState lighting(boolean state) {
+        // TODO: FIND OUT IF WE EVEN NEED THIS FOR FABRIC
+        return this;
+    }
+
+    @Override
+    public IRenderState lineSmooth(boolean state) {
+        // TODO: FIND OUT IF WE EVEN NEED THIS FOR FABRIC
+        return this;
+    }
+
+    @Override
+    public IRenderState lineWeight(float weight) {
+        RenderSystem.lineWidth(weight);
+        return this;
+    }
+
+    @Override
+    public IRenderState scissorBox(int x, int y, int width, int height) {
+        GlStateManager._scissorBox(x, y, width, height);
+        return this;
+    }
+
+    @Override
+    public IRenderState scissor(boolean state) {
+        if(state) GlStateManager._enableScissorTest();
+        else GlStateManager._disableScissorTest();
         return this;
     }
 

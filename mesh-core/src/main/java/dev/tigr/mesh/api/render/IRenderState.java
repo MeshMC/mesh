@@ -19,7 +19,15 @@ public interface IRenderState {
 
     IRenderState depthMask(boolean state);
 
-    IRenderState texture(boolean state);
+    IRenderState lighting(boolean state);
 
-    // TODO: LINE WIDTH - WILL HAVE TO REDO HOW LINES WORK ON FABRIC :(
+    IRenderState lineSmooth(boolean state);
+
+    IRenderState lineWeight(float weight);
+
+    IRenderState scissorBox(int x, int y, int width, int height);
+
+    IRenderState scissor(boolean state);
+
+    IRenderState texture(boolean state);
 }

@@ -9,7 +9,10 @@ import dev.tigr.mesh.util.render.LocationIdentifier;
 public abstract class Renderer {
     public enum DrawMode {
         LINES,
+        LINE_STRIP,
         TRIANGLES,
+        TRIANGLE_STRIP,
+        TRIANGLE_FAN,
         QUADS
     }
 
@@ -17,23 +20,20 @@ public abstract class Renderer {
         POSITION_COLOR,
         POSITION_TEXTURE,
         POSITION_TEXTURE_COLOR,
-        POSITION_TEXTURE_COLOR_NORMAL,
         LINES
     }
 
     private final IMatrixStack renderStack;
     private final IRenderState renderState;
+    private final BufferBuilder<?> bufferBuilder;
 
-    public Renderer(IMatrixStack renderStack, IRenderState renderState) {
+    public Renderer(IMatrixStack renderStack, IRenderState renderState, BufferBuilder<?> bufferBuilder) {
         this.renderStack = renderStack;
         this.renderState = renderState;
+        this.bufferBuilder = bufferBuilder;
     }
 
     public abstract void bindTexture(LocationIdentifier locationIdentifier);
-
-    public abstract BufferBuilder<?> begin(DrawMode drawMode, VertexFormat vertexFormat);
-
-    public abstract void draw();
 
     public IMatrixStack getRenderStack() {
         return renderStack;
@@ -41,5 +41,9 @@ public abstract class Renderer {
 
     public IRenderState getRenderState() {
         return renderState;
+    }
+
+    public BufferBuilder<?> getBufferBuilder() {
+        return bufferBuilder;
     }
 }

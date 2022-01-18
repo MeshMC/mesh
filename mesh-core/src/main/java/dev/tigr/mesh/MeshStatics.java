@@ -1,6 +1,7 @@
 package dev.tigr.mesh;
 
 import dev.tigr.mesh.api.math.*;
+import dev.tigr.mesh.api.render.BufferBuilder;
 import dev.tigr.mesh.api.util.Session;
 
 /**
@@ -33,6 +34,10 @@ public class MeshStatics {
     }
 
     public static BlockPos<?> createBlockPos(int x, int y, int z) {
+        throw new RuntimeException();
+    }
+
+    public static BufferBuilder<?> createBufferBuilder(int initialCapacity) {
         throw new RuntimeException();
     }
 }

@@ -7,7 +7,6 @@
     "accessors.MinecraftAccessor",
     "accessors.entity.EntityAccessor",
     "accessors.entity.EntityPlayerAccessor",
-    "client.MixinEntity",
     "client.MixinEntityPlayerSP",
     "client.MixinMinecraft",
     "client.MixinWorld"

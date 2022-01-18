@@ -1,8 +1,10 @@
 package dev.tigr.mesh;
 
 import dev.tigr.mesh.api.math.*;
+import dev.tigr.mesh.api.render.BufferBuilder;
 import dev.tigr.mesh.api.util.Session;
 import dev.tigr.mesh.impl.math.*;
+import dev.tigr.mesh.impl.render.BufferBuilderMesh;
 import dev.tigr.mesh.impl.util.SessionMesh;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -33,5 +35,9 @@ public class MeshStatics {
 
     public static BlockPos<?> createBlockPos(int x, int y, int z) {
         return new BlockPosMesh(new net.minecraft.util.math.BlockPos(x, y, z));
+    }
+
+    public static BufferBuilder<?> createBufferBuilder(int initialCapacity) {
+        return new BufferBuilderMesh(new net.minecraft.client.renderer.BufferBuilder(initialCapacity));
     }
 }

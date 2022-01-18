@@ -7,9 +7,9 @@
     "accessors.MinecraftClientAccessor",
     "accessors.entity.EntityAccessor",
     "accessors.entity.PlayerEntityAccessor",
+    "accessors.render.BufferBuilderAccessor",
     "client.MixinClientPlayerEntity",
     "client.MixinClientWorld",
-    "client.MixinEntity",
     "client.MixinGameRenderer",
     "client.MixinMinecraftClient"
   ]

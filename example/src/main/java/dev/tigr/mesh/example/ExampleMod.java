@@ -11,6 +11,7 @@ import dev.tigr.mesh.event.events.render.HudRenderEvent;
 import dev.tigr.mesh.util.render.Color;
 import dev.tigr.mesh.util.render.GlState;
 import dev.tigr.mesh.util.render.LocationIdentifier;
+import dev.tigr.mesh.util.render.Vertex;
 import dev.tigr.simpleevents.listener.EventHandler;
 import dev.tigr.simpleevents.listener.EventListener;
 import org.apache.logging.log4j.LogManager;
@@ -50,49 +51,73 @@ public class ExampleMod {
     public EventListener<HudRenderEvent> hudRenderEventListener = new EventListener<>(event -> {
         // prepare render state
         MESH.getRenderer().getRenderState()
-        .alpha(false)
-        .depth(false)
-        .blend(true)
-        .blendFunc(GlState.SourceFactor.SRC_ALPHA, GlState.DestFactor.ONE_MINUS_SRC_ALPHA)
-        .cull(false)
-        .texture(false);
+                .alpha(false)
+                .depth(false)
+                .blend(true)
+                .blendFunc(GlState.SourceFactor.SRC_ALPHA, GlState.DestFactor.ONE_MINUS_SRC_ALPHA)
+                .cull(false)
+                .texture(false);
 
         // draw a simple 2 colored square on the hud
-        BufferBuilder<?> bufferBuilder = MESH.getRenderer().begin(Renderer.DrawMode.TRIANGLES, Renderer.VertexFormat.POSITION_COLOR);
-        bufferBuilder.vertex(50, 0).color(Color.GREEN).next();
-        bufferBuilder.vertex(0, 0).color(Color.GREEN).next();
-        bufferBuilder.vertex(0, 50).color(Color.GREEN).next();
-        bufferBuilder.vertex(0, 50).color(Color.BLUE).next();
-        bufferBuilder.vertex(50, 50).color(Color.BLUE).next();
-        bufferBuilder.vertex(50, 0).color(Color.BLUE).next();
-        MESH.getRenderer().draw();
+        BufferBuilder<?> buffer = MESH.getRenderer().getBufferBuilder();
+        buffer.begin(Renderer.DrawMode.TRIANGLES, Renderer.VertexFormat.POSITION_COLOR);
+        buffer.construct(
+                new Vertex(50,0, Color.GREEN),
+                new Vertex(0,0, Color.GREEN),
+                new Vertex(0,50, Color.GREEN),
+                new Vertex(0,50, Color.BLUE),
+                new Vertex(50,50, Color.BLUE),
+                new Vertex(50,0, Color.BLUE)
+        );
+        buffer.draw();
 
         // draw an image with custom color
         // QUADS isn't the best, but this demonstrates that it works
         MESH.getRenderer().getRenderState().texture(true);
         MESH.getRenderer().bindTexture(HELMET_IMAGE);
-        bufferBuilder = MESH.getRenderer().begin(Renderer.DrawMode.QUADS, Renderer.VertexFormat.POSITION_TEXTURE_COLOR);
-        bufferBuilder.vertex(50, 50).texture(0, 1).color(Color.RED).next();
-        bufferBuilder.vertex(100, 50).texture(1, 1).color(Color.RED).next();
-        bufferBuilder.vertex(100, 0).texture(1, 0).color(Color.RED).next();
-        bufferBuilder.vertex(50, 0).texture(0, 0).color(Color.RED).next();
-        MESH.getRenderer().draw();
+        buffer.begin(Renderer.DrawMode.QUADS, Renderer.VertexFormat.POSITION_TEXTURE_COLOR);
+        // for demonstration's purposes this mixes both construction methods to make a single quad
+        buffer.construct(
+                //x,y,z,    r,g,b,a,    u,v
+                50,50,0,    1,0,0,1,    0,1,
+                100,50,0,   1,0,0,1,    1,1
+        );
+        buffer.construct(
+                new Vertex(100,0).color(1,0,0,1).texture(1,0),
+                new Vertex(50,0).color(1,0,0,1).texture(0,0)
+        );
+        buffer.draw();
 
         // draw text using minecraft's font renderer
         MESH.getMinecraft().getTextRenderer().drawText(text, 2, 55, Color.WHITE);
-        MESH.getRenderer().getRenderState().texture(false);
+        MESH.getRenderer().getRenderState()
+                .texture(false)
+                .lineWeight(4);
 
         // draw a line with color
-        bufferBuilder = MESH.getRenderer().begin(Renderer.DrawMode.LINES, Renderer.VertexFormat.LINES);
-        bufferBuilder.vertex(100, 0).color(Color.RED).next();
-        bufferBuilder.vertex(100, 50).color(Color.RED).next();
-        bufferBuilder.vertex(100, 50).color(Color.GREEN).next();
-        bufferBuilder.vertex(50, 50).color(Color.GREEN).next();
-        MESH.getRenderer().draw();
+        buffer.begin(Renderer.DrawMode.LINES, Renderer.VertexFormat.LINES);
+        buffer.construct(
+                //x,y,z,    r,g,b,a
+                100,0,0,    1,0,0,1,
+                100,50,0,   1,0,0,1,
+                100,50,0,   0,1,0,1,
+                50,50,0,    0,1,0,1
+        );
+        buffer.draw();
+
+        // draw a line strip with color
+        buffer.begin(Renderer.DrawMode.LINE_STRIP, Renderer.VertexFormat.POSITION_COLOR);
+        buffer.construct( // TODO: Figure out how to do 1.12 gradient lines
+                new Vertex(125,0).color(Color.rainbow(32, 0.333f, 1, 1)),
+                new Vertex(125,75).color(Color.rainbow(32, 0, 1, 1)),
+                new Vertex(0,75).color(Color.rainbow(32, 0.667f, 1, 1))
+        );
+        buffer.draw();
 
         // reset render state
         MESH.getRenderer().getRenderState()
-        .alpha(true)
-        .depth(true);
+                .alpha(true)
+                .depth(true)
+                .lineWeight(1);
     });
 }
