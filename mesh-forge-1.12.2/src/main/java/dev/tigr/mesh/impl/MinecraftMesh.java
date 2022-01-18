@@ -17,38 +17,33 @@ import net.minecraft.client.multiplayer.WorldClient;
  * @author Tigermouthbear 1/10/22
  */
 public class MinecraftMesh extends AbstractMesh<Minecraft> implements dev.tigr.mesh.api.Minecraft<Minecraft> {
-    private final Profiler<?> profiler = new ProfilerMesh(getMeshValue().profiler);
-    private final TextRenderer<?> textRenderer = new TextRendererMesh(getMeshValue().fontRenderer);
-    private Session<?> session = new SessionMesh(getMeshValue().getSession());
-
     public MinecraftMesh(net.minecraft.client.Minecraft value) {
         super(value);
     }
 
     @Override
     public Profiler<?> getProfiler() {
-        return profiler;
+        return new ProfilerMesh(getMeshValue().profiler);
     }
 
     @Override
     public TextRenderer<?> getTextRenderer() {
-        return textRenderer;
+        return new TextRendererMesh(getMeshValue().fontRenderer);
     }
 
     @Override
     public Session<?> getSession() {
-        return session;
+        return new SessionMesh(getMeshValue().getSession());
     }
 
     @Override
     public void setSession(Session<?> session) {
-        this.session = session;
         ((MinecraftAccessor) getMeshValue()).setSession((net.minecraft.util.Session) session.getMeshValue());
     }
 
     @Override
     public ClientWorld<?> getWorld() {
-        return getMeshValue().world == null ? null : new ClientWorldMesh(getMeshValue().world);
+        return new ClientWorldMesh(getMeshValue().world);
     }
 
     @Override

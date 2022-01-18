@@ -109,7 +109,7 @@ public class PlayerEntityMesh extends EntityMesh<EntityPlayer> implements Player
     }
 
     @Override
-    public void setExperienceLeve(int value) {
+    public void setExperienceLevel(int value) {
         getMeshValue().experienceLevel = value;
     }
 

@@ -18,4 +18,14 @@ public abstract class AbstractMesh<T> implements IMesh<T> {
     public T getMeshValue() {
         return value;
     }
+
+    @Override
+    public boolean isNull() {
+        return value == null;
+    }
+
+    @Override
+    public boolean isNotNull() {
+        return value != null;
+    }
 }

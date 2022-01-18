@@ -1,6 +1,7 @@
 package dev.tigr.mesh.event;
 
 import dev.tigr.mesh.Mesh;
+import dev.tigr.mesh.api.util.Profiler;
 import dev.tigr.simpleevents.EventManager;
 
 /**
@@ -18,9 +19,10 @@ public class MeshEventManager extends EventManager {
     public <T> T post(T event) {
         if(event instanceof MeshEvent) {
             MeshEvent meshEvent = (MeshEvent) event;
-            mesh.getMinecraft().getProfiler().pushSection("mesh_" + meshEvent.getName() + (meshEvent.getEra() != null ? "_" + meshEvent.getEra().name().toLowerCase() : ""));
+            Profiler<?> profiler = mesh.getMinecraft().getProfiler();
+            profiler.pushSection("mesh_" + meshEvent.getName() + (meshEvent.getEra() != null ? "_" + meshEvent.getEra().name().toLowerCase() : ""));
             T out = super.post(event);
-            mesh.getMinecraft().getProfiler().popSection();
+            profiler.popSection();
             return out;
         } else return super.post(event);
     }

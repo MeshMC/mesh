@@ -19,6 +19,7 @@ import dev.tigr.mesh.util.math.Facing;
 import net.minecraft.entity.MovementType;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -1061,5 +1062,34 @@ public class EntityMesh<T extends net.minecraft.entity.Entity> extends AbstractM
     @Override
     public BlockPos<?> getBlockPos() {
         return new BlockPosMesh(getMeshValue().getBlockPos());
+    }
+
+    public static class EntityIterator implements Iterator<Entity<?>> {
+        private final Iterator<net.minecraft.entity.Entity> iterator;
+
+        public EntityIterator(Iterator<net.minecraft.entity.Entity> iterator) {
+            this.iterator = iterator;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return iterator.hasNext();
+        }
+
+        @Override
+        public Entity<?> next() {
+            return fromEntity(iterator.next());
+        }
+    }
+
+    public static class EntityIterable extends AbstractMesh<Iterable<net.minecraft.entity.Entity>> implements Iterable<Entity<?>> {
+        public EntityIterable(Iterable<net.minecraft.entity.Entity> value) {
+            super(value);
+        }
+
+        @Override
+        public Iterator<Entity<?>> iterator() {
+            return new EntityIterator(getMeshValue().iterator());
+        }
     }
 }

@@ -47,7 +47,7 @@ public interface PlayerEntity<T> extends Entity<T> {
     // TODO: ABILITIES
 
     int getExperienceLevel();
-    void setExperienceLeve(int value);
+    void setExperienceLevel(int value);
 
     int getTotalExperience();
     void setTotalExperience(int value);

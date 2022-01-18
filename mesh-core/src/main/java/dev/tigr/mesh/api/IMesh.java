@@ -6,4 +6,8 @@ package dev.tigr.mesh.api;
  */
 public interface IMesh<T> {
     T getMeshValue();
+
+    boolean isNull();
+
+    boolean isNotNull();
 }

@@ -108,7 +108,7 @@ public class PlayerEntityMesh extends EntityMesh<net.minecraft.entity.player.Pla
     }
 
     @Override
-    public void setExperienceLeve(int value) {
+    public void setExperienceLevel(int value) {
         getMeshValue().experienceLevel = value;
     }
 
