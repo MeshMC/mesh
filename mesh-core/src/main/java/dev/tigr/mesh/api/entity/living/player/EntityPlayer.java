@@ -1,12 +1,12 @@
-package dev.tigr.mesh.api.entity.player;
+package dev.tigr.mesh.api.entity.living.player;
 
 
-import dev.tigr.mesh.api.entity.Entity;
+import dev.tigr.mesh.api.entity.living.EntityLiving;
 
 /**
  * @author Tigermouthbear 1/16/22
  */
-public interface PlayerEntity<T> extends Entity<T> {
+public interface EntityPlayer<T> extends EntityLiving<T> {
     // TODO: INVENTORY AND HUNGER
 
     int getFlyToggleTimer();

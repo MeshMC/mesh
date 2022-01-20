@@ -4,27 +4,45 @@ import dev.tigr.mesh.api.AbstractMesh;
 import dev.tigr.mesh.api.entity.Entity;
 import dev.tigr.mesh.api.entity.EntityType;
 import dev.tigr.mesh.api.entity.MoverType;
-import dev.tigr.mesh.api.entity.player.PlayerEntity;
+import dev.tigr.mesh.api.entity.living.player.EntityPlayer;
 import dev.tigr.mesh.api.math.BlockPos;
 import dev.tigr.mesh.api.math.Box;
 import dev.tigr.mesh.api.math.Vec3d;
 import dev.tigr.mesh.api.world.World;
-import dev.tigr.mesh.impl.entity.player.PlayerEntityMesh;
+import dev.tigr.mesh.impl.entity.living.EntityLivingMesh;
+import dev.tigr.mesh.impl.entity.living.mob.EntityMobMesh;
+import dev.tigr.mesh.impl.entity.living.mob.hostile.*;
+import dev.tigr.mesh.impl.entity.living.mob.hostile.guardian.EntityGuardianElderMesh;
+import dev.tigr.mesh.impl.entity.living.mob.hostile.guardian.EntityGuardianMesh;
+import dev.tigr.mesh.impl.entity.living.mob.hostile.raider.*;
+import dev.tigr.mesh.impl.entity.living.mob.hostile.skeleton.EntitySkeletonAbstractMesh;
+import dev.tigr.mesh.impl.entity.living.mob.hostile.skeleton.EntitySkeletonMesh;
+import dev.tigr.mesh.impl.entity.living.mob.hostile.skeleton.EntitySkeletonWitherMesh;
+import dev.tigr.mesh.impl.entity.living.mob.hostile.skeleton.EntityStrayMesh;
+import dev.tigr.mesh.impl.entity.living.mob.hostile.spider.EntitySpiderCaveMesh;
+import dev.tigr.mesh.impl.entity.living.mob.hostile.spider.EntitySpiderMesh;
+import dev.tigr.mesh.impl.entity.living.mob.hostile.zombie.EntityHuskMesh;
+import dev.tigr.mesh.impl.entity.living.mob.hostile.zombie.EntityZombieMesh;
+import dev.tigr.mesh.impl.entity.living.mob.hostile.zombie.EntityZombiePigmanMesh;
+import dev.tigr.mesh.impl.entity.living.mob.hostile.zombie.EntityZombieVillagerMesh;
+import dev.tigr.mesh.impl.entity.living.player.*;
 import dev.tigr.mesh.impl.math.BlockPosMesh;
 import dev.tigr.mesh.impl.math.BoxMesh;
 import dev.tigr.mesh.impl.math.Vec3dMesh;
 import dev.tigr.mesh.impl.mixin.accessors.entity.EntityAccessor;
 import dev.tigr.mesh.impl.world.WorldMesh;
 import dev.tigr.mesh.util.math.Facing;
-import net.minecraft.entity.EntityAreaEffectCloud;
-import net.minecraft.entity.EntityLeashKnot;
+import net.minecraft.client.entity.AbstractClientPlayer;
+import net.minecraft.client.entity.EntityOtherPlayerMP;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.entity.*;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.*;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.passive.*;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.*;
 import net.minecraft.util.math.AxisAlignedBB;
 
@@ -34,6 +52,7 @@ import java.util.List;
 
 /**
  * @author Tigermouthbear 1/16/22
+ * @author Makrennel - added hostile/player entities to static fromEntity list 2022/1/20
  * @param <T>
  */
 public class EntityMesh<T extends net.minecraft.entity.Entity> extends AbstractMesh<T> implements Entity<T> {
@@ -42,7 +61,7 @@ public class EntityMesh<T extends net.minecraft.entity.Entity> extends AbstractM
     public EntityMesh(T value) {
         super(value);
 
-        if(value instanceof EntityPlayer) entityType = EntityType.PLAYER;
+        if(value instanceof net.minecraft.entity.player.EntityPlayer) entityType = EntityType.PLAYER;
         else if(value instanceof EntityDragon) entityType = EntityType.ENDER_DRAGON;
         else if(value instanceof EntityWither) entityType = EntityType.WITHER;
         else if(value instanceof EntityLightningBolt) entityType = EntityType.LIGHTNING_BOLT;
@@ -131,8 +150,67 @@ public class EntityMesh<T extends net.minecraft.entity.Entity> extends AbstractM
 
     // must add entity mesh constructor here when a new mesh is added
     public static Entity<?> fromEntity(net.minecraft.entity.Entity entity) {
-        if(entity instanceof net.minecraft.entity.player.EntityPlayer)
-            return new PlayerEntityMesh((net.minecraft.entity.player.EntityPlayer) entity);
+        if(entity instanceof EntityLivingBase) {
+            if(entity instanceof EntityCreature) {
+                if(entity instanceof EntityMob) {
+                    if(entity instanceof EntityGuardian) {
+                        if(entity instanceof EntityElderGuardian) return new EntityGuardianElderMesh<>((EntityElderGuardian) entity);
+                        return new EntityGuardianMesh<>((EntityGuardian) entity);
+                    }
+                    if(entity instanceof AbstractIllager) {
+                        if(entity instanceof EntitySpellcasterIllager) {
+                            if(entity instanceof EntityIllusionIllager) return new EntityIllusionerMesh<>((EntityIllusionIllager) entity);
+                            if(entity instanceof EntityEvoker) return new EntityEvokerMesh<>((EntityEvoker) entity);
+                            return new EntityIllagerSpellcasterMesh<>((EntitySpellcasterIllager) entity);
+                        }
+                        if(entity instanceof EntityVindicator) return new EntityVindicatorMesh<>((EntityVindicator) entity);
+                        return new EntityRaiderAbstractMesh<>((AbstractIllager) entity);
+                    }
+                    if(entity instanceof AbstractSkeleton) {
+                        if(entity instanceof EntitySkeleton) return new EntitySkeletonMesh<>((EntitySkeleton) entity);
+                        if(entity instanceof EntityWitherSkeleton) return new EntitySkeletonWitherMesh<>((EntityWitherSkeleton) entity);
+                        if(entity instanceof EntityStray) return new EntityStrayMesh<>((EntityStray) entity);
+                        return new EntitySkeletonAbstractMesh<>((AbstractSkeleton) entity);
+                    }
+                    if(entity instanceof EntitySpider) {
+                        if(entity instanceof EntityCaveSpider) return new EntitySpiderCaveMesh<>((EntityCaveSpider) entity);
+                        return new EntitySpiderMesh<>((EntitySpider) entity);
+                    }
+                    if(entity instanceof EntityZombie) {
+                        if(entity instanceof EntityHusk) return new EntityHuskMesh<>((EntityHusk) entity);
+                        if(entity instanceof EntityPigZombie) return new EntityZombiePigmanMesh<>((EntityPigZombie) entity);
+                        if(entity instanceof EntityZombieVillager) return new EntityZombieVillagerMesh<>((EntityZombieVillager) entity);
+                        return new EntityZombieMesh<>((EntityZombie) entity);
+                    }
+                    if(entity instanceof EntityBlaze) return new EntityBlazeMesh<>((EntityBlaze) entity);
+                    if(entity instanceof EntityCreeper) return new EntityCreeperMesh<>((EntityCreeper) entity);
+                    if(entity instanceof EntityEnderman) return new EntityEndermanMesh<>((EntityEnderman) entity);
+                    if(entity instanceof EntityEndermite) return new EntityEndermiteMesh<>((EntityEndermite) entity);
+                    if(entity instanceof EntityGiantZombie) return new EntityGiantMesh<>((EntityGiantZombie) entity);
+                    if(entity instanceof EntitySilverfish) return new EntitySilverfishMesh<>((EntitySilverfish) entity);
+                    if(entity instanceof EntityVex) return new EntityVexMesh<>((EntityVex) entity);
+                    if(entity instanceof EntityWitch) return new EntityWitchMesh<>((EntityWitch) entity);
+                    if(entity instanceof EntityWither) return new EntityWitherMesh<>((EntityWither) entity);
+                    return new EntityHostileMesh<>((EntityMob) entity);
+                }
+                if(entity instanceof EntityAgeable) {
+                    // TODO: Passive Entities
+                }
+                return new EntityMobMesh<>((EntityCreature) entity);
+            }
+            if(entity instanceof net.minecraft.entity.player.EntityPlayer) {
+                if(entity instanceof AbstractClientPlayer) {
+                    if(entity instanceof EntityPlayerSP) return new EntityPlayerClientMesh<>((EntityPlayerSP) entity);
+                    if(entity instanceof EntityOtherPlayerMP) return new EntityPlayerClientOtherMesh<>((EntityOtherPlayerMP) entity);
+                    return new EntityPlayerClientAbstractMesh<>((AbstractClientPlayer) entity);
+                }
+                if(entity instanceof EntityPlayerMP) return new EntityPlayerServerMesh<>((EntityPlayerMP) entity);
+                return new EntityPlayerMesh<>((net.minecraft.entity.player.EntityPlayer) entity);
+            }
+
+            return new EntityLivingMesh<>((EntityLivingBase) entity);
+        }
+
         return new EntityMesh<>(entity);
     }
 
@@ -660,7 +738,7 @@ public class EntityMesh<T extends net.minecraft.entity.Entity> extends AbstractM
 
     @Override
     public boolean isSpectator() {
-        return getMeshValue() instanceof EntityPlayer && ((EntityPlayer) getMeshValue()).isSpectator();
+        return getMeshValue() instanceof net.minecraft.entity.player.EntityPlayer && ((net.minecraft.entity.player.EntityPlayer) getMeshValue()).isSpectator();
     }
 
     @Override
@@ -792,8 +870,8 @@ public class EntityMesh<T extends net.minecraft.entity.Entity> extends AbstractM
     }
 
     @Override
-    public void onPlayerCollision(PlayerEntity<?> playerEntity) {
-        getMeshValue().onCollideWithPlayer((EntityPlayer) playerEntity.getMeshValue());
+    public void onPlayerCollision(EntityPlayer<?> entityPlayer) {
+        getMeshValue().onCollideWithPlayer((net.minecraft.entity.player.EntityPlayer) entityPlayer.getMeshValue());
     }
 
     @Override
@@ -1002,8 +1080,8 @@ public class EntityMesh<T extends net.minecraft.entity.Entity> extends AbstractM
     }
 
     @Override
-    public boolean isInvisibleTo(PlayerEntity<?> player) {
-        return getMeshValue().isInvisibleToPlayer((EntityPlayer) player.getMeshValue());
+    public boolean isInvisibleTo(EntityPlayer<?> player) {
+        return getMeshValue().isInvisibleToPlayer((net.minecraft.entity.player.EntityPlayer) player.getMeshValue());
     }
 
     @Override

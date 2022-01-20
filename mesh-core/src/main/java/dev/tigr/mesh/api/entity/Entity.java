@@ -1,7 +1,7 @@
 package dev.tigr.mesh.api.entity;
 
 import dev.tigr.mesh.api.IMesh;
-import dev.tigr.mesh.api.entity.player.PlayerEntity;
+import dev.tigr.mesh.api.entity.living.player.EntityPlayer;
 import dev.tigr.mesh.api.math.BlockPos;
 import dev.tigr.mesh.api.math.Box;
 import dev.tigr.mesh.api.math.Vec3d;
@@ -300,7 +300,7 @@ public interface Entity<T> extends IMesh<T> {
         return getPosition().squareDistanceTo(x, y, z);
     }
 
-    void onPlayerCollision(PlayerEntity<?> playerEntity);
+    void onPlayerCollision(EntityPlayer<?> entityPlayer);
 
     void pushAwayFrom(Entity<?> entity);
 
@@ -431,7 +431,7 @@ public interface Entity<T> extends IMesh<T> {
 
     boolean isInvisible();
 
-    boolean isInvisibleTo(PlayerEntity<?> player);
+    boolean isInvisibleTo(EntityPlayer<?> player);
 
     void setInvisible(boolean value);
 

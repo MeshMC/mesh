@@ -1,96 +1,95 @@
-package dev.tigr.mesh.impl.entity.player;
+package dev.tigr.mesh.impl.entity.living.player;
 
-import dev.tigr.mesh.api.entity.player.PlayerEntity;
-import dev.tigr.mesh.impl.entity.EntityMesh;
-import dev.tigr.mesh.impl.mixin.accessors.entity.EntityPlayerAccessor;
-import net.minecraft.entity.player.EntityPlayer;
+import dev.tigr.mesh.api.entity.living.player.EntityPlayer;
+import dev.tigr.mesh.impl.entity.living.LivingEntityMesh;
+import dev.tigr.mesh.impl.mixin.accessors.entity.PlayerEntityAccessor;
 
 /**
  * @author Tigermouthbear 1/16/22
  */
-public class PlayerEntityMesh extends EntityMesh<EntityPlayer> implements PlayerEntity<EntityPlayer> {
-    public PlayerEntityMesh(EntityPlayer value) {
+public class EntityPlayerMesh<T extends net.minecraft.entity.player.PlayerEntity> extends LivingEntityMesh<T> implements EntityPlayer<T> {
+    public EntityPlayerMesh(T value) {
         super(value);
     }
 
     @Override
     public int getFlyToggleTimer() {
-        return ((EntityPlayerAccessor) getMeshValue()).getFlyToggleTimer();
+        return ((PlayerEntityAccessor) getMeshValue()).getAbilityResyncCountdown();
     }
 
     @Override
     public void setFlyToggleTimer(int value) {
-        ((EntityPlayerAccessor) getMeshValue()).setFlyToggleTimer(value);
+        ((PlayerEntityAccessor) getMeshValue()).setAbilityResyncCountdown(value);
     }
 
     @Override
     public int getXpCooldown() {
-        return getMeshValue().xpCooldown;
+        return getMeshValue().experiencePickUpDelay;
     }
 
     @Override
     public void setXpCooldown(int value) {
-        getMeshValue().xpCooldown = value;
+        getMeshValue().experiencePickUpDelay = value;
     }
 
     @Override
     public double getChasingX() {
-        return getMeshValue().chasingPosX;
+        return getMeshValue().capeX;
     }
 
     @Override
     public double getChasingY() {
-        return getMeshValue().chasingPosY;
+        return getMeshValue().capeY;
     }
 
     @Override
     public double getChasingZ() {
-        return getMeshValue().chasingPosZ;
+        return getMeshValue().capeZ;
     }
 
     @Override
     public void setChasingX(double value) {
-        getMeshValue().chasingPosX = value;
+        getMeshValue().capeX = value;
     }
 
     @Override
     public void setChasingY(double value) {
-        getMeshValue().chasingPosY = value;
+        getMeshValue().capeY = value;
     }
 
     @Override
     public void setChasingZ(double value) {
-        getMeshValue().chasingPosZ = value;
+        getMeshValue().capeZ = value;
     }
 
     @Override
     public double getPrevChasingX() {
-        return getMeshValue().prevChasingPosX;
+        return getMeshValue().prevCapeX;
     }
 
     @Override
     public double getPrevChasingY() {
-        return getMeshValue().prevChasingPosY;
+        return getMeshValue().prevCapeY;
     }
 
     @Override
     public double getPrevChasingZ() {
-        return getMeshValue().prevChasingPosZ;
+        return getMeshValue().prevCapeZ;
     }
 
     @Override
     public void setPrevChasingX(double value) {
-        getMeshValue().prevChasingPosX = value;
+        getMeshValue().prevCapeX = value;
     }
 
     @Override
     public void setPrevChasingY(double value) {
-        getMeshValue().prevChasingPosY = value;
+        getMeshValue().prevCapeY = value;
     }
 
     @Override
     public void setPrevChasingZ(double value) {
-        getMeshValue().prevChasingPosZ = value;
+        getMeshValue().prevCapeZ = value;
     }
 
     @Override
@@ -100,7 +99,7 @@ public class PlayerEntityMesh extends EntityMesh<EntityPlayer> implements Player
 
     @Override
     public void setSleepTimer(int value) {
-        ((EntityPlayerAccessor) getMeshValue()).setSleepTimer(value);
+        ((PlayerEntityAccessor) getMeshValue()).setSleepTimer(value);
     }
 
     @Override
@@ -115,61 +114,61 @@ public class PlayerEntityMesh extends EntityMesh<EntityPlayer> implements Player
 
     @Override
     public int getTotalExperience() {
-        return getMeshValue().experienceTotal;
+        return getMeshValue().totalExperience;
     }
 
     @Override
     public void setTotalExperience(int value) {
-        getMeshValue().experienceTotal = value;
+        getMeshValue().totalExperience = value;
     }
 
     @Override
     public float getExperienceProgress() {
-        return getMeshValue().experience;
+        return getMeshValue().experienceProgress;
     }
 
     @Override
     public void setExperienceProgress(float value) {
-        getMeshValue().experience = value;
+        getMeshValue().experienceProgress = value;
     }
 
     @Override
     public int getEnchantmentTableSeed() {
-        return getMeshValue().getXPSeed();
+        return getMeshValue().getEnchantmentTableSeed();
     }
 
     @Override
     public void setEnchantmentTableSeed(int value) {
-        ((EntityPlayerAccessor) getMeshValue()).setXpSeed(value);
+        ((PlayerEntityAccessor) getMeshValue()).setEnchantmentTableSeed(value);
     }
 
     @Override
     public float getSpeedInAir() {
-        return ((EntityPlayerAccessor) getMeshValue()).getSpeedInAir();
+        return getMeshValue().airStrafingSpeed;
     }
 
     @Override
     public void setSpeedInAir(float value) {
-        ((EntityPlayerAccessor) getMeshValue()).setSpeedInAir(value);
+        getMeshValue().airStrafingSpeed = value;
     }
 
     @Override
     public int getLastXPSound() {
-        return ((EntityPlayerAccessor) getMeshValue()).getLastXPSound();
+        return ((PlayerEntityAccessor) getMeshValue()).getLastPlayedLevelUpSoundTime();
     }
 
     @Override
     public void setLastXPSound(int value) {
-        ((EntityPlayerAccessor) getMeshValue()).setLastXPSound(value);
+        ((PlayerEntityAccessor) getMeshValue()).setLastPlayedLevelUpSoundTime(value);
     }
 
     @Override
     public boolean hasReducedDebug() {
-        return getMeshValue().hasReducedDebug();
+        return getMeshValue().hasReducedDebugInfo();
     }
 
     @Override
     public void setReducedDebug(boolean value) {
-        getMeshValue().setReducedDebug(value);
+        getMeshValue().setReducedDebugInfo(value);
     }
 }
