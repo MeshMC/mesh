@@ -1,0 +1,61 @@
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+
+configurations {
+    embeddedJars
+}
+
+dependencies {
+    implementation "net.fabricmc:fabric-loader:0.12.10"
+
+    implementation "org.spongepowered:mixin:0.8.5-SNAPSHOT"
+
+    // mesh implementations
+    embeddedJars(project(":mesh-fabric-1.18.1")) {
+        exclude module: "fabric-loader"
+    }
+    embeddedJars(project(":mesh-forge-1.12.2")) {
+        exclude group: "net.minecraftforge"
+    }
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching(List.of("fabric.mod.json", "mcmod.info")) {
+        expand "version": project.version
+    }
+}
+
+jar {
+    // this filters out jars that aren't mesh implementations
+    // it also converts unmapped fabric jars (-dev) to mapped
+    def mapped = []
+    from(configurations.embeddedJars.filter {
+        if(it.name.startsWith("mesh-f")) {
+            if(it.name.endsWith("-dev.jar")) {
+                mapped.add(new File(it.path.replace("-dev", "")))
+                return false
+            } else return true
+        } else return false
+    })
+    from(mapped)
+
+    rename { String filename ->
+        // remove version from jar filename
+        if(filename.startsWith("mesh-f")) {
+            return filename.substring(0, filename.indexOf("-", 16)) + ".jar" // don't question the 16 :/
+        }
+        else return filename
+    }
+
+    exclude "net/minecraft/launchwrapper/ITweaker.class"
+    exclude "net/minecraft/launchwrapper/LaunchClassLoader.class"
+
+    //noinspection GroovyAssignabilityCheck
+    manifest {
+        attributes(
+            "TweakClass": "dev.tigr.mesh.loader.MeshForgeTweaker",
+            "TweakOrder": 0
+        )
+    }
+}

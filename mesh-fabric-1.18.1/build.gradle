@@ -1,25 +1,20 @@
 plugins {
     id "fabric-loom" version "0.8-SNAPSHOT"
-    id "com.github.johnrengelman.shadow" version "7.0.0"
 }
 
 sourceCompatibility = targetCompatibility = JavaVersion.VERSION_17
 
+configurations {
+    embeddedLibs
+}
+
 dependencies {
-    // fabric deps
     minecraft "com.mojang:minecraft:1.18.1"
     mappings "net.fabricmc:yarn:1.18.1+build.1:v2"
     modImplementation "net.fabricmc:fabric-loader:0.12.10"
 
-    // mesh core
-    implementation(project(":mesh-core")) {
-        exclude group: "org.apache.logging.log4j", module: "log4j-api"
-        exclude group: "com.google.guava", module: "guava"
-    }
-    shadow(project(":mesh-core")) {
-        exclude group: "org.apache.logging.log4j", module: "log4j-api"
-        exclude group: "com.google.guava", module: "guava"
-    }
+    implementation(project(":mesh-core"))
+    embeddedLibs(project(":mesh-core"))
 }
 
 processResources {
@@ -35,13 +30,16 @@ tasks.withType(JavaCompile) {
     options.release.set(17)
 }
 
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-task customShadowJar(type: ShadowJar) {
-    configurations = [project.configurations.shadow]
-    from remapJar.archiveFile
-    exclude("mappings/**")
-    exclude("LICENSE")
-    archiveClassifier.set("all")
+jar {
+    from {
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+        configurations.embeddedLibs.filter {
+            it.name.startsWith("mesh-core") ||
+            it.name.startsWith("reflections") ||
+            it.name.startsWith("javassist") ||
+            it.name.startsWith("simpleevents")
+        }.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
 }
-
-build.dependsOn(customShadowJar)

@@ -24,7 +24,7 @@ public class MeshImpl extends Mesh implements ModInitializer {
         MINECRAFT = new MinecraftMesh(MinecraftClient.getInstance());
         RENDERER = new RendererMesh();
 
-        initializeMods();
+        Mesh.initialize();
     }
 
     @Override

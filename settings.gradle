@@ -11,7 +11,7 @@ pluginManagement {
 rootProject.name = "mesh"
 
 include "mesh-core"
+include "mesh-loader"
 include "example"
 include "mesh-forge-1.12.2"
 include "mesh-fabric-1.18.1"
-

@@ -33,15 +33,7 @@ public abstract class Mesh {
      * dev.tigr.mesh.impl.MeshImpl. If the class is not present,
      * a runtime exception is thrown
      */
-    private static final Mesh INSTANCE;
-    static {
-        try {
-            INSTANCE = (Mesh) Class.forName("dev.tigr.mesh.impl.MeshImpl").getConstructor().newInstance();
-        } catch(ClassNotFoundException | NoSuchMethodException |
-                InvocationTargetException | InstantiationException | IllegalAccessException e) {
-            throw new RuntimeException("Mesh failed to find implementation in classpath!");
-        }
-    }
+    private static Mesh INSTANCE = null;
 
     /**
      * Enum type for minecraft mods loader, impls must specify this so
@@ -100,11 +92,22 @@ public abstract class Mesh {
         this.loaderVersion = loaderVersion;
     }
 
+    public static void initialize() {
+        if(INSTANCE != null) return;
+        try {
+            INSTANCE = (Mesh) Class.forName("dev.tigr.mesh.impl.MeshImpl").getConstructor().newInstance();
+        } catch(ClassNotFoundException | NoSuchMethodException |
+                InvocationTargetException | InstantiationException | IllegalAccessException e) {
+            throw new RuntimeException("Mesh failed to find implementation in classpath!");
+        }
+        INSTANCE.initializeMods();
+    }
+
     /**
      * Scans for {@link Mod} annotations on classes, creates a new instance of those mods, and calls the init() method in those mods.
-     * This method should be called one time by every implementation of Mesh, otherwise the mods will not be initialized.
+     * Should be run by every mesh implementation when appropriate
      */
-    protected void initializeMods() {
+    private void initializeMods() {
         if(initialized) return;
 
         long start = System.currentTimeMillis();
@@ -118,6 +121,7 @@ public abstract class Mesh {
                     clazz.getDeclaredMethod("init").invoke(clazz.getConstructor().newInstance());
                 } catch(NoSuchMethodException | InstantiationException |
                         IllegalAccessException | InvocationTargetException e) {
+                    e.printStackTrace();
                     throw new RuntimeException("Mesh failed to initialize mod named '" + mod.modid() + "'!");
                 }
                 mods.add(mod);

@@ -27,7 +27,7 @@ public class MeshImpl extends Mesh {
         MINECRAFT = new MinecraftMesh(Minecraft.getMinecraft());
         RENDERER = new RendererMesh();
 
-        initializeMods();
+        Mesh.initialize();
 
         MinecraftForge.EVENT_BUS.register(new ForgeEvents());
     }

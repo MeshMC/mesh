@@ -1,5 +1,3 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-
 buildscript {
     repositories {
         gradlePluginPortal()
@@ -15,42 +13,29 @@ buildscript {
     dependencies {
         classpath "net.minecraftforge.gradle:ForgeGradle:5+"
         classpath "org.spongepowered:mixingradle:0.7-SNAPSHOT"
-        classpath "gradle.plugin.com.github.jengelman.gradle.plugins:shadow:7.0.0"
     }
 }
 apply plugin: "net.minecraftforge.gradle"
 apply plugin: "org.spongepowered.mixin"
-apply plugin: "com.github.johnrengelman.shadow"
 
 sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+
+configurations {
+    embeddedLibs
+}
 
 minecraft {
     mappings channel: "stable", version: "39-1.12"
 }
 
 dependencies {
-    // minecraftforge dependency
     minecraft "net.minecraftforge:forge:1.12.2-14.23.5.2854"
 
-    // mesh core
-    implementation(project(":mesh-core")) {
-        exclude group: "org.apache.logging.log4j", module: "log4j-api"
-        exclude group: "com.google.guava", module: "guava"
-    }
-    shadow(project(":mesh-core")) {
-        exclude group: "org.apache.logging.log4j", module: "log4j-api"
-        exclude group: "com.google.guava", module: "guava"
-    }
+    implementation(project(":mesh-core"))
+    embeddedLibs(project(":mesh-core"))
 
-    // mixins
     implementation "org.spongepowered:mixin:0.7.11-SNAPSHOT"
-    shadow("org.spongepowered:mixin:0.7.11-SNAPSHOT") {
-        exclude module: "launchwrapper"
-        exclude module: "guava"
-        exclude module: "gson"
-        exclude module: "commons-io"
-        exclude module: "log4j-core"
-    }
+    embeddedLibs "org.spongepowered:mixin:0.7.11-SNAPSHOT"
     annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
 }
 
@@ -72,12 +57,23 @@ mixin {
     add sourceSets.main, "mesh.mixins.refmap.json"
 }
 
-task customShadowJar(type: ShadowJar) {
-    configurations = [project.configurations.shadow]
-    archiveClassifier.set("all")
-    from project.file("build/libs/mesh-forge-1.12.2-${project.meshVersion}.jar")
-    exclude("META-INF/MUMFREY.RSA")
-    exclude("META-INF/MUMFREY.SF")
+jar {
+    from {
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+        configurations.embeddedLibs.filter {
+            it.name.startsWith("mesh-core") ||
+            it.name.startsWith("reflections") ||
+            it.name.startsWith("slf4j") ||
+            it.name.startsWith("mixin") ||
+            it.name.startsWith("javassist") ||
+            it.name.startsWith("simpleevents")
+        }.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+
+    exclude "module-info.class"
+    exclude "LICENSE.txt"
 
     //noinspection GroovyAssignabilityCheck
     manifest {
@@ -91,4 +87,3 @@ task customShadowJar(type: ShadowJar) {
         )
     }
 }
-build.dependsOn(customShadowJar)

@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "mesh",
+  "version": "${version}",
+
+  "name": "Mesh",
+  "description": "Mesh is a cross-version minecraft mod platform",
+  "authors": [
+    "Tigermouthbear",
+    "Makrennel"
+  ],
+  "contact": {
+    "homepage": "https://tigr.dev/"
+  },
+  "environment": "*",
+  "entrypoints": {
+    "preLaunch": [
+      "dev.tigr.mesh.loader.MeshFabricLoader"
+    ],
+    "main": [
+      "dev.tigr.mesh.loader.MeshFabricLoader"
+    ]
+  },
+  "mixins": [
+  ],
+  "suggests": {
+    "flamingo": "*"
+  }
+}
