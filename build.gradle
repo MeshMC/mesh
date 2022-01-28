@@ -36,7 +36,7 @@ subprojects {
 
     // copy artifacts to root build folder after build
     tasks.getByName("build").doLast {
-        if(project.name == "mesh-core" || project.name == "example") {
+        if(!project.name.startsWith("mesh-f")) {
             copy {
                 from "${project.rootProject.rootDir}/${project.name}/build/libs/${project.name}-${project.meshVersion}.jar"
                 into "${project.rootProject.rootDir}/build"
