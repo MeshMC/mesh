@@ -1,6 +1,6 @@
 package dev.tigr.mesh.util.render;
 
-import dev.tigr.mesh.api.math.Vec3d;
+import dev.tigr.mesh.impl.mixininterface.math.Vec3d;
 
 /**
  * @author Makrennel 2022/01/18
@@ -63,12 +63,12 @@ public class Vertex {
         color(color);
     }
 
-    public Vertex(Vec3d<?> pos, float r, float g, float b, float a) {
+    public Vertex(Vec3d pos, float r, float g, float b, float a) {
         this(pos.getX(), pos.getY(), pos.getZ());
         color(r, g, b, a);
     }
 
-    public Vertex(Vec3d<?> pos, Color color) {
+    public Vertex(Vec3d pos, Color color) {
         this(pos.getX(), pos.getY(), pos.getZ());
         color(color);
     }

@@ -17,6 +17,10 @@ dependencies {
     embeddedLibs(project(":mesh-core"))
 }
 
+loom {
+    accessWidener = file("src/main/resources/mesh.accesswidener")
+}
+
 processResources {
     inputs.property "version", project.version
 

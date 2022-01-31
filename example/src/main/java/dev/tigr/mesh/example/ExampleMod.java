@@ -1,13 +1,13 @@
 package dev.tigr.mesh.example;
 
 import dev.tigr.mesh.Mesh;
-import dev.tigr.mesh.api.entity.Entity;
-import dev.tigr.mesh.api.entity.EntityType;
 import dev.tigr.mesh.api.render.BufferBuilder;
 import dev.tigr.mesh.api.render.Renderer;
 import dev.tigr.mesh.event.MeshEvent;
 import dev.tigr.mesh.event.events.TickEvent;
 import dev.tigr.mesh.event.events.render.HudRenderEvent;
+import dev.tigr.mesh.impl.mixininterface.entity.Entity;
+import dev.tigr.mesh.impl.mixininterface.entity.living.player.EntityPlayer;
 import dev.tigr.mesh.util.render.Color;
 import dev.tigr.mesh.util.render.GlState;
 import dev.tigr.mesh.util.render.LocationIdentifier;
@@ -38,11 +38,11 @@ public class ExampleMod {
 
     @EventHandler
     public EventListener<TickEvent> tickEventListener = new EventListener<>(event -> {
-        if(event.getType() == TickEvent.Type.CLIENT && event.getEra() == MeshEvent.Era.AFTER && MESH.getMinecraft().getWorld().isNotNull()) {
+        if(event.getType() == TickEvent.Type.CLIENT && event.getEra() == MeshEvent.Era.AFTER && MESH.getMinecraft().getWorld() != null) {
             int num = 0;
-            for(Entity<?> entity: MESH.getMinecraft().getWorld().getEntities()) {
-                if(entity.getEntityType() == EntityType.PLAYER) num++;
-            }
+            for(Entity entity: MESH.getMinecraft().getWorld().getLoadedEntities())
+                if(entity instanceof EntityPlayer) num++;
+
             text = "Hello from Mesh, to " + num + " players!";
         }
     });

@@ -5,5 +5,5 @@ dependencies {
 }
 
 jar {
-    exclude "dev/tigr/mesh/api/MeshStatics.class"
+    exclude "dev/tigr/mesh/MeshStatics.class"
 }

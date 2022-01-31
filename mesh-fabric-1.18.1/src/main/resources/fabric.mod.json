@@ -21,6 +21,7 @@
   "mixins": [
     "mesh.mixins.json"
   ],
+  "accessWidener": "mesh.accesswidener",
   "suggests": {
     "flamingo": "*"
   }

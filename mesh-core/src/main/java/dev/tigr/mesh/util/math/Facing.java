@@ -1,6 +1,6 @@
 package dev.tigr.mesh.util.math;
 
-import dev.tigr.mesh.api.math.Vec3i;
+import dev.tigr.mesh.impl.mixininterface.math.Vec3i;
 
 /**
     A direction in the 3d world
@@ -14,13 +14,13 @@ public enum Facing {
     WEST(Vec3i.create(-1, 0, 0)),
     EAST(Vec3i.create(1, 0, 0));
 
-    private final Vec3i<?> offset;
+    private final Vec3i offset;
 
-    Facing(Vec3i<?> offset) {
+    Facing(Vec3i offset) {
         this.offset = offset;
     }
 
-    public Vec3i<?> getOffset() {
+    public Vec3i getOffset() {
         return offset;
     }
 }

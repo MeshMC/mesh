@@ -4,13 +4,14 @@ import dev.tigr.mesh.api.AbstractMesh;
 import dev.tigr.mesh.api.render.TextRenderer;
 import dev.tigr.mesh.api.util.Profiler;
 import dev.tigr.mesh.api.util.Session;
-import dev.tigr.mesh.api.world.ClientWorld;
+import dev.tigr.mesh.impl.mixin.accessors.MinecraftAccessor;
+import dev.tigr.mesh.impl.mixininterface.entity.living.player.EntityClientPlayer;
+import dev.tigr.mesh.impl.mixininterface.world.ClientWorld;
 import dev.tigr.mesh.impl.render.TextRendererMesh;
 import dev.tigr.mesh.impl.util.ProfilerMesh;
 import dev.tigr.mesh.impl.util.SessionMesh;
-import dev.tigr.mesh.impl.mixin.accessors.MinecraftAccessor;
-import dev.tigr.mesh.impl.world.ClientWorldMesh;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.multiplayer.WorldClient;
 
 /**
@@ -42,12 +43,22 @@ public class MinecraftMesh extends AbstractMesh<Minecraft> implements dev.tigr.m
     }
 
     @Override
-    public ClientWorld<?> getWorld() {
-        return new ClientWorldMesh(getMeshValue().world);
+    public ClientWorld getWorld() {
+        return (ClientWorld) Minecraft.getMinecraft().world;
     }
 
     @Override
-    public void setWorld(ClientWorld<?> worldIn) {
-        getMeshValue().world = (WorldClient) worldIn.getMeshValue();
+    public void setWorld(ClientWorld world) {
+        Minecraft.getMinecraft().world = (WorldClient) world;
+    }
+
+    @Override
+    public EntityClientPlayer getPlayer() {
+        return (EntityClientPlayer) Minecraft.getMinecraft().player;
+    }
+
+    @Override
+    public void setPlayer(EntityClientPlayer player) {
+        Minecraft.getMinecraft().player = (EntityPlayerSP) player;
     }
 }

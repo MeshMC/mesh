@@ -1,8 +1,8 @@
 package dev.tigr.mesh;
 
-import dev.tigr.mesh.api.math.*;
 import dev.tigr.mesh.api.render.BufferBuilder;
 import dev.tigr.mesh.api.util.Session;
+import dev.tigr.mesh.impl.mixininterface.math.*;
 
 /**
  * CALLS TO THIS SHOULD ONLY BE USED IN MESH IMPLEMENTATIONS, IT IS NOT PRESENT IN mesh-core builds
@@ -17,23 +17,23 @@ public class MeshStatics {
         throw new RuntimeException();
     }
 
-    public static Box<?> createBox(double x1, double y1, double z1, double x2, double y2, double z2) {
+    public static Box createBox(double x1, double y1, double z1, double x2, double y2, double z2) {
         throw new RuntimeException();
     }
 
-    public static Vec3d<?> createVec3d(double x, double y, double z) {
+    public static Vec3d createVec3d(double x, double y, double z) {
         throw new RuntimeException();
     }
 
-    public static Vec3f<?> createVec3f(float x, float y, float z) {
+    public static Vec3f createVec3f(float x, float y, float z) {
         throw new RuntimeException();
     }
 
-    public static Vec3i<?> createVec3i(int x, int y, int z) {
+    public static Vec3i createVec3i(int x, int y, int z) {
         throw new RuntimeException();
     }
 
-    public static BlockPos<?> createBlockPos(int x, int y, int z) {
+    public static BlockPos createBlockPos(int x, int y, int z) {
         throw new RuntimeException();
     }
 
