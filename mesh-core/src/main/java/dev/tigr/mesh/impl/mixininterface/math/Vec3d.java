@@ -44,12 +44,20 @@ public interface Vec3d {
         return create(getY() * vec.getZ() - getZ() * vec.getY(), getZ() * vec.getX() - getX() * vec.getZ(), getX() * vec.getY() - getY() * vec.getX());
     }
 
+    default Vec3d subtract(Vec3i vec) {
+        return subtract(vec.getX(), vec.getY(), vec.getZ());
+    }
+
     default Vec3d subtract(Vec3d vec) {
         return subtract(vec.getX(), vec.getY(), vec.getZ());
     }
 
     default Vec3d subtract(double x, double y, double z) {
         return add(-x, -y, -z);
+    }
+
+    default Vec3d add(Vec3i vec) {
+        return add(vec.getX(), vec.getY(), vec.getZ());
     }
 
     default Vec3d add(Vec3d vec) {

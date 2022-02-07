@@ -14,6 +14,8 @@ public enum Facing {
     WEST(Vec3i.create(-1, 0, 0)),
     EAST(Vec3i.create(1, 0, 0));
 
+    public static Facing[] VALUES = Facing.values();
+
     private final Vec3i offset;
 
     Facing(Vec3i offset) {

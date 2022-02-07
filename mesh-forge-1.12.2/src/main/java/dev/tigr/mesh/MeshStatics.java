@@ -2,9 +2,18 @@ package dev.tigr.mesh;
 
 import dev.tigr.mesh.api.render.BufferBuilder;
 import dev.tigr.mesh.api.util.Session;
+import dev.tigr.mesh.impl.conversion.MCEnum;
+import dev.tigr.mesh.impl.mixininterface.entity.Entity;
 import dev.tigr.mesh.impl.mixininterface.math.*;
+import dev.tigr.mesh.impl.mixininterface.packet.client.*;
 import dev.tigr.mesh.impl.render.BufferBuilderMesh;
 import dev.tigr.mesh.impl.util.SessionMesh;
+import dev.tigr.mesh.util.math.Facing;
+import dev.tigr.mesh.util.math.Hand;
+import net.minecraft.network.play.client.CPacketPlayer;
+import net.minecraft.network.play.client.CPacketPlayerTryUseItem;
+import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
+import net.minecraft.network.play.client.CPacketVehicleMove;
 import net.minecraft.util.math.AxisAlignedBB;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -19,6 +28,10 @@ public class MeshStatics {
 
     public static Box createBox(double x1, double y1, double z1, double x2, double y2, double z2) {
         return (Box) new AxisAlignedBB(x1, y1, z1, x2, y2, z2);
+    }
+
+    public static Vec2f createVec2f(float x, float y) {
+        return (Vec2f) new net.minecraft.util.math.Vec2f(x, y);
     }
 
     public static Vec3d createVec3d(double x, double y, double z) {
@@ -39,5 +52,54 @@ public class MeshStatics {
 
     public static BufferBuilder<?> createBufferBuilder(int initialCapacity) {
         return new BufferBuilderMesh(new net.minecraft.client.renderer.BufferBuilder(initialCapacity));
+    }
+
+    // packets
+    public static CPacketInput createCPacketInput(float sideways, float forward, boolean jumping, boolean sneaking) {
+        return (CPacketInput) new net.minecraft.network.play.client.CPacketInput(sideways, forward, jumping, sneaking);
+    }
+
+    public static CPacketMovePlayer createCPacketMovePlayerOnGround(boolean onGround) {
+        return (CPacketMovePlayer) new CPacketPlayer(onGround);
+    }
+
+    public static CPacketMovePlayer createCPacketMovePlayerMoving(double x, double y, double z, boolean onGround) {
+        return (CPacketMovePlayer) new CPacketPlayer.Position(x, y, z, onGround);
+    }
+
+    public static CPacketMovePlayer createCPacketMovePlayerRotating(float yaw, float pitch, boolean onGround) {
+        return (CPacketMovePlayer) new CPacketPlayer.Rotation(yaw, pitch, onGround);
+    }
+
+    public static CPacketMovePlayer createCPacketMovePlayerFull(double x, double y, double z, float yaw, float pitch, boolean onGround) {
+        return (CPacketMovePlayer) new CPacketPlayer.PositionRotation(x, y, z, yaw, pitch, onGround);
+    }
+
+    public static CPacketMoveVehicle createCPacketMoveVehicle(Entity entity) {
+        return (CPacketMoveVehicle) new CPacketVehicleMove((net.minecraft.entity.Entity) entity);
+    }
+
+    public static CPacketSteerBoat createCPacketSteerBoat(boolean left, boolean right) {
+        return (CPacketSteerBoat) new net.minecraft.network.play.client.CPacketSteerBoat(left, right);
+    }
+
+    public static CPacketUseBlock createCPacketUseBlock(dev.tigr.mesh.util.math.Hand hand, BlockPos blockPos, Facing facing, Vec3d vector, boolean insideBlock) {
+        return (CPacketUseBlock) new CPacketPlayerTryUseItemOnBlock((net.minecraft.util.math.BlockPos) blockPos, MCEnum.facing(facing), MCEnum.hand(hand), (float) vector.getX(), (float) vector.getY(), (float) vector.getZ());
+    }
+
+    public static CPacketUseEntity createCPacketUseEntityAttack(Entity entity, boolean sneaking) {
+        return (CPacketUseEntity) new net.minecraft.network.play.client.CPacketUseEntity((net.minecraft.entity.Entity) entity);
+    }
+
+    public static CPacketUseEntity createCPacketUseEntityInteract(Entity entity, Hand hand, boolean sneaking) {
+        return (CPacketUseEntity) new net.minecraft.network.play.client.CPacketUseEntity((net.minecraft.entity.Entity) entity, MCEnum.hand(hand));
+    }
+
+    public static CPacketUseEntity createCPacketUseEntityInteractAt(Entity entity, Hand hand, Vec3d pos, boolean sneaking) {
+        return (CPacketUseEntity) new net.minecraft.network.play.client.CPacketUseEntity((net.minecraft.entity.Entity) entity, MCEnum.hand(hand), (net.minecraft.util.math.Vec3d) pos);
+    }
+
+    public static CPacketUseItem createCPacketUseItem(dev.tigr.mesh.util.math.Hand hand) {
+        return (CPacketUseItem) new CPacketPlayerTryUseItem(MCEnum.hand(hand));
     }
 }

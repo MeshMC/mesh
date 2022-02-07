@@ -2,7 +2,11 @@ package dev.tigr.mesh;
 
 import dev.tigr.mesh.api.render.BufferBuilder;
 import dev.tigr.mesh.api.util.Session;
+import dev.tigr.mesh.impl.mixininterface.entity.Entity;
 import dev.tigr.mesh.impl.mixininterface.math.*;
+import dev.tigr.mesh.impl.mixininterface.packet.client.*;
+import dev.tigr.mesh.util.math.Facing;
+import dev.tigr.mesh.util.math.Hand;
 
 /**
  * CALLS TO THIS SHOULD ONLY BE USED IN MESH IMPLEMENTATIONS, IT IS NOT PRESENT IN mesh-core builds
@@ -18,6 +22,10 @@ public class MeshStatics {
     }
 
     public static Box createBox(double x1, double y1, double z1, double x2, double y2, double z2) {
+        throw new RuntimeException();
+    }
+
+    public static Vec2f createVec2f(float x, float y) {
         throw new RuntimeException();
     }
 
@@ -38,6 +46,55 @@ public class MeshStatics {
     }
 
     public static BufferBuilder<?> createBufferBuilder(int initialCapacity) {
+        throw new RuntimeException();
+    }
+
+    // packets
+    public static CPacketInput createCPacketInput(float sideways, float forward, boolean jumping, boolean sneaking) {
+        throw new RuntimeException();
+    }
+
+    public static CPacketMovePlayer createCPacketMovePlayerOnGround(boolean onGround) {
+        throw new RuntimeException();
+    }
+
+    public static CPacketMovePlayer createCPacketMovePlayerMoving(double x, double y, double z, boolean onGround) {
+        throw new RuntimeException();
+    }
+
+    public static CPacketMovePlayer createCPacketMovePlayerRotating(float yaw, float pitch, boolean onGround) {
+        throw new RuntimeException();
+    }
+
+    public static CPacketMovePlayer createCPacketMovePlayerFull(double x, double y, double z, float yaw, float pitch, boolean onGround) {
+        throw new RuntimeException();
+    }
+
+    public static CPacketMoveVehicle createCPacketMoveVehicle(Entity entity) {
+        throw new RuntimeException();
+    }
+
+    public static CPacketSteerBoat createCPacketSteerBoat(boolean left, boolean right) {
+        throw new RuntimeException();
+    }
+
+    public static CPacketUseBlock createCPacketUseBlock(Hand hand, BlockPos blockPos, Facing facing, Vec3d vector, boolean insideBlock) {
+        throw new RuntimeException();
+    }
+
+    public static CPacketUseEntity createCPacketUseEntityAttack(Entity entity, boolean sneaking) {
+        throw new RuntimeException();
+    }
+
+    public static CPacketUseEntity createCPacketUseEntityInteract(Entity entity, Hand hand, boolean sneaking) {
+        throw new RuntimeException();
+    }
+
+    public static CPacketUseEntity createCPacketUseEntityInteractAt(Entity entity, Hand hand, Vec3d pos, boolean sneaking) {
+        throw new RuntimeException();
+    }
+
+    public static CPacketUseItem createCPacketUseItem(Hand hand) {
         throw new RuntimeException();
     }
 }

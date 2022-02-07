@@ -4,7 +4,10 @@
   "package": "dev.tigr.mesh.impl.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
+    "accessors.BlockHitResultAccessor",
     "accessors.MinecraftClientAccessor",
+    "accessors.packet.InteractAtHandlerAccessor",
+    "accessors.packet.InteractHandlerAccessor",
     "accessors.render.BufferBuilderAccessor",
     "client.MixinClientPlayerEntity",
     "client.MixinClientWorld",
@@ -24,8 +27,8 @@
     "entity.living.mob.hostile.MixinEntityVex",
     "entity.living.mob.hostile.MixinEntityWither",
     "entity.living.mob.hostile.MixinEntityZoglin",
-    "entity.living.mob.hostile.guardian.MixinEntityGuardian",
     "entity.living.mob.hostile.guardian.MixinEntityElderGuardian",
+    "entity.living.mob.hostile.guardian.MixinEntityGuardian",
     "entity.living.mob.hostile.piglin.MixinEntityPiglin",
     "entity.living.mob.hostile.piglin.MixinEntityPiglinAbstract",
     "entity.living.mob.hostile.piglin.MixinEntityPiglinBrute",
@@ -39,10 +42,10 @@
     "entity.living.mob.hostile.raider.MixinEntityWitch",
     "entity.living.mob.hostile.skeleton.MixinEntitySkeleton",
     "entity.living.mob.hostile.skeleton.MixinEntitySkeletonAbstract",
-    "entity.living.mob.hostile.skeleton.MixinEntityWitherSkeleton",
     "entity.living.mob.hostile.skeleton.MixinEntityStray",
-    "entity.living.mob.hostile.spider.MixinEntitySpider",
+    "entity.living.mob.hostile.skeleton.MixinEntityWitherSkeleton",
     "entity.living.mob.hostile.spider.MixinEntityCaveSpider",
+    "entity.living.mob.hostile.spider.MixinEntitySpider",
     "entity.living.mob.hostile.zombie.MixinEntityDrowned",
     "entity.living.mob.hostile.zombie.MixinEntityHusk",
     "entity.living.mob.hostile.zombie.MixinEntityZombie",
@@ -58,6 +61,20 @@
     "math.MixinBox",
     "math.MixinVec3d",
     "math.MixinVec3f",
-    "math.MixinVec3i"
+    "math.MixinVec3i",
+    "packet.client.MixinCPacketInput",
+    "packet.client.MixinCPacketMovePlayer",
+    "packet.client.MixinCPacketMovePlayer$MixinFull",
+    "packet.client.MixinCPacketMovePlayer$MixinMoving",
+    "packet.client.MixinCPacketMovePlayer$MixinOnGround",
+    "packet.client.MixinCPacketMovePlayer$MixinRotating",
+    "packet.client.MixinCPacketMoveVehicle",
+    "packet.client.MixinCPacketSteerBoat",
+    "packet.client.MixinCPacketUseBlock",
+    "packet.client.MixinCPacketUseEntity",
+    "packet.client.MixinCPacketUseItem"
+  ],
+  "client": [
+    "math.MixinVec2f"
   ]
 }

@@ -36,6 +36,16 @@ public interface Vec3i {
     void setY(int value);
     void setZ(int value);
 
+    default void set(Vec3i vec3i) {
+        set(vec3i.getX(), vec3i.getY(), vec3i.getZ());
+    }
+
+    default void set(int x, int y, int z) {
+        setX(x);
+        setY(y);
+        setZ(z);
+    }
+
     default Vec3i crossProduct(Vec3i vec) {
         return create(getY() * vec.getZ() - getZ() * vec.getY(), getZ() * vec.getX() - getX() * vec.getZ(), getX() * vec.getY() - getY() * vec.getX());
     }
