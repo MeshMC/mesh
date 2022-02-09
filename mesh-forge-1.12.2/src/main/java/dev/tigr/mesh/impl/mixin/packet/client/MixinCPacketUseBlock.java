@@ -4,7 +4,6 @@ import dev.tigr.mesh.impl.conversion.MCEnum;
 import dev.tigr.mesh.impl.conversion.MeshEnum;
 import dev.tigr.mesh.impl.mixininterface.math.BlockPos;
 import dev.tigr.mesh.impl.mixininterface.math.Vec3d;
-import dev.tigr.mesh.impl.mixininterface.packet.Packet;
 import dev.tigr.mesh.impl.mixininterface.packet.client.CPacketUseBlock;
 import dev.tigr.mesh.util.math.Facing;
 import dev.tigr.mesh.util.math.Hand;
@@ -15,7 +14,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(CPacketPlayerTryUseItemOnBlock.class)
-public class MixinCPacketUseBlock implements Packet, CPacketUseBlock {
+public class MixinCPacketUseBlock implements CPacketUseBlock {
     @Shadow private net.minecraft.util.math.BlockPos position;
 
     @Shadow private EnumFacing placedBlockDirection;

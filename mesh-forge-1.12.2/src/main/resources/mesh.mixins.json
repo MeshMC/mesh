@@ -6,6 +6,7 @@
   "mixins": [
     "accessors.MinecraftAccessor",
     "client.MixinEntityPlayerSP",
+    "client.MixinNetworkManager",
     "client.MixinWorld",
     "entity.MixinEntity",
     "entity.living.MixinEntityLiving",
@@ -47,15 +48,15 @@
     "math.MixinVec3f",
     "math.MixinVec3i",
     "packet.client.MixinCPacketInput",
-    "packet.client.MixinCPacketMovePlayer",
-    "packet.client.MixinCPacketMovePlayer$MixinFull",
-    "packet.client.MixinCPacketMovePlayer$MixinMoving",
-    "packet.client.MixinCPacketMovePlayer$MixinRotating",
+    "packet.client.moveplayer.MixinCPacketMovePlayer",
     "packet.client.MixinCPacketMoveVehicle",
     "packet.client.MixinCPacketSteerBoat",
     "packet.client.MixinCPacketUseBlock",
     "packet.client.MixinCPacketUseEntity",
-    "packet.client.MixinCPacketUseItem"
+    "packet.client.MixinCPacketUseItem",
+    "packet.client.moveplayer.MixinFull",
+    "packet.client.moveplayer.MixinMoving",
+    "packet.client.moveplayer.MixinRotating"
   ],
   "client": [
     "client.MixinClientWorld",

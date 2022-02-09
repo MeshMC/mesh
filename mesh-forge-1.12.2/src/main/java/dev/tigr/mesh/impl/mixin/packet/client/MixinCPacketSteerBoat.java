@@ -1,12 +1,11 @@
 package dev.tigr.mesh.impl.mixin.packet.client;
 
-import dev.tigr.mesh.impl.mixininterface.packet.Packet;
 import dev.tigr.mesh.impl.mixininterface.packet.client.CPacketSteerBoat;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(net.minecraft.network.play.client.CPacketSteerBoat.class)
-public class MixinCPacketSteerBoat implements Packet, CPacketSteerBoat {
+public class MixinCPacketSteerBoat implements CPacketSteerBoat {
     @Shadow private boolean left;
     @Shadow private boolean right;
 

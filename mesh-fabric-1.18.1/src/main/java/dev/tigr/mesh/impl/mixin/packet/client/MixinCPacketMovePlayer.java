@@ -1,6 +1,5 @@
 package dev.tigr.mesh.impl.mixin.packet.client;
 
-import dev.tigr.mesh.impl.mixininterface.packet.Packet;
 import dev.tigr.mesh.impl.mixininterface.packet.client.CPacketMovePlayer;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import org.spongepowered.asm.mixin.Final;
@@ -9,7 +8,7 @@ import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(PlayerMoveC2SPacket.class)
-public class MixinCPacketMovePlayer implements Packet, CPacketMovePlayer {
+public class MixinCPacketMovePlayer implements CPacketMovePlayer {
     @Mutable @Shadow @Final protected double x;
     @Mutable @Shadow @Final protected double y;
     @Mutable @Shadow @Final protected double z;
@@ -100,18 +99,18 @@ public class MixinCPacketMovePlayer implements Packet, CPacketMovePlayer {
     }
 
     @Mixin(PlayerMoveC2SPacket.OnGroundOnly.class)
-    public static class MixinOnGround extends MixinCPacketMovePlayer {
+    public static class MixinOnGround extends MixinCPacketMovePlayer implements CPacketMovePlayer {
     }
 
     @Mixin(PlayerMoveC2SPacket.PositionAndOnGround.class)
-    public static class MixinMoving extends MixinCPacketMovePlayer {
+    public static class MixinMoving extends MixinCPacketMovePlayer implements CPacketMovePlayer {
     }
 
     @Mixin(PlayerMoveC2SPacket.LookAndOnGround.class)
-    public static class MixinRotating extends MixinCPacketMovePlayer {
+    public static class MixinRotating extends MixinCPacketMovePlayer implements CPacketMovePlayer {
     }
 
     @Mixin(PlayerMoveC2SPacket.Full.class)
-    public static class MixinFull extends MixinCPacketMovePlayer {
+    public static class MixinFull extends MixinCPacketMovePlayer implements CPacketMovePlayer {
     }
 }

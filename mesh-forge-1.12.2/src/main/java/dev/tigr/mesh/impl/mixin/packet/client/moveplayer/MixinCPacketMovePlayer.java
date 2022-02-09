@@ -1,13 +1,12 @@
-package dev.tigr.mesh.impl.mixin.packet.client;
+package dev.tigr.mesh.impl.mixin.packet.client.moveplayer;
 
-import dev.tigr.mesh.impl.mixininterface.packet.Packet;
 import dev.tigr.mesh.impl.mixininterface.packet.client.CPacketMovePlayer;
 import net.minecraft.network.play.client.CPacketPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(CPacketPlayer.class)
-public class MixinCPacketMovePlayer implements Packet, CPacketMovePlayer {
+public class MixinCPacketMovePlayer implements CPacketMovePlayer {
     @Shadow protected double x;
     @Shadow protected double y;
     @Shadow protected double z;
@@ -95,17 +94,5 @@ public class MixinCPacketMovePlayer implements Packet, CPacketMovePlayer {
     @Override
     public void setRotating(boolean value) {
         rotating = value;
-    }
-
-    @Mixin(CPacketPlayer.Position.class)
-    public static class MixinMoving extends MixinCPacketMovePlayer {
-    }
-
-    @Mixin(CPacketPlayer.Rotation.class)
-    public static class MixinRotating extends MixinCPacketMovePlayer {
-    }
-
-    @Mixin(CPacketPlayer.PositionRotation.class)
-    public static class MixinFull extends MixinCPacketMovePlayer {
     }
 }

@@ -1,6 +1,5 @@
 package dev.tigr.mesh.impl.mixin.packet.client;
 
-import dev.tigr.mesh.impl.mixininterface.packet.Packet;
 import dev.tigr.mesh.impl.mixininterface.packet.client.CPacketSteerBoat;
 import net.minecraft.network.packet.c2s.play.BoatPaddleStateC2SPacket;
 import org.spongepowered.asm.mixin.Final;
@@ -9,7 +8,7 @@ import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(BoatPaddleStateC2SPacket.class)
-public class MixinCPacketSteerBoat implements Packet, CPacketSteerBoat {
+public class MixinCPacketSteerBoat implements CPacketSteerBoat {
     @Mutable @Shadow @Final private boolean leftPaddling;
     @Mutable @Shadow @Final private boolean rightPaddling;
 

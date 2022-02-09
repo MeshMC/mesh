@@ -3,9 +3,8 @@ package dev.tigr.mesh.impl.mixininterface.packet.client;
 import dev.tigr.mesh.MeshStatics;
 import dev.tigr.mesh.impl.mixininterface.math.Vec2f;
 import dev.tigr.mesh.impl.mixininterface.math.Vec3d;
-import dev.tigr.mesh.impl.mixininterface.packet.Packet;
 
-public interface CPacketMovePlayer extends Packet {
+public interface CPacketMovePlayer {
     static CPacketMovePlayer create(boolean onGround) {
         return MeshStatics.createCPacketMovePlayerOnGround(onGround);
     }

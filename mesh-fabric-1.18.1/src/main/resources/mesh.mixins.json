@@ -9,6 +9,7 @@
     "accessors.packet.InteractAtHandlerAccessor",
     "accessors.packet.InteractHandlerAccessor",
     "accessors.render.BufferBuilderAccessor",
+    "client.MixinClientConnection",
     "client.MixinClientPlayerEntity",
     "client.MixinClientWorld",
     "client.MixinGameRenderer",

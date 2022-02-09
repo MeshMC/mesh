@@ -5,9 +5,11 @@ import dev.tigr.mesh.api.render.BufferBuilder;
 import dev.tigr.mesh.api.render.Renderer;
 import dev.tigr.mesh.event.MeshEvent;
 import dev.tigr.mesh.event.events.TickEvent;
+import dev.tigr.mesh.event.events.client.PacketEvent;
 import dev.tigr.mesh.event.events.render.HudRenderEvent;
 import dev.tigr.mesh.impl.mixininterface.entity.Entity;
 import dev.tigr.mesh.impl.mixininterface.entity.living.player.EntityPlayer;
+import dev.tigr.mesh.impl.mixininterface.packet.client.CPacketMovePlayer;
 import dev.tigr.mesh.util.render.Color;
 import dev.tigr.mesh.util.render.GlState;
 import dev.tigr.mesh.util.render.LocationIdentifier;
@@ -24,6 +26,7 @@ public class ExampleMod {
 
     private static final LocationIdentifier HELMET_IMAGE = new LocationIdentifier("examplemod", "helmet.png");
     private String text = "Hello from Mesh!";
+    int pCount = 0;
 
     public void init() {
         LOGGER.info("Example Mod loaded in {} {}!",
@@ -45,6 +48,12 @@ public class ExampleMod {
 
             text = "Hello from Mesh, to " + num + " players!";
         }
+    });
+
+    @EventHandler
+    private final EventListener<PacketEvent.Sent> onSentPacket = new EventListener<>(event -> {
+        if(event.getEra() == MeshEvent.Era.BEFORE && event.getPacket() instanceof CPacketMovePlayer)
+            pCount++;
     });
 
     @EventHandler
@@ -90,6 +99,7 @@ public class ExampleMod {
 
         // draw text using minecraft's font renderer
         MESH.getMinecraft().getTextRenderer().drawText(text, 2, 55, Color.WHITE);
+        MESH.getMinecraft().getTextRenderer().drawText("Counted Movement Packets: " + pCount, 2, 100, Color.WHITE);
         MESH.getRenderer().getRenderState()
                 .texture(false)
                 .lineWeight(4);

@@ -1,13 +1,12 @@
 package dev.tigr.mesh.impl.mixin.packet.client;
 
-import dev.tigr.mesh.impl.mixininterface.packet.Packet;
 import dev.tigr.mesh.impl.mixininterface.packet.client.CPacketMoveVehicle;
 import net.minecraft.network.play.client.CPacketVehicleMove;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(CPacketVehicleMove.class)
-public class MixinCPacketMoveVehicle implements Packet, CPacketMoveVehicle {
+public class MixinCPacketMoveVehicle implements CPacketMoveVehicle {
     @Shadow private double x;
     @Shadow private double y;
     @Shadow private double z;

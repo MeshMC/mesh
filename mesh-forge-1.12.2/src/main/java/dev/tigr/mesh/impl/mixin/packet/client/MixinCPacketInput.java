@@ -1,12 +1,11 @@
 package dev.tigr.mesh.impl.mixin.packet.client;
 
-import dev.tigr.mesh.impl.mixininterface.packet.Packet;
 import dev.tigr.mesh.impl.mixininterface.packet.client.CPacketInput;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(net.minecraft.network.play.client.CPacketInput.class)
-public class MixinCPacketInput implements Packet, CPacketInput {
+public class MixinCPacketInput implements CPacketInput {
     @Shadow private float strafeSpeed;
     @Shadow private float forwardSpeed;
     @Shadow private boolean jumping;

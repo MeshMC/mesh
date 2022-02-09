@@ -5,7 +5,6 @@ import dev.tigr.mesh.impl.conversion.MeshEnum;
 import dev.tigr.mesh.impl.mixin.accessors.BlockHitResultAccessor;
 import dev.tigr.mesh.impl.mixininterface.math.BlockPos;
 import dev.tigr.mesh.impl.mixininterface.math.Vec3d;
-import dev.tigr.mesh.impl.mixininterface.packet.Packet;
 import dev.tigr.mesh.impl.mixininterface.packet.client.CPacketUseBlock;
 import dev.tigr.mesh.util.math.Facing;
 import dev.tigr.mesh.util.math.Hand;
@@ -17,7 +16,7 @@ import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(PlayerInteractBlockC2SPacket.class)
-public class MixinCPacketUseBlock implements Packet, CPacketUseBlock {
+public class MixinCPacketUseBlock implements CPacketUseBlock {
     @Shadow @Final private BlockHitResult blockHitResult;
     @Mutable @Shadow @Final private net.minecraft.util.Hand hand;
 

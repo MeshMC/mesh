@@ -1,6 +1,5 @@
 package dev.tigr.mesh.impl.mixin.packet.client;
 
-import dev.tigr.mesh.impl.mixininterface.packet.Packet;
 import dev.tigr.mesh.impl.mixininterface.packet.client.CPacketMoveVehicle;
 import net.minecraft.network.packet.c2s.play.VehicleMoveC2SPacket;
 import org.spongepowered.asm.mixin.Final;
@@ -9,7 +8,7 @@ import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(VehicleMoveC2SPacket.class)
-public class MixinCPacketMoveVehicle implements Packet, CPacketMoveVehicle {
+public class MixinCPacketMoveVehicle implements CPacketMoveVehicle {
     @Mutable @Shadow @Final private double x;
     @Mutable @Shadow @Final private double y;
     @Mutable @Shadow @Final private double z;
