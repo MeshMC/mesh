@@ -2,6 +2,7 @@ package dev.tigr.mesh.impl;
 
 import dev.tigr.mesh.Mesh;
 import dev.tigr.mesh.api.render.Renderer;
+import dev.tigr.mesh.impl.mixininterface.client.Minecraft;
 import dev.tigr.mesh.impl.render.RendererMesh;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.MinecraftClient;
@@ -12,7 +13,7 @@ import net.minecraft.client.MinecraftClient;
  * @author Tigermouthbear 1/1/22
  */
 public class MeshImpl extends Mesh implements ModInitializer {
-    private static MinecraftMesh MINECRAFT;
+    private static Minecraft MINECRAFT;
     private static RendererMesh RENDERER;
 
     public MeshImpl() {
@@ -21,14 +22,14 @@ public class MeshImpl extends Mesh implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        MINECRAFT = new MinecraftMesh(MinecraftClient.getInstance());
+        MINECRAFT = (Minecraft) MinecraftClient.getInstance();
         RENDERER = new RendererMesh();
 
         Mesh.initialize();
     }
 
     @Override
-    public MinecraftMesh getMinecraft() {
+    public Minecraft getMinecraft() {
         return MINECRAFT;
     }
 

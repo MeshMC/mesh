@@ -1,5 +1,9 @@
 package dev.tigr.mesh.impl.mixininterface.packet.client;
 
+/**
+ * Provides an interface for input packets
+ * @author Makrennel 2022/02/09
+ */
 public interface CPacketInput {
     float getSideways();
     float getForwards();

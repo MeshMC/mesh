@@ -1,5 +1,9 @@
 package dev.tigr.mesh.impl.mixininterface.packet.client;
 
+/**
+ * Provides an interface for vehicle position packets
+ * @author Makrennel 2022/02/09
+ */
 public interface CPacketMoveVehicle {
     double getX();
     double getY();

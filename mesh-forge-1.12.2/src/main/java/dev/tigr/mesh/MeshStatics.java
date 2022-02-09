@@ -1,13 +1,12 @@
 package dev.tigr.mesh;
 
 import dev.tigr.mesh.api.render.BufferBuilder;
-import dev.tigr.mesh.api.util.Session;
 import dev.tigr.mesh.impl.conversion.MCEnum;
 import dev.tigr.mesh.impl.mixininterface.entity.Entity;
 import dev.tigr.mesh.impl.mixininterface.math.*;
 import dev.tigr.mesh.impl.mixininterface.packet.client.*;
+import dev.tigr.mesh.impl.mixininterface.util.Session;
 import dev.tigr.mesh.impl.render.BufferBuilderMesh;
-import dev.tigr.mesh.impl.util.SessionMesh;
 import dev.tigr.mesh.util.math.Facing;
 import dev.tigr.mesh.util.math.Hand;
 import net.minecraft.network.play.client.CPacketPlayer;
@@ -22,8 +21,8 @@ import org.lwjgl.util.vector.Vector3f;
  */
 public class MeshStatics {
     // types: legacy, mojang, msa (only on newer versions)
-    public static Session<?> createSession(String username, String uuid, String accessToken, String type) {
-        return new SessionMesh(new net.minecraft.util.Session(username, uuid, accessToken, type));
+    public static Session createSession(String username, String uuid, String accessToken, String type) {
+        return (Session) new net.minecraft.util.Session(username, uuid, accessToken, type);
     }
 
     public static Box createBox(double x1, double y1, double z1, double x2, double y2, double z2) {

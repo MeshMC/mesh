@@ -5,6 +5,10 @@ import dev.tigr.mesh.impl.mixininterface.entity.Entity;
 import dev.tigr.mesh.impl.mixininterface.math.Vec3d;
 import dev.tigr.mesh.util.math.Hand;
 
+/**
+ * Provides an interface for entity interaction packets
+ * @author Makrennel 2022/02/09
+ */
 public interface CPacketUseEntity {
     enum Action {
         INTERACT, ATTACK, INTERACT_AT;

@@ -48,12 +48,12 @@
     "math.MixinVec3f",
     "math.MixinVec3i",
     "packet.client.MixinCPacketInput",
-    "packet.client.moveplayer.MixinCPacketMovePlayer",
     "packet.client.MixinCPacketMoveVehicle",
     "packet.client.MixinCPacketSteerBoat",
     "packet.client.MixinCPacketUseBlock",
     "packet.client.MixinCPacketUseEntity",
     "packet.client.MixinCPacketUseItem",
+    "packet.client.moveplayer.MixinCPacketMovePlayer",
     "packet.client.moveplayer.MixinFull",
     "packet.client.moveplayer.MixinMoving",
     "packet.client.moveplayer.MixinRotating"
@@ -61,8 +61,10 @@
   "client": [
     "client.MixinClientWorld",
     "client.MixinMinecraft",
+    "client.MixinSession",
     "entity.living.player.MixinEntityAbstractClientPlayer",
     "entity.living.player.MixinEntityOtherClientPlayer",
-    "math.MixinVec2f"
+    "math.MixinVec2f",
+    "render.MixinTextRenderer"
   ]
 }

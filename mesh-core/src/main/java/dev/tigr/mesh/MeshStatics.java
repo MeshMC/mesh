@@ -1,10 +1,10 @@
 package dev.tigr.mesh;
 
 import dev.tigr.mesh.api.render.BufferBuilder;
-import dev.tigr.mesh.api.util.Session;
 import dev.tigr.mesh.impl.mixininterface.entity.Entity;
 import dev.tigr.mesh.impl.mixininterface.math.*;
 import dev.tigr.mesh.impl.mixininterface.packet.client.*;
+import dev.tigr.mesh.impl.mixininterface.util.Session;
 import dev.tigr.mesh.util.math.Facing;
 import dev.tigr.mesh.util.math.Hand;
 
@@ -17,7 +17,7 @@ import dev.tigr.mesh.util.math.Hand;
  */
 public class MeshStatics {
     // types: legacy, mojang, msa (only on newer versions)
-    public static Session<?> createSession(String username, String uuid, String accessToken, String type) {
+    public static Session createSession(String username, String uuid, String accessToken, String type) {
         throw new RuntimeException();
     }
 

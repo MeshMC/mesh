@@ -14,6 +14,7 @@
     "client.MixinClientWorld",
     "client.MixinGameRenderer",
     "client.MixinMinecraftClient",
+    "client.MixinSession",
     "client.MixinWorld",
     "entity.MixinEntity",
     "entity.living.MixinEntityLiving",
@@ -73,7 +74,8 @@
     "packet.client.MixinCPacketSteerBoat",
     "packet.client.MixinCPacketUseBlock",
     "packet.client.MixinCPacketUseEntity",
-    "packet.client.MixinCPacketUseItem"
+    "packet.client.MixinCPacketUseItem",
+    "render.MixinTextRenderer"
   ],
   "client": [
     "math.MixinVec2f"

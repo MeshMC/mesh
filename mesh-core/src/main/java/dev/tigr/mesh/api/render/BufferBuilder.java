@@ -17,9 +17,6 @@ public abstract class BufferBuilder<T> extends AbstractMesh<T> {
         return MeshStatics.createBufferBuilder(initialCapacity);
     }
 
-    private Renderer.DrawMode drawMode = null;
-    private Renderer.VertexFormat vertexFormat = null;
-
     public abstract void begin(Renderer.DrawMode drawMode, Renderer.VertexFormat vertexFormat);
 
     public abstract void construct(Vertex... vertices);

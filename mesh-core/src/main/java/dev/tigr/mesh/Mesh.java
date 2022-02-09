@@ -1,6 +1,6 @@
 package dev.tigr.mesh;
 
-import dev.tigr.mesh.api.Minecraft;
+import dev.tigr.mesh.impl.mixininterface.client.Minecraft;
 import dev.tigr.mesh.api.render.Renderer;
 import dev.tigr.mesh.event.MeshEventManager;
 import dev.tigr.simpleevents.EventManager;
@@ -170,7 +170,7 @@ public abstract class Mesh {
      * Gets the Mesh interface for Minecraft's main instance
      * @return The current {@link Minecraft} instance
      */
-    public abstract Minecraft<?> getMinecraft();
+    public abstract Minecraft getMinecraft();
 
     /**
      * Gets the Mesh interface for rendering

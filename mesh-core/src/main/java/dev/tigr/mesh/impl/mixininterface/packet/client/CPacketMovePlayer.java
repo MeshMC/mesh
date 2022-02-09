@@ -4,6 +4,10 @@ import dev.tigr.mesh.MeshStatics;
 import dev.tigr.mesh.impl.mixininterface.math.Vec2f;
 import dev.tigr.mesh.impl.mixininterface.math.Vec3d;
 
+/**
+ * Provides an interface for player position and rotation packets
+ * @author Makrennel 2022/02/09
+ */
 public interface CPacketMovePlayer {
     static CPacketMovePlayer create(boolean onGround) {
         return MeshStatics.createCPacketMovePlayerOnGround(onGround);
