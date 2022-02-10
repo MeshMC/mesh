@@ -3,7 +3,6 @@ package dev.tigr.mesh.impl.mixininterface.client;
 import dev.tigr.mesh.api.util.Profiler;
 import dev.tigr.mesh.impl.mixininterface.entity.living.player.EntityClientPlayer;
 import dev.tigr.mesh.impl.mixininterface.render.TextRenderer;
-import dev.tigr.mesh.impl.mixininterface.util.Session;
 import dev.tigr.mesh.impl.mixininterface.world.ClientWorld;
 
 /**

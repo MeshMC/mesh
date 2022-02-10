@@ -3,7 +3,7 @@ package dev.tigr.mesh.impl;
 import dev.tigr.mesh.Mesh;
 import dev.tigr.mesh.api.render.Renderer;
 import dev.tigr.mesh.impl.mixininterface.client.Minecraft;
-import dev.tigr.mesh.impl.render.RendererMesh;
+import dev.tigr.mesh.impl.wrapper.render.RendererMesh;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;

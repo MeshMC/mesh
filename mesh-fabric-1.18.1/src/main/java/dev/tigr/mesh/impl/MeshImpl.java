@@ -3,7 +3,7 @@ package dev.tigr.mesh.impl;
 import dev.tigr.mesh.Mesh;
 import dev.tigr.mesh.api.render.Renderer;
 import dev.tigr.mesh.impl.mixininterface.client.Minecraft;
-import dev.tigr.mesh.impl.render.RendererMesh;
+import dev.tigr.mesh.impl.wrapper.render.RendererMesh;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.MinecraftClient;
 

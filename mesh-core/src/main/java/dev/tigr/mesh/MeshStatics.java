@@ -4,7 +4,7 @@ import dev.tigr.mesh.api.render.BufferBuilder;
 import dev.tigr.mesh.impl.mixininterface.entity.Entity;
 import dev.tigr.mesh.impl.mixininterface.math.*;
 import dev.tigr.mesh.impl.mixininterface.packet.client.*;
-import dev.tigr.mesh.impl.mixininterface.util.Session;
+import dev.tigr.mesh.impl.mixininterface.client.Session;
 import dev.tigr.mesh.util.math.Facing;
 import dev.tigr.mesh.util.math.Hand;
 

@@ -4,7 +4,7 @@ import dev.tigr.mesh.Mesh;
 import dev.tigr.mesh.api.render.BufferBuilder;
 import dev.tigr.mesh.api.render.Renderer;
 import dev.tigr.mesh.event.MeshEvent;
-import dev.tigr.mesh.event.events.TickEvent;
+import dev.tigr.mesh.event.events.client.TickEvent;
 import dev.tigr.mesh.event.events.client.PacketEvent;
 import dev.tigr.mesh.event.events.render.HudRenderEvent;
 import dev.tigr.mesh.impl.mixininterface.entity.Entity;
@@ -128,6 +128,8 @@ public class ExampleMod {
         MESH.getRenderer().getRenderState()
                 .alpha(true)
                 .depth(true)
+                .blend(false)
+                .cull(true)
                 .lineWeight(1);
     });
 }
