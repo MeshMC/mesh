@@ -11,8 +11,10 @@ import java.util.Objects;
  */
 public class MeshLoader {
     public static File unpack(String loader, String version, ClassLoader classLoader) throws Exception {
-        String path = "mesh-" + loader + "-" + version + ".jar";
+        return unpack("mesh-" + loader + "-" + version + ".jar", classLoader);
+    }
 
+    public static File unpack(String path, ClassLoader classLoader) throws Exception {
         // create temp file of jar to load from classpath
         File tempFile = File.createTempFile("mesh", ".jar");
         tempFile.deleteOnExit();
@@ -26,6 +28,12 @@ public class MeshLoader {
         fos.close();
         is.close();
         return tempFile;
+    }
+
+    public static void load(ClassLoader classLoader, File... files) throws Exception {
+        for(File file: files) {
+            load(classLoader, file);
+        }
     }
 
     private static Method ADDURL_URLCLASSLOADER = null;

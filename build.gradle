@@ -23,29 +23,28 @@ subprojects {
             name = "Fabric"
             url = "https://maven.fabricmc.net/"
         }
-        maven {
-            name = "jitpack.io"
-            url = "https://jitpack.io"
-        }
     }
 
-    dependencies {
-        implementation "dev.tigr:simpleevents:1.2"
-        implementation "org.reflections:reflections:0.10.2"
-    }
-
-    // copy artifacts to root build folder after build
-    tasks.getByName("build").doLast {
-        if(!project.name.startsWith("mesh-f")) {
+    // copy the main artifacts to root build folder after build
+    if(project.name == "mesh-loader" || project.name == "example") {
+        tasks.getByName("build").doLast {
             copy {
                 from "${project.rootProject.rootDir}/${project.name}/build/libs/${project.name}-${project.meshVersion}.jar"
                 into "${project.rootProject.rootDir}/build"
             }
-        } else {
+        }
+    } else if(project.name != "mesh-core") {
+        // standalone artifacts
+        tasks.getByName("build").doLast {
             copy {
-                from "${project.rootProject.rootDir}/${project.name}/build/libs/${project.name}-${project.meshVersion}-all.jar"
+                from "${project.rootProject.rootDir}/${project.name}/build/libs/${project.name}-${project.meshVersion}-standalone.jar"
                 into "${project.rootProject.rootDir}/build"
             }
         }
     }
+
+    clean {
+        delete "${project.rootProject.rootDir}/build"
+    }
 }
+

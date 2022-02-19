@@ -2,10 +2,13 @@ plugins {
     id "fabric-loom" version "0.8-SNAPSHOT"
 }
 
-sourceCompatibility = targetCompatibility = JavaVersion.VERSION_17
+tasks.withType(JavaCompile) {
+    options.release.set(17)
+    options.encoding = "UTF-8"
+}
 
 configurations {
-    embeddedLibs
+    coreLibs
 }
 
 dependencies {
@@ -13,8 +16,11 @@ dependencies {
     mappings "net.fabricmc:yarn:1.18.1+build.1:v2"
     modImplementation "net.fabricmc:fabric-loader:0.12.10"
 
-    implementation(project(":mesh-core"))
-    embeddedLibs(project(":mesh-core"))
+    coreLibs(project(":mesh-core")) {
+        exclude module: "log4j-api"
+    }
+
+    implementation configurations.coreLibs
 }
 
 loom {
@@ -29,21 +35,24 @@ processResources {
     }
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
-    options.release.set(17)
-}
-
-jar {
+task standaloneJar(type: Jar) {
+    from {
+        tasks.remapJar.outputs.collect {
+            it.files.collect {
+                it.isDirectory() ? it : zipTree(it)
+            }
+        }
+    }
     from {
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
-        configurations.embeddedLibs.filter {
-            it.name.startsWith("mesh-core") ||
-            it.name.startsWith("reflections") ||
-            it.name.startsWith("javassist") ||
-            it.name.startsWith("simpleevents")
-        }.collect {
+        configurations.coreLibs.collect {
             it.isDirectory() ? it : zipTree(it)
         }
     }
+    archiveClassifier.set("standalone")
+
+    exclude "META-INF/maven", "META-INF/maven/**", "META-INF/versions", "META-INF/versions/**" ,
+            "META-INF/proguard", "META-INF/proguard/**", "META-INF/com.android.tools",
+            "META-INF/com.android.tools/**", "DebugProbesKt.bin"
 }
+build.dependsOn("standaloneJar")

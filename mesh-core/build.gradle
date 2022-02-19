@@ -1,9 +1,44 @@
-sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+compileJava {
+    sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+    options.encoding = "UTF-8"
+}
+
+configurations {
+    embeddedLibs
+}
 
 dependencies {
     implementation "org.apache.logging.log4j:log4j-api:2.17.0"
+
+    embeddedLibs "dev.tigr:simpleevents:1.2"
+
+    embeddedLibs("org.reflections:reflections:0.10.2") {
+        exclude module: "gson"
+        exclude module: "guava"
+    }
+
+    implementation configurations.embeddedLibs
+
+    embeddedLibs("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
+    embeddedLibs("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
+    embeddedLibs("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion")
+    embeddedLibs("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
+    embeddedLibs("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+    embeddedLibs("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:$coroutinesVersion")
+    embeddedLibs("org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:$serializationVersion")
+    embeddedLibs("org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:$serializationVersion")
+    embeddedLibs("org.jetbrains.kotlinx:kotlinx-serialization-cbor-jvm:$serializationVersion")
 }
 
 jar {
-    exclude "dev/tigr/mesh/MeshStatics.class"
+    from {
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+        configurations.embeddedLibs.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+
+    exclude "dev/tigr/mesh/MeshStatics.class", "META-INF/maven", "META-INF/maven/**",
+            "META-INF/versions", "META-INF/versions/**", "META-INF/proguard", "META-INF/proguard/**",
+            "META-INF/com.android.tools", "META-INF/com.android.tools/**", "DebugProbesKt.bin"
 }

@@ -18,10 +18,14 @@ buildscript {
 apply plugin: "net.minecraftforge.gradle"
 apply plugin: "org.spongepowered.mixin"
 
-sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+compileJava {
+    sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+    options.encoding = "UTF-8"
+}
 
 configurations {
     embeddedLibs
+    coreLibs
 }
 
 minecraft {
@@ -31,12 +35,22 @@ minecraft {
 dependencies {
     minecraft "net.minecraftforge:forge:1.12.2-14.23.5.2854"
 
-    implementation(project(":mesh-core"))
-    embeddedLibs(project(":mesh-core"))
+    coreLibs(project(":mesh-core")) {
+        exclude module: "log4j-api"
+    }
 
-    implementation "org.spongepowered:mixin:0.7.11-SNAPSHOT"
-    embeddedLibs "org.spongepowered:mixin:0.7.11-SNAPSHOT"
+    implementation configurations.coreLibs
+
+    embeddedLibs("org.spongepowered:mixin:0.7.11-SNAPSHOT") {
+        exclude module: "commons-io"
+        exclude module: "gson"
+        exclude module: "guava"
+        exclude module: "launchwrapper"
+        exclude module: "log4j-core"
+    }
     annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
+
+    implementation configurations.embeddedLibs
 }
 
 processResources {
@@ -58,22 +72,15 @@ mixin {
 }
 
 jar {
+    from(sourceSets.main.java)
     from {
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
-        configurations.embeddedLibs.filter {
-            it.name.startsWith("mesh-core") ||
-            it.name.startsWith("reflections") ||
-            it.name.startsWith("slf4j") ||
-            it.name.startsWith("mixin") ||
-            it.name.startsWith("javassist") ||
-            it.name.startsWith("simpleevents")
-        }.collect {
+        configurations.embeddedLibs.collect {
             it.isDirectory() ? it : zipTree(it)
         }
     }
 
-    exclude "module-info.class"
-    exclude "LICENSE.txt"
+    exclude "LICENSE.txt", "META-INF/MUMFREY.RSA"
 
     //noinspection GroovyAssignabilityCheck
     manifest {
@@ -87,3 +94,30 @@ jar {
         )
     }
 }
+
+task standaloneJar(type: Jar) {
+    from {
+        tasks.jar.outputs.collect {
+            it.files.collect {
+                it.isDirectory() ? it : zipTree(it)
+            }
+        }
+    }
+    from {
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+        configurations.coreLibs.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    archiveClassifier.set("standalone")
+
+    exclude "META-INF/maven", "META-INF/maven/**", "META-INF/versions", "META-INF/versions/**" ,
+            "META-INF/proguard", "META-INF/proguard/**", "META-INF/com.android.tools",
+            "META-INF/com.android.tools/**", "DebugProbesKt.bin"
+
+    //noinspection GroovyAssignabilityCheck
+    manifest {
+        attributes(tasks.jar.manifest.attributes)
+    }
+}
+build.dependsOn("standaloneJar")

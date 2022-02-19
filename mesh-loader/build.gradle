@@ -1,4 +1,7 @@
-sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+compileJava {
+    sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+    options.encoding = "UTF-8"
+}
 
 configurations {
     embeddedJars
@@ -9,9 +12,14 @@ dependencies {
 
     implementation "org.spongepowered:mixin:0.8.5-SNAPSHOT"
 
+    embeddedJars(project(":mesh-core")) {
+        exclude module: "log4j-api"
+    }
+
     // mesh implementations
     embeddedJars(project(":mesh-fabric-1.18.1")) {
         exclude module: "fabric-loader"
+        exclude module: "fabric-language-kotlin"
     }
     embeddedJars(project(":mesh-forge-1.12.2")) {
         exclude group: "net.minecraftforge"
@@ -31,7 +39,7 @@ jar {
     // it also converts unmapped fabric jars (-dev) to mapped
     def mapped = []
     from(configurations.embeddedJars.filter {
-        if(it.name.startsWith("mesh-f")) {
+        if(it.name.startsWith("mesh-")) {
             if(it.name.endsWith("-dev.jar")) {
                 mapped.add(new File(it.path.replace("-dev", "")))
                 return false
@@ -44,7 +52,7 @@ jar {
         // remove version from jar filename
         if(filename.startsWith("mesh-f")) {
             return filename.substring(0, filename.indexOf("-", 16)) + ".jar" // don't question the 16 :/
-        }
+        } else if(filename.startsWith("mesh-core")) return "mesh-core.jar"
         else return filename
     }
 

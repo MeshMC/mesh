@@ -30,9 +30,10 @@ public class MeshForgeTweaker implements ITweaker {
 
         try {
             // load the forge version on both class loaders
+            File meshCore = MeshLoader.unpack("mesh-core.jar", getClass().getClassLoader());
             File mesh = MeshLoader.unpack("forge", gameVersion, getClass().getClassLoader());
-            MeshLoader.load(getClass().getClassLoader(), mesh);
-            MeshLoader.load(classLoader, mesh);
+            MeshLoader.load(getClass().getClassLoader(), meshCore, mesh);
+            MeshLoader.load(classLoader, meshCore, mesh);
 
             // add mixin tweaker to the tweaker list
             Map<String,Object> blackboard = (Map<String,Object>) LAUNCH_CLASS.getField("blackboard").get(null);

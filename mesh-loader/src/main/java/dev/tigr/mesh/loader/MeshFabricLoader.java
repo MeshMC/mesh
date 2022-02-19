@@ -19,9 +19,11 @@ public class MeshFabricLoader implements ModInitializer, PreLaunchEntrypoint {
         if(classLoader == null || gameVersion == null || !isVersionSupported(classLoader, gameVersion)) return;
 
         try {
-            // load the jar file
-            File mesh = MeshLoader.unpack("fabric", gameVersion, classLoader);
-            MeshLoader.load(classLoader, mesh);
+            MeshLoader.load(
+                classLoader,
+                MeshLoader.unpack("mesh-core.jar", classLoader),
+                MeshLoader.unpack("fabric", gameVersion, classLoader)
+            );
 
             // add mixins
             Mixins.addConfiguration("mesh.mixins.json");

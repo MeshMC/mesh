@@ -69,6 +69,15 @@ public abstract class Mesh {
         String description() default "";
     }
 
+    /**
+     * Marks the method to be called from mesh on initialization
+     * This should be used by mods for initialization so that if the loading stage of mesh mods ever change,
+     * the initialization point will stay the same
+     */
+    public interface Initializer {
+        void init();
+    }
+
     private final LoaderType loaderType;
     private final String loaderVersion;
 
@@ -118,7 +127,8 @@ public abstract class Mesh {
             Mod mod = clazz.getDeclaredAnnotation(Mod.class);
             if(mod != null) {
                 try {
-                    clazz.getDeclaredMethod("init").invoke(clazz.getConstructor().newInstance());
+                    Object modObject = clazz.getConstructor().newInstance();
+                    if(modObject instanceof Initializer) ((Initializer) modObject).init();
                 } catch(NoSuchMethodException | InstantiationException |
                         IllegalAccessException | InvocationTargetException e) {
                     e.printStackTrace();
