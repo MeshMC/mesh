@@ -10,15 +10,15 @@
     "Makrennel"
   ],
   "contact": {
-    "homepage": "https://tigr.dev/"
+    "homepage": "https://meshmc.net/"
   },
   "environment": "*",
   "entrypoints": {
     "preLaunch": [
-      "dev.tigr.mesh.loader.MeshFabricLoader"
+      "net.meshmc.mesh.loader.MeshFabricLoader"
     ],
     "main": [
-      "dev.tigr.mesh.loader.MeshFabricLoader"
+      "net.meshmc.mesh.loader.MeshFabricLoader"
     ]
   },
   "mixins": [

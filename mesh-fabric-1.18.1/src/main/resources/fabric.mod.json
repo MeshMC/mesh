@@ -10,12 +10,12 @@
     "Makrennel"
   ],
   "contact": {
-    "homepage": "https://tigr.dev/"
+    "homepage": "https://meshmc.net/"
   },
   "environment": "*",
   "entrypoints": {
     "main": [
-      "dev.tigr.mesh.impl.MeshImpl"
+      "net.meshmc.mesh.impl.MeshImpl"
     ]
   },
   "mixins": [

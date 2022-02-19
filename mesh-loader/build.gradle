@@ -62,7 +62,7 @@ jar {
     //noinspection GroovyAssignabilityCheck
     manifest {
         attributes(
-            "TweakClass": "dev.tigr.mesh.loader.MeshForgeTweaker",
+            "TweakClass": "net.meshmc.mesh.loader.MeshForgeTweaker",
             "TweakOrder": 0
         )
     }

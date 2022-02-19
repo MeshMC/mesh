@@ -38,7 +38,7 @@ jar {
         }
     }
 
-    exclude "dev/tigr/mesh/MeshStatics.class", "META-INF/maven", "META-INF/maven/**",
+    exclude "net/meshmc/mesh/MeshStatics.class", "META-INF/maven", "META-INF/maven/**",
             "META-INF/versions", "META-INF/versions/**", "META-INF/proguard", "META-INF/proguard/**",
             "META-INF/com.android.tools", "META-INF/com.android.tools/**", "DebugProbesKt.bin"
 }

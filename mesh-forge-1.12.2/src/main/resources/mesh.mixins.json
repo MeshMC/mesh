@@ -1,7 +1,7 @@
 {
   "required": true,
   "compatibilityLevel": "JAVA_8",
-  "package": "dev.tigr.mesh.impl.mixin",
+  "package": "net.meshmc.mesh.impl.mixin",
   "refmap": "mesh.mixins.refmap.json",
   "mixins": [
     "accessors.MinecraftAccessor",
