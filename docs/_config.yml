@@ -1,0 +1,31 @@
+title: MeshMC
+author: Tigermouthbear & Makrennel
+#email: example@example.com
+description: >-
+  Mesh is a cross-version minecraft mod development platform for Forge and Fabric.
+  It supports modern programming, being compatible with Kotlin out of the box, and 
+  a wide varity of other APIs and standard features.
+baseurl: ""
+url: ""
+github_username:  MeshMC
+
+theme: minima
+
+show_excerpts: true
+
+minima:
+  date_format: "%Y-%m-%d"
+
+header_pages:
+  - _pages/about.md
+
+include:
+    - _pages
+
+exclude: 
+    - .gitignore
+    - docker-compose.yml
+    - Gemfile
+    - Gemfile.lock
+    - LICENSE
+    - README.md
