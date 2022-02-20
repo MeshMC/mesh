@@ -25,6 +25,11 @@ To run a Mesh mod, place the Mesh Loader or the Mesh API for the minecraft versi
 Then place the Mesh mods you want to run in the mods folder too. When you run supported mod loaders and versions, the
 Mesh mod will be loaded at start!
 
+## Example Mesh Mods
+Mesh supports Kotlin and Java mods, and we provide example mods for both languages. You should check them out!
+- [Kotlin Example Mod](https://github.com/MeshMC/mesh-examplemod-fabric)
+- [Java Example Mod](https://github.com/MeshMC/mesh-examplemod-java)
+
 ## Contributing
 Contributions will be vital for this project because it deals with many versions of Minecraft.
-Please read [contributing.md](CONTRIBUTING.md) if you plan on contributing.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) if you plan on contributing.
