@@ -1,6 +1,6 @@
 package net.meshmc.mesh.util.render;
 
-import net.meshmc.mesh.impl.mixininterface.math.Vec3d;
+import net.meshmc.mesh.api.math.Vec3d;
 
 /**
  * @author Makrennel 2022/01/18

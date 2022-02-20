@@ -16,6 +16,8 @@ dependencies {
     mappings "net.fabricmc:yarn:1.18.1+build.1:v2"
     modImplementation "net.fabricmc:fabric-loader:0.12.10"
 
+    implementation "dev.tigr:simpleevents:1.2"
+
     coreLibs(project(":mesh-core")) {
         exclude module: "log4j-api"
     }

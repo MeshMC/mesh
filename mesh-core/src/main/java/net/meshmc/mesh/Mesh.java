@@ -1,6 +1,6 @@
 package net.meshmc.mesh;
 
-import net.meshmc.mesh.impl.mixininterface.client.Minecraft;
+import net.meshmc.mesh.api.client.Minecraft;
 import net.meshmc.mesh.api.render.Renderer;
 import net.meshmc.mesh.event.MeshEventManager;
 import dev.tigr.simpleevents.EventManager;

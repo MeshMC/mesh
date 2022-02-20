@@ -1,7 +1,7 @@
 package net.meshmc.mesh.impl.wrapper.util;
 
 import net.meshmc.mesh.api.AbstractMesh;
-import net.meshmc.mesh.impl.mixininterface.entity.Entity;
+import net.meshmc.mesh.api.entity.Entity;
 
 import java.util.Iterator;
 

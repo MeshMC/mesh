@@ -1,10 +1,10 @@
 package net.meshmc.mesh;
 
 import net.meshmc.mesh.api.render.BufferBuilder;
-import net.meshmc.mesh.impl.conversion.MCEnum;
-import net.meshmc.mesh.impl.mixininterface.entity.Entity;
-import net.meshmc.mesh.impl.mixininterface.client.Session;
-import net.meshmc.mesh.impl.mixininterface.math.*;
+import net.meshmc.mesh.impl.util.MCEnum;
+import net.meshmc.mesh.api.entity.Entity;
+import net.meshmc.mesh.api.client.Session;
+import net.meshmc.mesh.api.math.*;
 import net.meshmc.mesh.impl.wrapper.render.BufferBuilderMesh;
 import net.meshmc.mesh.util.math.Facing;
 import net.meshmc.mesh.util.math.Hand;
@@ -13,7 +13,7 @@ import net.minecraft.network.play.client.CPacketPlayerTryUseItem;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.network.play.client.CPacketVehicleMove;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.meshmc.mesh.impl.mixininterface.packet.client.*;
+import net.meshmc.mesh.api.packet.client.*;
 import org.lwjgl.util.vector.Vector3f;
 
 /**

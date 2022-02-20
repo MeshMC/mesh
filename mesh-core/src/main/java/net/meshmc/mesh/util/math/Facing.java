@@ -1,6 +1,6 @@
 package net.meshmc.mesh.util.math;
 
-import net.meshmc.mesh.impl.mixininterface.math.Vec3i;
+import net.meshmc.mesh.api.math.Vec3i;
 
 /**
     A direction in the 3d world
