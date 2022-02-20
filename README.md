@@ -27,7 +27,7 @@ Mesh mod will be loaded at start!
 
 ## Example Mesh Mods
 Mesh supports Kotlin and Java mods, and we provide example mods for both languages. You should check them out!
-- [Kotlin Example Mod](https://github.com/MeshMC/mesh-examplemod-fabric)
+- [Kotlin Example Mod](https://github.com/MeshMC/mesh-examplemod-kotlin)
 - [Java Example Mod](https://github.com/MeshMC/mesh-examplemod-java)
 
 ## Contributing
