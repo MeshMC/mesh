@@ -74,6 +74,10 @@ public class MeshStatics {
         throw new RuntimeException();
     }
 
+    public static CPacketMoveVehicle createCPacketMoveVehicle(double x, double y, double z, float yaw, float pitch) {
+        throw new RuntimeException();
+    }
+
     public static CPacketSteerBoat createCPacketSteerBoat(boolean left, boolean right) {
         throw new RuntimeException();
     }
@@ -95,6 +99,14 @@ public class MeshStatics {
     }
 
     public static CPacketUseItem createCPacketUseItem(Hand hand) {
+        throw new RuntimeException();
+    }
+
+    public static CPacketHandSwing createCPacketHandSwing(Hand hand) {
+        throw new RuntimeException();
+    }
+
+    public static CPacketChatMessage createCPacketChatMessage(String message) {
         throw new RuntimeException();
     }
 }

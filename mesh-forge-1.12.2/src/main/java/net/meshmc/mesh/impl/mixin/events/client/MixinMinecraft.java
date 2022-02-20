@@ -13,21 +13,21 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MixinMinecraft {
     @Inject(method = "runTick", at = @At("HEAD"))
     public void preTick(CallbackInfo ci) {
-        Mesh.getMesh().getEventManager().post(new TickEvent(TickEvent.Type.CLIENT, MeshEvent.Era.BEFORE));
+        Mesh.getMesh().getEventManager().post(new TickEvent.Client(MeshEvent.Era.BEFORE));
     }
 
     @Inject(method = "runTick", at = @At("RETURN"))
     public void postTick(CallbackInfo ci) {
-        Mesh.getMesh().getEventManager().post(new TickEvent(TickEvent.Type.CLIENT, MeshEvent.Era.AFTER));
+        Mesh.getMesh().getEventManager().post(new TickEvent.Client(MeshEvent.Era.AFTER));
     }
 
     @Inject(method = "runGameLoop", at = @At("HEAD"))
     public void preGameLoop(CallbackInfo ci) {
-        Mesh.getMesh().getEventManager().post(new TickEvent(TickEvent.Type.GAMELOOP, MeshEvent.Era.BEFORE));
+        Mesh.getMesh().getEventManager().post(new TickEvent.GameLoop(MeshEvent.Era.BEFORE));
     }
 
     @Inject(method = "runGameLoop", at = @At("RETURN"))
     public void postGameLoop(CallbackInfo ci) {
-        Mesh.getMesh().getEventManager().post(new TickEvent(TickEvent.Type.GAMELOOP, MeshEvent.Era.AFTER));
+        Mesh.getMesh().getEventManager().post(new TickEvent.GameLoop(MeshEvent.Era.AFTER));
     }
 }

@@ -1,5 +1,6 @@
 package net.meshmc.mesh;
 
+import io.netty.buffer.Unpooled;
 import net.meshmc.mesh.api.render.BufferBuilder;
 import net.meshmc.mesh.impl.util.MCEnum;
 import net.meshmc.mesh.api.entity.Entity;
@@ -7,6 +8,7 @@ import net.meshmc.mesh.api.client.Session;
 import net.meshmc.mesh.api.math.*;
 import net.meshmc.mesh.impl.wrapper.render.BufferBuilderMesh;
 import net.meshmc.mesh.util.math.Facing;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.c2s.play.*;
 import net.minecraft.util.hit.BlockHitResult;
 import net.meshmc.mesh.api.packet.client.*;
@@ -74,6 +76,17 @@ public class MeshStatics {
         return (CPacketMoveVehicle) new VehicleMoveC2SPacket((net.minecraft.entity.Entity) entity);
     }
 
+    public static CPacketMoveVehicle createCPacketMoveVehicle(double x, double y, double z, float yaw, float pitch) {
+        // kind of a hack
+        PacketByteBuf packetByteBuf = new PacketByteBuf(Unpooled.buffer());
+        packetByteBuf.writeDouble(x);
+        packetByteBuf.writeDouble(y);
+        packetByteBuf.writeDouble(z);
+        packetByteBuf.writeFloat(yaw);
+        packetByteBuf.writeFloat(pitch);
+        return (CPacketMoveVehicle) new VehicleMoveC2SPacket(packetByteBuf);
+    }
+
     public static CPacketSteerBoat createCPacketSteerBoat(boolean left, boolean right) {
         return (CPacketSteerBoat) new BoatPaddleStateC2SPacket(left, right);
     }
@@ -96,5 +109,13 @@ public class MeshStatics {
 
     public static CPacketUseItem createCPacketUseItem(Hand hand) {
         return (CPacketUseItem) new PlayerInteractItemC2SPacket(MCEnum.hand(hand));
+    }
+
+    public static CPacketHandSwing createCPacketHandSwing(Hand hand) {
+        return (CPacketHandSwing) new HandSwingC2SPacket(MCEnum.hand(hand));
+    }
+
+    public static CPacketChatMessage createCPacketChatMessage(String message) {
+        return (CPacketChatMessage) new ChatMessageC2SPacket(message);
     }
 }

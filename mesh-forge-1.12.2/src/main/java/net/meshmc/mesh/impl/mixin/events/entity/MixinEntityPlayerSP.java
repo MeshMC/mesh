@@ -13,11 +13,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MixinEntityPlayerSP {
     @Inject(method = "onLivingUpdate", at = @At("HEAD"))
     public void preMotion(CallbackInfo ci) {
-        Mesh.getMesh().getEventManager().post(new TickEvent(TickEvent.Type.MOTION, MeshEvent.Era.BEFORE));
+        Mesh.getMesh().getEventManager().post(new TickEvent.Motion(MeshEvent.Era.BEFORE));
     }
 
     @Inject(method = "onLivingUpdate", at = @At("RETURN"))
     public void postMotion(CallbackInfo ci) {
-        Mesh.getMesh().getEventManager().post(new TickEvent(TickEvent.Type.MOTION, MeshEvent.Era.AFTER));
+        Mesh.getMesh().getEventManager().post(new TickEvent.Motion(MeshEvent.Era.AFTER));
     }
 }

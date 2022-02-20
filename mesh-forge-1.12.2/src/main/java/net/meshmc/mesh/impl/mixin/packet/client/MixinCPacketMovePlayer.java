@@ -1,4 +1,4 @@
-package net.meshmc.mesh.impl.mixin.packet.client.moveplayer;
+package net.meshmc.mesh.impl.mixin.packet.client;
 
 import net.meshmc.mesh.api.packet.client.CPacketMovePlayer;
 import net.minecraft.network.play.client.CPacketPlayer;
@@ -94,5 +94,17 @@ public class MixinCPacketMovePlayer implements CPacketMovePlayer {
     @Override
     public void setRotating(boolean value) {
         rotating = value;
+    }
+
+    @Mixin(CPacketPlayer.Position.class)
+    public static class MixinMoving extends MixinCPacketMovePlayer implements CPacketMovePlayer {
+    }
+
+    @Mixin(CPacketPlayer.Rotation.class)
+    public static class MixinRotating extends MixinCPacketMovePlayer implements CPacketMovePlayer {
+    }
+
+    @Mixin(CPacketPlayer.PositionRotation.class)
+    public static class MixinFull extends MixinCPacketMovePlayer implements CPacketMovePlayer {
     }
 }

@@ -1,5 +1,6 @@
 package net.meshmc.mesh.api.packet.client;
 
+import net.meshmc.mesh.MeshStatics;
 import net.meshmc.mesh.api.math.BlockPos;
 import net.meshmc.mesh.api.math.Vec3d;
 import net.meshmc.mesh.util.math.Facing;
@@ -10,6 +11,10 @@ import net.meshmc.mesh.util.math.Hand;
  * @author Makrennel 2022/02/09
  */
 public interface CPacketUseBlock {
+    static CPacketUseBlock createCPacketUseBlock(Hand hand, BlockPos blockPos, Facing facing, Vec3d vector, boolean insideBlock) {
+        return MeshStatics.createCPacketUseBlock(hand, blockPos, facing, vector, insideBlock);
+    }
+
     BlockPos getBlockPos();
     void setBlockPos(BlockPos blockPos);
 

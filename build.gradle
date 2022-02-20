@@ -8,8 +8,8 @@ subprojects {
     repositories {
         mavenCentral()
         maven {
-            name = "tigr.dev"
-            url = "https://maven.tigr.dev"
+            name = "MeshMC"
+            url = "https://maven.meshmc.net"
         }
         maven {
             name = "Minecraft"

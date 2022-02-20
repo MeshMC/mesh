@@ -13,11 +13,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MixinClientWorld {
     @Inject(method = "tick", at = @At("HEAD"))
     public void preTick(CallbackInfo ci) {
-        Mesh.getMesh().getEventManager().post(new TickEvent(TickEvent.Type.WORLD, MeshEvent.Era.BEFORE));
+        Mesh.getMesh().getEventManager().post(new TickEvent.World(MeshEvent.Era.BEFORE));
     }
 
     @Inject(method = "tick", at = @At("RETURN"))
     public void postTick(CallbackInfo ci) {
-        Mesh.getMesh().getEventManager().post(new TickEvent(TickEvent.Type.WORLD, MeshEvent.Era.AFTER));
+        Mesh.getMesh().getEventManager().post(new TickEvent.World(MeshEvent.Era.AFTER));
     }
 }

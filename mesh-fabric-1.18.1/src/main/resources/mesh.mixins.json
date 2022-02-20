@@ -8,11 +8,6 @@
     "accessors.packet.InteractAtHandlerAccessor",
     "accessors.packet.InteractHandlerAccessor",
     "accessors.render.BufferBuilderAccessor",
-    "events.client.MixinClientConnection",
-    "events.entity.MixinClientPlayerEntity",
-    "events.world.MixinClientWorld",
-    "events.render.MixinInGameHud",
-    "events.client.MixinMinecraftClient",
     "client.MixinMinecraft",
     "client.MixinSession",
     "entity.MixinEntity",
@@ -58,11 +53,19 @@
     "entity.living.player.MixinEntityOtherClientPlayer",
     "entity.living.player.MixinEntityPlayer",
     "entity.living.player.MixinEntityServerPlayer",
+    "events.client.MixinClientConnection",
+    "events.client.MixinMinecraftClient",
+    "events.entity.MixinClientPlayerEntity",
+    "events.render.MixinInGameHud",
+    "events.world.MixinClientWorld",
     "math.MixinBlockPos",
     "math.MixinBox",
+    "math.MixinVec2f",
     "math.MixinVec3d",
     "math.MixinVec3f",
     "math.MixinVec3i",
+    "packet.client.MixinCPacketChatMessage",
+    "packet.client.MixinCPacketHandSwing",
     "packet.client.MixinCPacketInput",
     "packet.client.MixinCPacketMovePlayer",
     "packet.client.MixinCPacketMovePlayer$MixinFull",
@@ -77,8 +80,5 @@
     "render.MixinTextRenderer",
     "world.MixinClientWorld",
     "world.MixinWorld"
-  ],
-  "client": [
-    "math.MixinVec2f"
   ]
 }

@@ -1,5 +1,10 @@
 package net.meshmc.mesh;
 
+import io.netty.buffer.Unpooled;
+import net.meshmc.mesh.api.packet.client.CPacketChatMessage;
+import net.meshmc.mesh.api.packet.client.CPacketInput;
+import net.meshmc.mesh.api.packet.client.CPacketSteerBoat;
+import net.meshmc.mesh.api.packet.client.CPacketUseEntity;
 import net.meshmc.mesh.api.render.BufferBuilder;
 import net.meshmc.mesh.impl.util.MCEnum;
 import net.meshmc.mesh.api.entity.Entity;
@@ -8,13 +13,13 @@ import net.meshmc.mesh.api.math.*;
 import net.meshmc.mesh.impl.wrapper.render.BufferBuilderMesh;
 import net.meshmc.mesh.util.math.Facing;
 import net.meshmc.mesh.util.math.Hand;
-import net.minecraft.network.play.client.CPacketPlayer;
-import net.minecraft.network.play.client.CPacketPlayerTryUseItem;
-import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
-import net.minecraft.network.play.client.CPacketVehicleMove;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.play.client.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.meshmc.mesh.api.packet.client.*;
 import org.lwjgl.util.vector.Vector3f;
+
+import java.io.IOException;
 
 /**
  * @author Tigermouthbear 1/10/22
@@ -78,6 +83,24 @@ public class MeshStatics {
         return (CPacketMoveVehicle) new CPacketVehicleMove((net.minecraft.entity.Entity) entity);
     }
 
+    public static CPacketMoveVehicle createCPacketMoveVehicle(double x, double y, double z, float yaw, float pitch) {
+        CPacketVehicleMove packet = new CPacketVehicleMove();
+
+        PacketBuffer packetBuffer = new PacketBuffer(Unpooled.buffer());
+        packetBuffer.writeDouble(x);
+        packetBuffer.writeDouble(y);
+        packetBuffer.writeDouble(z);
+        packetBuffer.writeFloat(yaw);
+        packetBuffer.writeFloat(pitch);
+
+        try {
+            packet.readPacketData(packetBuffer);
+        } catch(IOException ignored) {
+        }
+
+        return (CPacketMoveVehicle) packet;
+    }
+
     public static CPacketSteerBoat createCPacketSteerBoat(boolean left, boolean right) {
         return (CPacketSteerBoat) new net.minecraft.network.play.client.CPacketSteerBoat(left, right);
     }
@@ -100,5 +123,13 @@ public class MeshStatics {
 
     public static CPacketUseItem createCPacketUseItem(Hand hand) {
         return (CPacketUseItem) new CPacketPlayerTryUseItem(MCEnum.hand(hand));
+    }
+
+    public static CPacketHandSwing createCPacketHandSwing(Hand hand) {
+        return (CPacketHandSwing) new CPacketAnimation(MCEnum.hand(hand));
+    }
+
+    public static CPacketChatMessage createCPacketChatMessage(String message) {
+        return (CPacketChatMessage) new net.minecraft.network.play.client.CPacketChatMessage(message);
     }
 }
