@@ -1,11 +1,11 @@
 package net.meshmc.mesh.impl.mixin.events.client;
 
-import net.meshmc.mesh.Mesh;
-import net.meshmc.mesh.event.MeshEvent;
-import net.meshmc.mesh.event.events.client.PacketEvent;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
+import net.meshmc.mesh.Mesh;
+import net.meshmc.mesh.event.MeshEvent;
+import net.meshmc.mesh.event.events.client.PacketEvent;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.network.Packet;
 import org.spongepowered.asm.mixin.Mixin;

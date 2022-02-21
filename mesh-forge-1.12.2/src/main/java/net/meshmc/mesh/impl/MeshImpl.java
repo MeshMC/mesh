@@ -1,8 +1,8 @@
 package net.meshmc.mesh.impl;
 
 import net.meshmc.mesh.Mesh;
-import net.meshmc.mesh.api.render.Renderer;
 import net.meshmc.mesh.api.client.Minecraft;
+import net.meshmc.mesh.api.render.Renderer;
 import net.meshmc.mesh.impl.wrapper.render.RendererMesh;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;

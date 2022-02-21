@@ -1,8 +1,8 @@
 package net.meshmc.mesh.impl.mixin.entity;
 
+import net.meshmc.mesh.api.entity.Entity;
 import net.meshmc.mesh.api.entity.EntityType;
 import net.meshmc.mesh.api.entity.MoverType;
-import net.meshmc.mesh.api.entity.Entity;
 import net.meshmc.mesh.api.entity.living.player.EntityPlayer;
 import net.meshmc.mesh.api.math.BlockPos;
 import net.meshmc.mesh.api.math.Box;

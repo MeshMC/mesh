@@ -1,8 +1,8 @@
 package net.meshmc.mesh.event;
 
+import dev.tigr.simpleevents.EventManager;
 import net.meshmc.mesh.Mesh;
 import net.meshmc.mesh.api.util.Profiler;
-import dev.tigr.simpleevents.EventManager;
 
 /**
  * This provides event profiling on top of the event manager

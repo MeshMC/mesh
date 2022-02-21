@@ -1,9 +1,9 @@
 package net.meshmc.mesh;
 
+import dev.tigr.simpleevents.EventManager;
 import net.meshmc.mesh.api.client.Minecraft;
 import net.meshmc.mesh.api.render.Renderer;
 import net.meshmc.mesh.event.MeshEventManager;
-import dev.tigr.simpleevents.EventManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.reflections.Reflections;
@@ -19,7 +19,6 @@ import java.lang.annotation.Target;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * The main Mesh class. This manages all APIs and version specific procedures.

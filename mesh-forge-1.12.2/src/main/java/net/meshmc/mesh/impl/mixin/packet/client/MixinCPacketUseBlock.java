@@ -1,10 +1,10 @@
 package net.meshmc.mesh.impl.mixin.packet.client;
 
-import net.meshmc.mesh.impl.util.MCEnum;
-import net.meshmc.mesh.impl.util.MeshEnum;
 import net.meshmc.mesh.api.math.BlockPos;
 import net.meshmc.mesh.api.math.Vec3d;
 import net.meshmc.mesh.api.packet.client.CPacketUseBlock;
+import net.meshmc.mesh.impl.util.MCEnum;
+import net.meshmc.mesh.impl.util.MeshEnum;
 import net.meshmc.mesh.util.math.Facing;
 import net.meshmc.mesh.util.math.Hand;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;

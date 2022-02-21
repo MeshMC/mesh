@@ -1,9 +1,9 @@
 package net.meshmc.mesh.impl.mixin.events.client;
 
+import io.netty.channel.ChannelHandlerContext;
 import net.meshmc.mesh.Mesh;
 import net.meshmc.mesh.event.MeshEvent;
 import net.meshmc.mesh.event.events.client.PacketEvent;
-import io.netty.channel.ChannelHandlerContext;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import org.spongepowered.asm.mixin.Mixin;

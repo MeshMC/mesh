@@ -1,9 +1,9 @@
 package net.meshmc.mesh.impl.util;
 
 import net.meshmc.mesh.util.math.Facing;
+import net.meshmc.mesh.util.math.Hand;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.meshmc.mesh.util.math.Hand;
 
 public class MeshEnum {
     public static Hand hand(EnumHand hand) {

@@ -1,7 +1,7 @@
 package net.meshmc.mesh.impl.mixin.entity.living.mob.hostile.raider;
 
-import net.meshmc.mesh.impl.mixin.entity.living.mob.hostile.MixinEntityHostile;
 import net.meshmc.mesh.api.entity.living.mob.hostile.raider.EntityWitch;
+import net.meshmc.mesh.impl.mixin.entity.living.mob.hostile.MixinEntityHostile;
 import org.spongepowered.asm.mixin.Mixin;
 
 /**

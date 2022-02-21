@@ -1,12 +1,12 @@
 package net.meshmc.mesh;
 
-import net.meshmc.mesh.api.render.BufferBuilder;
-import net.meshmc.mesh.api.entity.Entity;
 import net.meshmc.mesh.api.client.Session;
+import net.meshmc.mesh.api.entity.Entity;
 import net.meshmc.mesh.api.math.*;
+import net.meshmc.mesh.api.packet.client.*;
+import net.meshmc.mesh.api.render.BufferBuilder;
 import net.meshmc.mesh.util.math.Facing;
 import net.meshmc.mesh.util.math.Hand;
-import net.meshmc.mesh.api.packet.client.*;
 
 /**
  * CALLS TO THIS SHOULD ONLY BE USED IN MESH IMPLEMENTATIONS, IT IS NOT PRESENT IN mesh-core builds

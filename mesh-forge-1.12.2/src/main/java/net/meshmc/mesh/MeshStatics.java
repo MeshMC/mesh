@@ -1,22 +1,22 @@
 package net.meshmc.mesh;
 
 import io.netty.buffer.Unpooled;
+import net.meshmc.mesh.api.client.Session;
+import net.meshmc.mesh.api.entity.Entity;
+import net.meshmc.mesh.api.math.*;
 import net.meshmc.mesh.api.packet.client.CPacketChatMessage;
 import net.meshmc.mesh.api.packet.client.CPacketInput;
 import net.meshmc.mesh.api.packet.client.CPacketSteerBoat;
 import net.meshmc.mesh.api.packet.client.CPacketUseEntity;
+import net.meshmc.mesh.api.packet.client.*;
 import net.meshmc.mesh.api.render.BufferBuilder;
 import net.meshmc.mesh.impl.util.MCEnum;
-import net.meshmc.mesh.api.entity.Entity;
-import net.meshmc.mesh.api.client.Session;
-import net.meshmc.mesh.api.math.*;
 import net.meshmc.mesh.impl.wrapper.render.BufferBuilderMesh;
 import net.meshmc.mesh.util.math.Facing;
 import net.meshmc.mesh.util.math.Hand;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.client.*;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.meshmc.mesh.api.packet.client.*;
 import org.lwjgl.util.vector.Vector3f;
 
 import java.io.IOException;

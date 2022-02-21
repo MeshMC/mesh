@@ -1,11 +1,11 @@
 package net.meshmc.mesh.impl.mixin.packet.client;
 
-import net.meshmc.mesh.impl.util.MCEnum;
-import net.meshmc.mesh.impl.util.MeshEnum;
-import net.meshmc.mesh.impl.mixin.accessors.packet.InteractAtHandlerAccessor;
-import net.meshmc.mesh.impl.mixin.accessors.packet.InteractHandlerAccessor;
 import net.meshmc.mesh.api.math.Vec3d;
 import net.meshmc.mesh.api.packet.client.CPacketUseEntity;
+import net.meshmc.mesh.impl.mixin.accessors.packet.InteractAtHandlerAccessor;
+import net.meshmc.mesh.impl.mixin.accessors.packet.InteractHandlerAccessor;
+import net.meshmc.mesh.impl.util.MCEnum;
+import net.meshmc.mesh.impl.util.MeshEnum;
 import net.meshmc.mesh.util.math.Hand;
 import net.minecraft.network.packet.c2s.play.PlayerInteractEntityC2SPacket;
 import org.spongepowered.asm.mixin.Final;

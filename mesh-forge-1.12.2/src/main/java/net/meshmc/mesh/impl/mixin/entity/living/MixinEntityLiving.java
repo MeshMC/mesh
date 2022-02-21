@@ -1,7 +1,7 @@
 package net.meshmc.mesh.impl.mixin.entity.living;
 
-import net.meshmc.mesh.impl.mixin.entity.MixinEntity;
 import net.meshmc.mesh.api.entity.living.EntityLiving;
+import net.meshmc.mesh.impl.mixin.entity.MixinEntity;
 import net.minecraft.entity.EntityLivingBase;
 import org.spongepowered.asm.mixin.Mixin;
 

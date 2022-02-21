@@ -1,8 +1,8 @@
 package net.meshmc.mesh.api.client;
 
-import net.meshmc.mesh.api.util.Profiler;
 import net.meshmc.mesh.api.entity.living.player.EntityClientPlayer;
 import net.meshmc.mesh.api.render.TextRenderer;
+import net.meshmc.mesh.api.util.Profiler;
 import net.meshmc.mesh.api.world.ClientWorld;
 
 /**
