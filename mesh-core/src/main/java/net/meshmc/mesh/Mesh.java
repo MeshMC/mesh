@@ -7,6 +7,10 @@ import dev.tigr.simpleevents.EventManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.reflections.Reflections;
+import org.reflections.scanners.Scanners;
+import org.reflections.util.ClasspathHelper;
+import org.reflections.util.ConfigurationBuilder;
+import org.reflections.util.FilterBuilder;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -15,6 +19,7 @@ import java.lang.annotation.Target;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The main Mesh class. This manages all APIs and version specific procedures.
@@ -121,8 +126,47 @@ public abstract class Mesh {
 
         long start = System.currentTimeMillis();
 
-        // this is kinda slow, but this is a really easy and flexible way to do it
-        Reflections reflections = new Reflections();
+        // this is a tiny bit slow, but this is a really easy and flexible way to do it
+        // with exclusions it is waaaay faster than without
+        Reflections reflections = new Reflections(new ConfigurationBuilder()
+        .setUrls(ClasspathHelper.forClassLoader())
+        .setScanners(Scanners.TypesAnnotated)
+        .filterInputsBy(new FilterBuilder()
+            .excludePackage("kotlin")
+            .excludePackage("kotlinx")
+            .excludePackage("java")
+            .excludePackage("javax")
+            .excludePackage("javassist")
+            .excludePackage("dev.tigr.simpleevents")
+            .excludePackage("net.meshmc.mesh")
+            .excludePackage("org.jetbrains")
+            .excludePackage("org.intellij")
+            .excludePackage("org.reflections")
+            .excludePackage("org.slf4j")
+            .excludePackage("net.jodah.typetools")
+            .excludePackage("org.spongepowered")
+            .excludePackage("net.minecraft")
+            .excludePackage("net.minecraftforge")
+            .excludePackage("net.fabricmc")
+            .excludePackage("com.mojang")
+            .excludePackage("com.google")
+            .excludePackage("org.apache")
+            .excludePackage("paulscode")
+            .excludePackage("org.lwjgl")
+            .excludePackage("com.sun")
+            .excludePackage("net.java")
+            .excludePackage("net.sf")
+            .excludePackage("org.objectweb")
+            .excludePackage("scala")
+            .excludePackage("org.jline")
+            .excludePackage("org.codehaus")
+            .excludePackage("it.unimi")
+            .excludePackage("io.netty")
+            .excludePackage("com.typesafe")
+            .excludePackage("com.ibm")
+            .excludePackage("ca.weblite")
+            .excludePackage("oshi")
+        ));
         reflections.getTypesAnnotatedWith(Mod.class).forEach((clazz) -> {
             Mod mod = clazz.getDeclaredAnnotation(Mod.class);
             if(mod != null) {

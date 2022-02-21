@@ -60,7 +60,9 @@ processResources {
 
     from(sourceSets.main.resources.srcDirs) {
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
-        expand "version": project.version
+        filesNotMatching("mesh.mixins.json") {
+            expand "version": project.version
+        }
     }
 
     from(sourceSets.main.resources.srcDirs) {
