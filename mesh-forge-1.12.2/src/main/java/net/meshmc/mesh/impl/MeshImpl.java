@@ -3,7 +3,9 @@ package net.meshmc.mesh.impl;
 import net.meshmc.mesh.Mesh;
 import net.meshmc.mesh.api.client.Minecraft;
 import net.meshmc.mesh.api.render.Renderer;
+import net.meshmc.mesh.api.util.Utilities;
 import net.meshmc.mesh.impl.wrapper.render.RendererMesh;
+import net.meshmc.mesh.impl.wrapper.util.UtilitiesMesh;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -17,6 +19,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 public class MeshImpl extends Mesh {
     private static Minecraft MINECRAFT;
     private static RendererMesh RENDERER;
+    private static UtilitiesMesh UTILITIES;
 
     public MeshImpl() {
         super(LoaderType.FORGE, "1.12.2");
@@ -26,6 +29,7 @@ public class MeshImpl extends Mesh {
     public void init(FMLInitializationEvent event) {
         MINECRAFT = (Minecraft) net.minecraft.client.Minecraft.getMinecraft();
         RENDERER = new RendererMesh();
+        UTILITIES = new UtilitiesMesh();
 
         Mesh.initialize();
 
@@ -40,5 +44,10 @@ public class MeshImpl extends Mesh {
     @Override
     public Renderer getRenderer() {
         return RENDERER;
+    }
+
+    @Override
+    public Utilities getUtilities() {
+        return UTILITIES;
     }
 }

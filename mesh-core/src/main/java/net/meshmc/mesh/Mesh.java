@@ -3,6 +3,7 @@ package net.meshmc.mesh;
 import dev.tigr.simpleevents.EventManager;
 import net.meshmc.mesh.api.client.Minecraft;
 import net.meshmc.mesh.api.render.Renderer;
+import net.meshmc.mesh.api.util.Utilities;
 import net.meshmc.mesh.event.MeshEventManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -113,6 +114,7 @@ public abstract class Mesh {
                 InvocationTargetException | InstantiationException | IllegalAccessException e) {
             throw new RuntimeException("Mesh failed to find implementation in classpath!");
         }
+        INSTANCE.getEventManager().register(INSTANCE.getUtilities());
         INSTANCE.initializeMods();
     }
 
@@ -230,6 +232,12 @@ public abstract class Mesh {
      * @return A {@link Renderer} for rendering
      */
     public abstract Renderer getRenderer();
+
+    /**
+     * Gets the Mesh Utility interface
+     * @return {@link Utilities}
+     */
+    public abstract Utilities getUtilities();
 
     /**
      * Gets the current implementation of Mesh

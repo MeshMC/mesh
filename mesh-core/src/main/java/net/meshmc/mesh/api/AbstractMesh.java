@@ -7,24 +7,21 @@ package net.meshmc.mesh.api;
  * @author Tigermouthbear 1/10/22
  * @param <T> The type of the Mesh class being wrapped
  */
-public abstract class AbstractMesh<T> implements IMesh<T> {
+public abstract class AbstractMesh<T> {
     private final T value;
 
     public AbstractMesh(T value) {
         this.value = value;
     }
 
-    @Override
     public T getMeshValue() {
         return value;
     }
 
-    @Override
     public boolean isNull() {
         return value == null;
     }
 
-    @Override
     public boolean isNotNull() {
         return value != null;
     }

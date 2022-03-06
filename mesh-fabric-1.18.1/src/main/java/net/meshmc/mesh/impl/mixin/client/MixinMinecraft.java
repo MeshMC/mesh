@@ -6,7 +6,9 @@ import net.meshmc.mesh.api.entity.living.player.EntityClientPlayer;
 import net.meshmc.mesh.api.render.TextRenderer;
 import net.meshmc.mesh.api.util.Profiler;
 import net.meshmc.mesh.api.world.ClientWorld;
+import net.meshmc.mesh.impl.util.ScreenAdapter;
 import net.meshmc.mesh.impl.wrapper.util.ProfilerMesh;
+import net.meshmc.mesh.util.render.Screen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import org.jetbrains.annotations.Nullable;
@@ -61,5 +63,15 @@ public class MixinMinecraft implements Minecraft {
     @Override
     public void setPlayer(EntityClientPlayer player) {
         this.player = (ClientPlayerEntity) player;
+    }
+
+    @Override
+    public void openScreen(Screen screen) {
+        ((MinecraftClient)((Object) this)).setScreen(new ScreenAdapter(screen));
+    }
+
+    @Override
+    public void closeScreen() {
+        ((MinecraftClient)((Object) this)).setScreen(null);
     }
 }

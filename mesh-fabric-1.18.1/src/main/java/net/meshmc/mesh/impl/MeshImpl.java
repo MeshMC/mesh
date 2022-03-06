@@ -4,7 +4,9 @@ import net.fabricmc.api.ModInitializer;
 import net.meshmc.mesh.Mesh;
 import net.meshmc.mesh.api.client.Minecraft;
 import net.meshmc.mesh.api.render.Renderer;
+import net.meshmc.mesh.api.util.Utilities;
 import net.meshmc.mesh.impl.wrapper.render.RendererMesh;
+import net.meshmc.mesh.impl.wrapper.util.UtilitiesMesh;
 import net.minecraft.client.MinecraftClient;
 
 /**
@@ -15,6 +17,7 @@ import net.minecraft.client.MinecraftClient;
 public class MeshImpl extends Mesh implements ModInitializer {
     private static Minecraft MINECRAFT;
     private static RendererMesh RENDERER;
+    private static UtilitiesMesh UTILITIES;
 
     public MeshImpl() {
         super(LoaderType.FABRIC, "1.18.1");
@@ -24,6 +27,7 @@ public class MeshImpl extends Mesh implements ModInitializer {
     public void onInitialize() {
         MINECRAFT = (Minecraft) MinecraftClient.getInstance();
         RENDERER = new RendererMesh();
+        UTILITIES = new UtilitiesMesh();
 
         Mesh.initialize();
     }
@@ -36,5 +40,10 @@ public class MeshImpl extends Mesh implements ModInitializer {
     @Override
     public Renderer getRenderer() {
         return RENDERER;
+    }
+
+    @Override
+    public Utilities getUtilities() {
+        return UTILITIES;
     }
 }

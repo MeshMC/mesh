@@ -10,7 +10,7 @@ configurations {
 dependencies {
     implementation "org.apache.logging.log4j:log4j-api:2.17.0"
 
-    embeddedLibs "dev.tigr:simpleevents:1.2"
+    embeddedLibs "dev.tigr:simpleevents:1.3"
 
     embeddedLibs("org.reflections:reflections:0.10.2") {
         exclude module: "gson"

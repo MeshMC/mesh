@@ -5,7 +5,9 @@ import net.meshmc.mesh.api.entity.living.player.EntityClientPlayer;
 import net.meshmc.mesh.api.render.TextRenderer;
 import net.meshmc.mesh.api.util.Profiler;
 import net.meshmc.mesh.api.world.ClientWorld;
+import net.meshmc.mesh.impl.util.ScreenAdapter;
 import net.meshmc.mesh.impl.wrapper.util.ProfilerMesh;
+import net.meshmc.mesh.util.render.Screen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
@@ -61,5 +63,15 @@ public class MixinMinecraft implements net.meshmc.mesh.api.client.Minecraft {
     @Override
     public void setPlayer(EntityClientPlayer player) {
         this.player = (EntityPlayerSP) player;
+    }
+
+    @Override
+    public void openScreen(Screen screen) {
+        ((Minecraft)((Object) this)).displayGuiScreen(new ScreenAdapter(screen));
+    }
+
+    @Override
+    public void closeScreen() {
+        ((Minecraft)((Object) this)).displayGuiScreen(null);
     }
 }
