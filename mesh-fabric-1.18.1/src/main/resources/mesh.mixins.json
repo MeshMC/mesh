@@ -58,6 +58,7 @@
     "events.client.MixinMinecraftClient",
     "events.client.MixinMouse",
     "events.entity.MixinClientPlayerEntity",
+    "events.render.MixinGameRenderer",
     "events.render.MixinInGameHud",
     "events.world.MixinClientWorld",
     "math.MixinBlockPos",

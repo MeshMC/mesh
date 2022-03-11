@@ -1,7 +1,7 @@
 package net.meshmc.mesh.impl.mixin.events.render;
 
 import net.meshmc.mesh.Mesh;
-import net.meshmc.mesh.event.events.render.HudRenderEvent;
+import net.meshmc.mesh.event.events.render.RenderEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiIngame;
@@ -130,7 +130,7 @@ public abstract class MixinGuiIngame extends GuiIngame {
         renderToolHighlight(res);
         renderPotionIcons(res);
 
-        Mesh.getMesh().getEventManager().post(new HudRenderEvent(partialTicks));
+        Mesh.getMesh().getEventManager().post(new RenderEvent.Hud(partialTicks));
 
         renderHUDText(width, height);
         renderFPSGraph();

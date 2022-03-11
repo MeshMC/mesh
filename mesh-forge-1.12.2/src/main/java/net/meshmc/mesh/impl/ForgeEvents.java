@@ -2,8 +2,10 @@ package net.meshmc.mesh.impl;
 
 import net.meshmc.mesh.Mesh;
 import net.meshmc.mesh.event.events.client.InputEvent;
+import net.meshmc.mesh.event.events.render.RenderEvent;
 import net.meshmc.mesh.util.Keys;
 import net.minecraft.client.Minecraft;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -13,6 +15,11 @@ import org.lwjgl.input.Mouse;
  * @author Tigermouthbear 1/15/22
  */
 public class ForgeEvents {
+    @SubscribeEvent
+    public void render3d(RenderWorldLastEvent event) {
+        Mesh.getMesh().getEventManager().post(new RenderEvent.World(event.getPartialTicks()));
+    }
+
     @SubscribeEvent()
     public void onMouseInput(net.minecraftforge.fml.common.gameevent.InputEvent.MouseInputEvent event) {
         Mesh.getMesh().getEventManager().post(new InputEvent.Mouse.Moved(
