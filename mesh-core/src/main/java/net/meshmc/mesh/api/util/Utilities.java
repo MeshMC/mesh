@@ -23,7 +23,6 @@ public abstract class Utilities {
 
     @EventHandler
     private final EventListener<TickEvent.Client> clientTickEvent = new EventListener<>(event -> {
-        System.out.println("TEST");
         if(event.getEra() == MeshEvent.Era.BEFORE && tasks.size() > 0) {
             for(Runnable runnable: tasks) runnable.run();
             tasks.clear();
