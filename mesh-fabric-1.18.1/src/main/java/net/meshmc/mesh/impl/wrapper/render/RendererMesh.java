@@ -2,7 +2,7 @@ package net.meshmc.mesh.impl.wrapper.render;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.meshmc.mesh.api.render.Renderer;
-import net.meshmc.mesh.util.render.LocationIdentifier;
+import net.meshmc.mesh.api.util.LocationIdentifier;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.texture.AbstractTexture;
 import net.minecraft.client.texture.NativeImage;

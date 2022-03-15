@@ -4,6 +4,9 @@
   "package": "net.meshmc.mesh.impl.mixin",
   "refmap": "mesh.mixins.refmap.json",
   "mixins": [
+    "advancement.MixinAdvancement",
+    "advancement.MixinAdvancementBuilder",
+    "advancement.MixinAdvancementProgress",
     "client.MixinMinecraft",
     "client.MixinSession",
     "entity.MixinEntity",
@@ -65,7 +68,14 @@
     "packet.client.MixinCPacketUseBlock",
     "packet.client.MixinCPacketUseEntity",
     "packet.client.MixinCPacketUseItem",
+    "packet.server.MixinSPacketAdvancementUpdate",
+    "packet.server.MixinSPacketBlockAction",
+    "packet.server.MixinSPacketBlockUpdate",
+    "packet.server.MixinSPacketBreakProgress",
+    "packet.server.MixinSPacketPlayerPosRot",
+    "packet.server.MixinSPacketTileEntityUpdate",
     "render.MixinTextRenderer",
+    "util.MixinLocationIdentifier",
     "world.MixinClientWorld",
     "world.MixinWorld"
   ]

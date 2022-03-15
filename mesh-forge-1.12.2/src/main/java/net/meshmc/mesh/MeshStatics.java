@@ -10,12 +10,14 @@ import net.meshmc.mesh.api.packet.client.CPacketSteerBoat;
 import net.meshmc.mesh.api.packet.client.CPacketUseEntity;
 import net.meshmc.mesh.api.packet.client.*;
 import net.meshmc.mesh.api.render.BufferBuilder;
+import net.meshmc.mesh.api.util.LocationIdentifier;
 import net.meshmc.mesh.impl.util.MCEnum;
 import net.meshmc.mesh.impl.wrapper.render.BufferBuilderMesh;
 import net.meshmc.mesh.util.math.Facing;
 import net.meshmc.mesh.util.math.Hand;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.client.*;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -56,6 +58,14 @@ public class MeshStatics {
 
     public static BufferBuilder<?> createBufferBuilder(int initialCapacity) {
         return new BufferBuilderMesh(new net.minecraft.client.renderer.BufferBuilder(initialCapacity));
+    }
+
+    public static LocationIdentifier createLocationIdentifier(String namespace, String path) {
+        return (LocationIdentifier) new ResourceLocation(namespace, path);
+    }
+
+    public static LocationIdentifier createLocationIdentifier(String path) {
+        return (LocationIdentifier) new ResourceLocation(path);
     }
 
     // packets

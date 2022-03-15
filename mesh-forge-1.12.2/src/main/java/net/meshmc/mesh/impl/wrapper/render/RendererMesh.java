@@ -1,7 +1,7 @@
 package net.meshmc.mesh.impl.wrapper.render;
 
 import net.meshmc.mesh.api.render.Renderer;
-import net.meshmc.mesh.util.render.LocationIdentifier;
+import net.meshmc.mesh.api.util.LocationIdentifier;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.DynamicTexture;

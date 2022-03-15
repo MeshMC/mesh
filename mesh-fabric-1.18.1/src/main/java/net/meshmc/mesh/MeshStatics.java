@@ -6,12 +6,14 @@ import net.meshmc.mesh.api.entity.Entity;
 import net.meshmc.mesh.api.math.*;
 import net.meshmc.mesh.api.packet.client.*;
 import net.meshmc.mesh.api.render.BufferBuilder;
+import net.meshmc.mesh.api.util.LocationIdentifier;
 import net.meshmc.mesh.impl.util.MCEnum;
 import net.meshmc.mesh.impl.wrapper.render.BufferBuilderMesh;
 import net.meshmc.mesh.util.math.Facing;
 import net.meshmc.mesh.util.math.Hand;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.c2s.play.*;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 
 /**
@@ -49,6 +51,14 @@ public class MeshStatics {
 
     public static BufferBuilder<?> createBufferBuilder(int initialCapacity) {
         return new BufferBuilderMesh(new net.minecraft.client.render.BufferBuilder(initialCapacity));
+    }
+
+    public static LocationIdentifier createLocationIdentifier(String namespace, String path) {
+        return (LocationIdentifier) new Identifier(namespace, path);
+    }
+
+    public static LocationIdentifier createLocationIdentifier(String path) {
+        return (LocationIdentifier) new Identifier(path);
     }
 
     // packets

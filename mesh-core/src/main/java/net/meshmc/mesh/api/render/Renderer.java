@@ -1,6 +1,6 @@
 package net.meshmc.mesh.api.render;
 
-import net.meshmc.mesh.util.render.LocationIdentifier;
+import net.meshmc.mesh.api.util.LocationIdentifier;
 
 /**
  * Holds the mesh implementations of rendering calls

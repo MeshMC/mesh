@@ -5,6 +5,7 @@ import net.meshmc.mesh.api.entity.Entity;
 import net.meshmc.mesh.api.math.*;
 import net.meshmc.mesh.api.packet.client.*;
 import net.meshmc.mesh.api.render.BufferBuilder;
+import net.meshmc.mesh.api.util.LocationIdentifier;
 import net.meshmc.mesh.util.math.Facing;
 import net.meshmc.mesh.util.math.Hand;
 
@@ -46,6 +47,14 @@ public class MeshStatics {
     }
 
     public static BufferBuilder<?> createBufferBuilder(int initialCapacity) {
+        throw new RuntimeException();
+    }
+
+    public static LocationIdentifier createLocationIdentifier(String namespace, String path) {
+        throw new RuntimeException();
+    }
+
+    public static LocationIdentifier createLocationIdentifier(String path) {
         throw new RuntimeException();
     }
 

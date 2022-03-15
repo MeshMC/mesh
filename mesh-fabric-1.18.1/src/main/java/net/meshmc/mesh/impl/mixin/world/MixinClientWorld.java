@@ -2,7 +2,7 @@ package net.meshmc.mesh.impl.mixin.world;
 
 import net.meshmc.mesh.api.entity.Entity;
 import net.meshmc.mesh.api.world.ClientWorld;
-import net.meshmc.mesh.impl.wrapper.util.EntityIterable;
+import net.meshmc.mesh.util.collections.IterableWrapper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
@@ -12,6 +12,6 @@ public abstract class MixinClientWorld extends MixinWorld implements ClientWorld
 
     @Override
     public Iterable<Entity> getLoadedEntities() {
-        return new EntityIterable(getEntities());
+        return new IterableWrapper<>(getEntities());
     }
 }
