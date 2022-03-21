@@ -24,11 +24,11 @@ public class RendererMesh extends Renderer {
 
     @Override
     public void bindTexture(LocationIdentifier locationIdentifier) {
-        AbstractTexture texture = textures.get(locationIdentifier.getPath());
+        AbstractTexture texture = textures.get(locationIdentifier.getFullPath());
         if(texture == null) {
             try {
-                texture = new NativeImageBackedTexture(NativeImage.read(Objects.requireNonNull(RendererMesh.class.getResourceAsStream(locationIdentifier.getPath()))));
-                textures.put(locationIdentifier.getPath(), texture);
+                texture = new NativeImageBackedTexture(NativeImage.read(Objects.requireNonNull(RendererMesh.class.getResourceAsStream(locationIdentifier.getFullPath()))));
+                textures.put(locationIdentifier.getFullPath(), texture);
             } catch(Exception e) {
                 e.printStackTrace();
                 return;

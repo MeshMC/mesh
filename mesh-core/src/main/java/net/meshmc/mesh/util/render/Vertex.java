@@ -80,4 +80,12 @@ public class Vertex {
     public boolean textureNotNull() {
         return u != null && v != null;
     }
+
+    public Vec3d getPos() {
+        return Vec3d.create(x, y, z);
+    }
+
+    public Color getColor() {
+        return new Color(r, g, b, a);
+    }
 }

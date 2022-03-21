@@ -24,17 +24,17 @@ public class RendererMesh extends Renderer {
 
     @Override
     public void bindTexture(LocationIdentifier locationIdentifier) {
-        DynamicTexture texture = textures.get(locationIdentifier.getPath());
+        DynamicTexture texture = textures.get(locationIdentifier.getFullPath());
         if(texture == null) {
             BufferedImage bufferedImage;
             try {
-                bufferedImage = ImageIO.read(Objects.requireNonNull(RendererMesh.class.getResourceAsStream(locationIdentifier.getPath())));
+                bufferedImage = ImageIO.read(Objects.requireNonNull(RendererMesh.class.getResourceAsStream(locationIdentifier.getFullPath())));
             } catch(Exception e) {
                 e.printStackTrace();
                 return;
             }
             texture = new DynamicTexture(bufferedImage);
-            textures.put(locationIdentifier.getPath(), texture);
+            textures.put(locationIdentifier.getFullPath(), texture);
         }
 
         GlStateManager.bindTexture(texture.getGlTextureId());
