@@ -43,6 +43,8 @@ public abstract class Renderer {
         return renderState;
     }
 
+    public abstract Camera getCamera();
+
     public BufferBuilder<?> getBufferBuilder() {
         return bufferBuilder;
     }

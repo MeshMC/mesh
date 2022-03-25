@@ -14,4 +14,8 @@ public interface IMatrixStack {
     void translate(double x, double y, double z);
 
     void rotate(float angle, float x, float y, float z);
+
+    default void translate(Camera camera) {
+        translate(-camera.getX(), -camera.getY(), -camera.getZ());
+    }
 }

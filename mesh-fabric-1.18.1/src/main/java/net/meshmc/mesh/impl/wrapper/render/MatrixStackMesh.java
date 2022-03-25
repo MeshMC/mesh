@@ -8,7 +8,7 @@ import net.minecraft.util.math.Quaternion;
  * @author Tigermouthbear 1/15/22
  */
 public class MatrixStackMesh implements IMatrixStack {
-    private final MatrixStack matrixStack = new MatrixStack();
+    private MatrixStack matrixStack = new MatrixStack();
 
     @Override
     public void push() {
@@ -33,6 +33,10 @@ public class MatrixStackMesh implements IMatrixStack {
     @Override
     public void rotate(float angle, float x, float y, float z) {
         matrixStack.multiply(new Quaternion(x * angle, y * angle, z * angle, true));
+    }
+
+    public void setMatrixStack(MatrixStack matrixStack) {
+        this.matrixStack = matrixStack;
     }
 
     public MatrixStack getMatrixStack() {
