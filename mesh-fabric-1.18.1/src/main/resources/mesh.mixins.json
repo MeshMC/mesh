@@ -83,6 +83,7 @@
     "packet.client.MixinCPacketUseBlock",
     "packet.client.MixinCPacketUseEntity",
     "packet.client.MixinCPacketUseItem",
+    "packet.client.MixinTeleportConfirmC2SPacket",
     "packet.server.MixinSPacketAdvancementUpdate",
     "packet.server.MixinSPacketBlockAction",
     "packet.server.MixinSPacketBlockUpdate",

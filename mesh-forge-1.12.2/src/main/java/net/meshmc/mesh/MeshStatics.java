@@ -5,6 +5,7 @@ import net.meshmc.mesh.api.client.Session;
 import net.meshmc.mesh.api.entity.Entity;
 import net.meshmc.mesh.api.math.*;
 import net.meshmc.mesh.api.packet.client.CPacketChatMessage;
+import net.meshmc.mesh.api.packet.client.CPacketConfirmTeleport;
 import net.meshmc.mesh.api.packet.client.CPacketInput;
 import net.meshmc.mesh.api.packet.client.CPacketSteerBoat;
 import net.meshmc.mesh.api.packet.client.CPacketUseEntity;
@@ -141,5 +142,9 @@ public class MeshStatics {
 
     public static CPacketChatMessage createCPacketChatMessage(String message) {
         return (CPacketChatMessage) new net.minecraft.network.play.client.CPacketChatMessage(message);
+    }
+
+    public static CPacketConfirmTeleport createCPacketConfirmTeleport(int id) {
+        return (CPacketConfirmTeleport) new net.minecraft.network.play.client.CPacketConfirmTeleport(id);
     }
 }

@@ -128,4 +128,8 @@ public class MeshStatics {
     public static CPacketChatMessage createCPacketChatMessage(String message) {
         return (CPacketChatMessage) new ChatMessageC2SPacket(message);
     }
+
+    public static CPacketConfirmTeleport createCPacketConfirmTeleport(int id) {
+        return (CPacketConfirmTeleport) new TeleportConfirmC2SPacket(id);
+    }
 }

@@ -118,4 +118,8 @@ public class MeshStatics {
     public static CPacketChatMessage createCPacketChatMessage(String message) {
         throw new RuntimeException();
     }
+
+    public static CPacketConfirmTeleport createCPacketConfirmTeleport(int id) {
+        throw new RuntimeException();
+    }
 }

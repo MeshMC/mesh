@@ -57,6 +57,7 @@
     "math.MixinVec3f",
     "math.MixinVec3i",
     "packet.client.MixinCPacketChatMessage",
+    "packet.client.MixinCPacketConfirmTeleport",
     "packet.client.MixinCPacketHandSwing",
     "packet.client.MixinCPacketInput",
     "packet.client.MixinCPacketMovePlayer",
