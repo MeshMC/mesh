@@ -1,22 +1,22 @@
 package net.meshmc.mesh;
 
+import com.google.gson.Gson;
 import dev.tigr.simpleevents.EventManager;
 import net.meshmc.mesh.api.client.Minecraft;
 import net.meshmc.mesh.api.render.Renderer;
 import net.meshmc.mesh.api.util.Utilities;
 import net.meshmc.mesh.event.MeshEventManager;
+import net.meshmc.mesh.loader.MeshLoaderUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
-import org.reflections.util.FilterBuilder;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,32 +46,65 @@ public abstract class Mesh {
      */
     public enum LoaderType { FORGE, FABRIC }
 
-    /**
-     * Marks the main class/entry point of a Mesh mod and other
-     * information about the mod: modid(unique name), version, and description
-     */
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.TYPE)
-    public @interface Mod {
+    public static class Mod {
         /**
-         * @return the modid(unique identifier) of the represented Mesh mod
+         * the modid(unique identifier) of the represented Mesh mod
          */
-        String modid();
+        private String id;
 
         /**
-         * @return the version of the represented Mesh mod
+         * the version of the represented Mesh mod
          */
-        String version();
+        private String version;
 
         /**
-         * @return the name of the represented Mesh mod
+         * the name of the represented Mesh mod
          */
-        String name();
+        private String name;
 
         /**
-         * @return the description of the represented Mesh mod
+         * the description of the represented Mesh mod
          */
-        String description() default "";
+        private String description;
+
+        /**
+         * a list of the authors of the mod
+         */
+        private String[] authors;
+
+        /**
+         * the website of the mod
+         */
+        private String website;
+
+        /**
+         * a list of {@link Initializer}s to be called on startup
+         */
+        private String[] initializers;
+
+        public String getId() {
+            return id;
+        }
+
+        public String getVersion() {
+            return version;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public String[] getAuthors() {
+            return authors;
+        }
+
+        public String getWebsite() {
+            return website;
+        }
     }
 
     /**
@@ -92,8 +125,8 @@ public abstract class Mesh {
     // List of all Mesh mods that have been initialized
     private final List<Mod> mods = new ArrayList<>();
 
-    // Whether Mesh has been initialized, used to make sure it isn't initialized more than once in initializeMods()
-    private boolean initialized = false;
+    // Whether Mesh has loaded all its mods, check in loadMods()
+    private boolean loaded = false;
 
     /**
      * Creates a new implementation of the Mesh interface. This should only
@@ -106,7 +139,7 @@ public abstract class Mesh {
         this.loaderVersion = loaderVersion;
     }
 
-    public static void initialize() {
+    public static void load() {
         if(INSTANCE != null) return;
         try {
             INSTANCE = (Mesh) Class.forName("net.meshmc.mesh.impl.MeshImpl").getConstructor().newInstance();
@@ -114,79 +147,94 @@ public abstract class Mesh {
                 InvocationTargetException | InstantiationException | IllegalAccessException e) {
             throw new RuntimeException("Mesh failed to find implementation in classpath!");
         }
-        INSTANCE.getEventManager().register(INSTANCE.getUtilities());
-        INSTANCE.initializeMods();
-    }
-
-    /**
-     * Scans for {@link Mod} annotations on classes, creates a new instance of those mods, and calls the init() method in those mods.
-     * Should be run by every mesh implementation when appropriate
-     */
-    private void initializeMods() {
-        if(initialized) return;
 
         long start = System.currentTimeMillis();
 
-        // this is a tiny bit slow, but this is a really easy and flexible way to do it
-        // with exclusions it is waaaay faster than without
-        Reflections reflections = new Reflections(new ConfigurationBuilder()
-        .setUrls(ClasspathHelper.forClassLoader())
-        .setScanners(Scanners.TypesAnnotated)
-        .filterInputsBy(new FilterBuilder()
-            .excludePackage("kotlin")
-            .excludePackage("kotlinx")
-            .excludePackage("java")
-            .excludePackage("javax")
-            .excludePackage("javassist")
-            .excludePackage("dev.tigr.simpleevents")
-            .excludePackage("net.meshmc.mesh")
-            .excludePackage("org.jetbrains")
-            .excludePackage("org.intellij")
-            .excludePackage("org.reflections")
-            .excludePackage("org.slf4j")
-            .excludePackage("net.jodah.typetools")
-            .excludePackage("org.spongepowered")
-            .excludePackage("net.minecraft")
-            .excludePackage("net.minecraftforge")
-            .excludePackage("net.fabricmc")
-            .excludePackage("com.mojang")
-            .excludePackage("com.google")
-            .excludePackage("org.apache")
-            .excludePackage("paulscode")
-            .excludePackage("org.lwjgl")
-            .excludePackage("com.sun")
-            .excludePackage("net.java")
-            .excludePackage("net.sf")
-            .excludePackage("org.objectweb")
-            .excludePackage("scala")
-            .excludePackage("org.jline")
-            .excludePackage("org.codehaus")
-            .excludePackage("it.unimi")
-            .excludePackage("io.netty")
-            .excludePackage("com.typesafe")
-            .excludePackage("com.ibm")
-            .excludePackage("ca.weblite")
-            .excludePackage("oshi")
-        ));
-        reflections.getTypesAnnotatedWith(Mod.class).forEach((clazz) -> {
-            Mod mod = clazz.getDeclaredAnnotation(Mod.class);
-            if(mod != null) {
-                try {
-                    Object modObject = clazz.getConstructor().newInstance();
-                    if(modObject instanceof Initializer) ((Initializer) modObject).init();
-                } catch(NoSuchMethodException | InstantiationException |
-                        IllegalAccessException | InvocationTargetException e) {
-                    e.printStackTrace();
-                    throw new RuntimeException("Mesh failed to initialize mod named '" + mod.modid() + "'!");
-                }
-                mods.add(mod);
-            }
-        });
+        INSTANCE.loadMods();
+        INSTANCE.loaded = true;
 
         MESH_LOGGER.info("Mesh for {} {} loaded {} mods in {} milliseconds!",
-                loaderType.name().toLowerCase(), loaderVersion, mods.size(), System.currentTimeMillis() - start);
+                INSTANCE.loaderType.name().toLowerCase(), INSTANCE.loaderVersion,
+                INSTANCE.mods.size(), System.currentTimeMillis() - start);
+    }
 
-        initialized = true;
+    /**
+     * Scans for mesh mods in the classpath adds them to the mod list
+     * Should be run by every mesh implementation when appropriate
+     */
+    private void loadMods() {
+        if(loaded) return;
+
+        // find mods folder
+        File minecraftFolder = getRunDirectory();
+        File modFolder = minecraftFolder.isDirectory() ? new File(minecraftFolder, "mods") : null;
+        if(modFolder == null || !modFolder.isDirectory()) return;
+
+        // find mesh folder
+        File meshFolder = new File(modFolder, "mesh");
+        if(!meshFolder.isDirectory()) return;
+
+        // find all mod files (.jar)s
+        File[] modFiles = meshFolder.listFiles(file -> file.getName().endsWith(".jar"));
+        if(modFiles == null || modFiles.length == 0) return;
+
+        // load mesh mods into classpath
+        try {
+            if(loaderType == LoaderType.FABRIC) MeshLoaderUtils.load(MeshLoaderUtils.getFabricClassLoader(), modFiles);
+            else MeshLoaderUtils.load(MeshLoaderUtils.getLaunchClassLoader(), modFiles);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        // find mesh mod jsons
+        Gson gson = new Gson();
+        Reflections reflections = new Reflections(new ConfigurationBuilder()
+            .setUrls(ClasspathHelper.forClassLoader())
+            .setScanners(Scanners.Resources)
+        );
+        //reflections.getAll(Scanners.Resources).forEach(MESH_LOGGER::info);
+        reflections.getResources(".*\\.mesh\\.json").forEach((resource) -> {
+            MESH_LOGGER.info("FOUND " + resource);
+            InputStream is = ClasspathHelper.contextClassLoader().getResourceAsStream(resource);
+            if(is == null) is = ClasspathHelper.staticClassLoader().getResourceAsStream(resource);
+            if(is != null) {
+                try {
+                    mods.add(gson.fromJson(new InputStreamReader(is), Mod.class));
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        MESH_LOGGER.info("END FIND");
+    }
+
+    // TODO: LOAD MIXINS DURING LOADMODS
+
+    public static void initialize() {
+        if(INSTANCE == null || !INSTANCE.loaded) {
+            throw new RuntimeException("Mesh tried to initialize mods before loading them!");
+        }
+
+        INSTANCE.getEventManager().register(INSTANCE.getUtilities());
+
+        for(Mod mod: INSTANCE.mods) {
+            INSTANCE.initialize(mod);
+        }
+    }
+
+    // call the initializers for each loaded mod
+    private void initialize(Mod mod) {
+        for(String className: mod.initializers) {
+            Object initializer;
+            try {
+                initializer = Class.forName(className).getConstructor().newInstance();
+            } catch(Exception e) {
+                throw new RuntimeException("Mesh failed to create initializer instance " + className);
+            }
+
+            if(initializer instanceof Initializer) ((Initializer) initializer).init();
+            else throw new RuntimeException("Mesh failed to call initializer " + className + " in mod " + mod.id);
+        }
     }
 
     /**
@@ -238,6 +286,12 @@ public abstract class Mesh {
      * @return {@link Utilities}
      */
     public abstract Utilities getUtilities();
+
+    /**
+     * Gets the .minecraft folder of the current running game
+     * @return {@link File}
+     */
+    public abstract File getRunDirectory();
 
     /**
      * Gets the current implementation of Mesh

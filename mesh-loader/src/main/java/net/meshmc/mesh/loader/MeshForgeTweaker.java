@@ -24,16 +24,16 @@ public class MeshForgeTweaker implements ITweaker {
 
     @SuppressWarnings("unchecked")
     public MeshForgeTweaker() {
-        ClassLoader classLoader = getClassLoader();
+        ClassLoader classLoader = MeshLoaderUtils.getLaunchClassLoader();
         String gameVersion = getGameVersion();
         if(classLoader == null || gameVersion == null || !isVersionSupported(classLoader, gameVersion)) return;
 
         try {
             // load the forge version on both class loaders
-            File meshCore = MeshLoader.unpack("mesh-core.jar", getClass().getClassLoader());
-            File mesh = MeshLoader.unpack("forge", gameVersion, getClass().getClassLoader());
-            MeshLoader.load(getClass().getClassLoader(), meshCore, mesh);
-            MeshLoader.load(classLoader, meshCore, mesh);
+            File meshCore = MeshLoaderUtils.unpack("mesh-core.jar", getClass().getClassLoader());
+            File mesh = MeshLoaderUtils.unpack("forge", gameVersion, getClass().getClassLoader());
+            MeshLoaderUtils.load(getClass().getClassLoader(), meshCore, mesh);
+            MeshLoaderUtils.load(classLoader, meshCore, mesh);
 
             // add mixin tweaker to the tweaker list
             Map<String,Object> blackboard = (Map<String,Object>) LAUNCH_CLASS.getField("blackboard").get(null);
@@ -67,14 +67,6 @@ public class MeshForgeTweaker implements ITweaker {
     @Override
     public String[] getLaunchArguments() {
         return new String[0];
-    }
-
-    private static ClassLoader getClassLoader() {
-        try {
-            return (ClassLoader) LAUNCH_CLASS.getDeclaredField("classLoader").get(null);
-        } catch(Exception ignored) {
-        }
-        return null;
     }
 
     private static boolean isVersionSupported(ClassLoader classLoader, String gameVersion) {

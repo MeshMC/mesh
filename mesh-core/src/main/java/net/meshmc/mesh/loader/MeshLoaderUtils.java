@@ -11,12 +11,12 @@ import java.util.Objects;
 /**
  * @author Tigermouthbear 1/23/22
  */
-public class MeshLoader {
-    public static File unpack(String loader, String version, ClassLoader classLoader) throws Exception {
+public class MeshLoaderUtils {
+    static File unpack(String loader, String version, ClassLoader classLoader) throws Exception {
         return unpack("mesh-" + loader + "-" + version + ".jar", classLoader);
     }
 
-    public static File unpack(String path, ClassLoader classLoader) throws Exception {
+    static File unpack(String path, ClassLoader classLoader) throws Exception {
         // create temp file of jar to load from classpath
         File tempFile = File.createTempFile("mesh", ".jar");
         tempFile.deleteOnExit();
@@ -55,5 +55,37 @@ public class MeshLoader {
             }
             ADDURL_KNOTCLASSLOADER.invoke(classLoader, file.toURI().toURL());
         }
+    }
+
+    public static ClassLoader getFabricClassLoader() {
+        // loader v0.12.x
+        Class<?> targetClass = null;
+        try {
+            targetClass = Class.forName("net.fabricmc.loader.impl.launch.FabricLauncherBase");
+        } catch(Exception ignored) {
+            // loader v0.11.x
+            try {
+                targetClass = Class.forName("net.fabricmc.loader.launch.common.FabricLauncherBase");
+            } catch(Exception ignored2) {
+            }
+        }
+
+        if(targetClass != null) {
+            try {
+                Object launcher = targetClass.getMethod("getLauncher").invoke(null);
+                return (ClassLoader) launcher.getClass().getMethod("getTargetClassLoader").invoke(launcher);
+            } catch(Exception ignored) {
+            }
+        }
+        return null;
+    }
+
+    public static ClassLoader getLaunchClassLoader() {
+        try {
+            return (ClassLoader) Class.forName("net.minecraft.launchwrapper.Launch")
+                    .getDeclaredField("classLoader").get(null);
+        } catch(Exception ignored) {
+        }
+        return null;
     }
 }

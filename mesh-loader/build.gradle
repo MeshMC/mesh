@@ -12,6 +12,7 @@ dependencies {
 
     implementation "org.spongepowered:mixin:0.8.5-SNAPSHOT"
 
+    implementation(project(":mesh-core"))
     embeddedJars(project(":mesh-core")) {
         exclude module: "log4j-api"
     }

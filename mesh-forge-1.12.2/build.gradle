@@ -39,6 +39,7 @@ dependencies {
 
     coreLibs(project(":mesh-core")) {
         exclude module: "log4j-api"
+        exclude module: "gson"
     }
 
     implementation configurations.coreLibs

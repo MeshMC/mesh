@@ -3,7 +3,6 @@ package net.meshmc.mesh.loader;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.entrypoint.PreLaunchEntrypoint;
 import net.fabricmc.loader.impl.FabricLoaderImpl;
-import net.fabricmc.loader.impl.launch.FabricLauncherBase;
 import org.spongepowered.asm.mixin.Mixins;
 
 /**
@@ -12,15 +11,15 @@ import org.spongepowered.asm.mixin.Mixins;
 public class MeshFabricLoader implements ModInitializer, PreLaunchEntrypoint {
     @Override
     public void onPreLaunch() {
-        ClassLoader classLoader = getClassLoader();
+        ClassLoader classLoader = MeshLoaderUtils.getFabricClassLoader();
         String gameVersion = getGameVersion();
         if(classLoader == null || gameVersion == null || !isVersionSupported(classLoader, gameVersion)) return;
 
         try {
-            MeshLoader.load(
+            MeshLoaderUtils.load(
                 classLoader,
-                MeshLoader.unpack("mesh-core.jar", classLoader),
-                MeshLoader.unpack("fabric", gameVersion, classLoader)
+                MeshLoaderUtils.unpack("mesh-core.jar", classLoader),
+                MeshLoaderUtils.unpack("fabric", gameVersion, classLoader)
             );
 
             // add mixins
@@ -43,35 +42,8 @@ public class MeshFabricLoader implements ModInitializer, PreLaunchEntrypoint {
         }
     }
 
-    private static ClassLoader getClassLoader() {
-        // loader v0.12.x
-        Class<?> targetClass = null;
-        try {
-            targetClass = Class.forName("net.fabricmc.loader.impl.launch.FabricLauncherBase");
-        } catch(Exception ignored) {
-        }
-        if(targetClass != null) {
-            return FabricLauncherBase.getLauncher().getTargetClassLoader();
-        }
-
-        // loader v0.11.x
-        try {
-            targetClass = Class.forName("net.fabricmc.loader.launch.common.FabricLauncherBase");
-        } catch(Exception ignored) {
-        }
-        if(targetClass != null) {
-            try {
-                Object launcher = targetClass.getMethod("getLauncher").invoke(null);
-                return (ClassLoader) launcher.getClass().getMethod("getTargetClassLoader").invoke(launcher);
-            } catch(Exception ignored) {
-            }
-        }
-
-        return null;
-    }
-
     private static boolean isVersionSupported() {
-        ClassLoader classLoader = getClassLoader();
+        ClassLoader classLoader = MeshLoaderUtils.getFabricClassLoader();
         String gameVersion = getGameVersion();
         if(classLoader == null || gameVersion == null) return false;
         return isVersionSupported(classLoader, gameVersion);

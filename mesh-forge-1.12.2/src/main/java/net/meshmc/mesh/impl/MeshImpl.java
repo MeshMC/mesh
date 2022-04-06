@@ -7,8 +7,10 @@ import net.meshmc.mesh.api.util.Utilities;
 import net.meshmc.mesh.impl.wrapper.render.RendererMesh;
 import net.meshmc.mesh.impl.wrapper.util.UtilitiesMesh;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+
+import java.io.File;
 
 /**
  * Implementation of Mesh for Forge 1.12.2
@@ -49,5 +51,10 @@ public class MeshImpl extends Mesh {
     @Override
     public Utilities getUtilities() {
         return UTILITIES;
+    }
+
+    @Override
+    public File getRunDirectory() {
+        return Loader.instance().getConfigDir();
     }
 }

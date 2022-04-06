@@ -16,6 +16,9 @@
   "entrypoints": {
     "main": [
       "net.meshmc.mesh.impl.MeshImpl"
+    ],
+    "preLaunch": [
+      "net.meshmc.mesh.impl.MeshImpl"
     ]
   },
   "mixins": [
