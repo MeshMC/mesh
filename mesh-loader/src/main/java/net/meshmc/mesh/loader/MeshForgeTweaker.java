@@ -2,43 +2,37 @@ package net.meshmc.mesh.loader;
 
 import net.minecraft.launchwrapper.ITweaker;
 import net.minecraft.launchwrapper.LaunchClassLoader;
-import org.spongepowered.asm.launch.MixinTweaker;
 
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Tigermouthbear 1/23/22
  */
 public class MeshForgeTweaker implements ITweaker {
-    private static final Class<?> LAUNCH_CLASS;
-    static {
-        try {
-            LAUNCH_CLASS = Class.forName("net.minecraft.launchwrapper.Launch");
-        } catch(ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private ITweaker meshTweaker = null;
 
-    @SuppressWarnings("unchecked")
     public MeshForgeTweaker() {
-        ClassLoader classLoader = MeshLoaderUtils.getLaunchClassLoader();
+        ClassLoader classLoader = getLaunchClassLoader();
         String gameVersion = getGameVersion();
         if(classLoader == null || gameVersion == null || !isVersionSupported(classLoader, gameVersion)) return;
 
         try {
-            // load the forge version on both class loaders
-            File meshCore = MeshLoaderUtils.unpack("mesh-core.jar", getClass().getClassLoader());
+            // load core and forge impl into launch classLoader
             File mesh = MeshLoaderUtils.unpack("forge", gameVersion, getClass().getClassLoader());
-            MeshLoaderUtils.load(getClass().getClassLoader(), meshCore, mesh);
-            MeshLoaderUtils.load(classLoader, meshCore, mesh);
+            MeshLoaderUtils.load(
+                classLoader,
+                MeshLoaderUtils.unpack("mesh-core.jar", getClass().getClassLoader()),
+                mesh
+            );
 
-            // add mixin tweaker to the tweaker list
-            Map<String,Object> blackboard = (Map<String,Object>) LAUNCH_CLASS.getField("blackboard").get(null);
-            List<ITweaker> tweakers = (List<ITweaker>) blackboard.get("Tweaks");
-            tweakers.add(new MixinTweaker());
+            // also load forge impl into current classloader to allow mixins to work
+            MeshLoaderUtils.load(getClass().getClassLoader(), mesh);
+
+            // create a new mesh tweaker for the version
+            meshTweaker = (ITweaker) ((Class<?>) classLoader.getClass().getMethod("findClass", String.class)
+                    .invoke(classLoader, "net.meshmc.mesh.impl.tweaker.MeshTweaker")).getConstructor().newInstance();
 
             // remove mesh from the libraries list so that it will get parsed as a mod
             Class<?> coreModManagerClass = Class.forName("net.minecraftforge.fml.relauncher.CoreModManager");
@@ -53,15 +47,17 @@ public class MeshForgeTweaker implements ITweaker {
 
     @Override
     public void acceptOptions(List<String> args, File gameDir, File assetsDir, String profile) {
+        if(meshTweaker != null) meshTweaker.acceptOptions(args, gameDir, assetsDir, profile);
     }
 
     @Override
     public void injectIntoClassLoader(LaunchClassLoader classLoader) {
+        if(meshTweaker != null) meshTweaker.injectIntoClassLoader(classLoader);
     }
 
     @Override
     public String getLaunchTarget() {
-        return "net.minecraft.client.main.Main";
+        return meshTweaker != null ? meshTweaker.getLaunchTarget() : "net.minecraft.client.main.Main";
     }
 
     @Override
@@ -71,6 +67,15 @@ public class MeshForgeTweaker implements ITweaker {
 
     private static boolean isVersionSupported(ClassLoader classLoader, String gameVersion) {
         return classLoader.getResource("mesh-forge-" + gameVersion + ".jar") != null;
+    }
+
+    private static ClassLoader getLaunchClassLoader() {
+        try {
+            return (ClassLoader) Class.forName("net.minecraft.launchwrapper.Launch")
+                    .getDeclaredField("classLoader").get(null);
+        } catch(Exception ignored) {
+        }
+        return null;
     }
 
     private static String getGameVersion() {

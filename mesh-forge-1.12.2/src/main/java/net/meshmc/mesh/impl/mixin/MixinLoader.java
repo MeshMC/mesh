@@ -1,6 +1,5 @@
 package net.meshmc.mesh.impl.mixin;
 
-import net.meshmc.mesh.Mesh;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import org.spongepowered.asm.launch.MixinBootstrap;
 import org.spongepowered.asm.mixin.MixinEnvironment;
@@ -14,8 +13,6 @@ public class MixinLoader implements IFMLLoadingPlugin {
         MixinBootstrap.init();
         Mixins.addConfigurations("mesh.mixins.json");
         MixinEnvironment.getDefaultEnvironment().setObfuscationContext("searge");
-
-        Mesh.load();
     }
 
     @Override

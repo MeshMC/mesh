@@ -3,6 +3,7 @@ package net.meshmc.mesh.impl;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.entrypoint.PreLaunchEntrypoint;
 import net.fabricmc.loader.impl.FabricLoaderImpl;
+import net.fabricmc.loader.impl.launch.FabricLauncherBase;
 import net.meshmc.mesh.Mesh;
 import net.meshmc.mesh.api.client.Minecraft;
 import net.meshmc.mesh.api.render.Renderer;
@@ -10,9 +11,6 @@ import net.meshmc.mesh.api.util.Utilities;
 import net.meshmc.mesh.impl.wrapper.render.RendererMesh;
 import net.meshmc.mesh.impl.wrapper.util.UtilitiesMesh;
 import net.minecraft.client.MinecraftClient;
-
-import java.io.File;
-import java.nio.file.Path;
 
 /**
  * Implementation of Mesh for Fabric 1.18.1
@@ -30,7 +28,7 @@ public class MeshImpl extends Mesh implements ModInitializer, PreLaunchEntrypoin
 
     @Override
     public void onPreLaunch() {
-        Mesh.load();
+        Mesh.load(FabricLoaderImpl.INSTANCE.getGameDir().toFile(), FabricLauncherBase.getLauncher().getTargetClassLoader());
     }
 
     @Override
@@ -39,7 +37,7 @@ public class MeshImpl extends Mesh implements ModInitializer, PreLaunchEntrypoin
         RENDERER = new RendererMesh();
         UTILITIES = new UtilitiesMesh();
 
-        Mesh.initialize();
+        Mesh.init();
     }
 
     @Override
@@ -55,10 +53,5 @@ public class MeshImpl extends Mesh implements ModInitializer, PreLaunchEntrypoin
     @Override
     public Utilities getUtilities() {
         return UTILITIES;
-    }
-
-    @Override
-    public File getRunDirectory() {
-        return FabricLoaderImpl.INSTANCE.getGameDir().toFile();
     }
 }
