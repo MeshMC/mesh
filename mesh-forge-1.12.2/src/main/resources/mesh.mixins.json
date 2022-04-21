@@ -4,9 +4,12 @@
   "package": "net.meshmc.mesh.impl.mixin",
   "refmap": "mesh.mixins.refmap.json",
   "mixins": [
+    "accessors.MapColorAccessor",
     "advancement.MixinAdvancement",
     "advancement.MixinAdvancementBuilder",
     "advancement.MixinAdvancementProgress",
+    "block.MixinMapColor",
+    "block.MixinMaterial",
     "client.MixinMinecraft",
     "client.MixinSession",
     "entity.MixinEntity",

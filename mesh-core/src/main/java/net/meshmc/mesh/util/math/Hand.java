@@ -2,7 +2,5 @@ package net.meshmc.mesh.util.math;
 
 public enum Hand {
     MAIN_HAND,
-    OFF_HAND;
-
-    public static Hand[] VALUES = Hand.values();
+    OFF_HAND
 }

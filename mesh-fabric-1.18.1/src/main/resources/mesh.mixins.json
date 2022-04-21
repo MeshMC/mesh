@@ -11,6 +11,8 @@
     "advancement.MixinAdvancement",
     "advancement.MixinAdvancementBuilder",
     "advancement.MixinAdvancementProgress",
+    "block.MixinMapColor",
+    "block.MixinMaterial",
     "client.MixinMinecraft",
     "client.MixinSession",
     "entity.MixinEntity",
