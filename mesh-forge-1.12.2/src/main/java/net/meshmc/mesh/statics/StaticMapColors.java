@@ -1,7 +1,6 @@
 package net.meshmc.mesh.statics;
 
 import net.meshmc.mesh.api.block.MapColor;
-import net.meshmc.mesh.impl.mixin.accessors.MapColorAccessor;
 
 public class StaticMapColors {
     public static final MapColor
@@ -57,14 +56,14 @@ public class StaticMapColors {
             TERRACOTTA_GREEN = (MapColor) net.minecraft.block.material.MapColor.GREEN_STAINED_HARDENED_CLAY,
             TERRACOTTA_RED = (MapColor) net.minecraft.block.material.MapColor.RED_STAINED_HARDENED_CLAY,
             TERRACOTTA_BLACK = (MapColor) net.minecraft.block.material.MapColor.BLACK_STAINED_HARDENED_CLAY,
-            DULL_RED = (MapColor) MapColorAccessor.create(52, 12398641),
-            DULL_PINK = (MapColor) MapColorAccessor.create(53, 9715553),
-            DARK_CRIMSON = (MapColor) MapColorAccessor.create(54, 6035741),
-            TEAL = (MapColor) MapColorAccessor.create(55, 1474182),
-            DARK_AQUA = (MapColor) MapColorAccessor.create(56, 3837580),
-            DARK_DULL_PINK = (MapColor) MapColorAccessor.create(57, 5647422),
-            BRIGHT_TEAL = (MapColor) MapColorAccessor.create(58, 1356933),
-            DEEPSLATE_GRAY = (MapColor) MapColorAccessor.create(59, 6579300),
-            RAW_IRON_PINK = (MapColor) MapColorAccessor.create(60, 14200723),
-            LICHEN_GREEN = (MapColor) MapColorAccessor.create(61, 8365974);
+            DULL_RED = (MapColor) new net.minecraft.block.material.MapColor(52, 12398641),
+            DULL_PINK = (MapColor) new net.minecraft.block.material.MapColor(53, 9715553),
+            DARK_CRIMSON = (MapColor) new net.minecraft.block.material.MapColor(54, 6035741),
+            TEAL = (MapColor) new net.minecraft.block.material.MapColor(55, 1474182),
+            DARK_AQUA = (MapColor) new net.minecraft.block.material.MapColor(56, 3837580),
+            DARK_DULL_PINK = (MapColor) new net.minecraft.block.material.MapColor(57, 5647422),
+            BRIGHT_TEAL = (MapColor) new net.minecraft.block.material.MapColor(58, 1356933),
+            DEEPSLATE_GRAY = (MapColor) new net.minecraft.block.material.MapColor(59, 6579300),
+            RAW_IRON_PINK = (MapColor) new net.minecraft.block.material.MapColor(60, 14200723),
+            LICHEN_GREEN = (MapColor) new net.minecraft.block.material.MapColor(61, 8365974);
 }

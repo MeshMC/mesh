@@ -30,6 +30,8 @@ configurations {
 
 minecraft {
     mappings channel: "stable", version: "39-1.12"
+
+    accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
 }
 
 dependencies {
