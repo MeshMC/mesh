@@ -1,6 +1,8 @@
 package net.meshmc.mesh;
 
 import io.netty.buffer.Unpooled;
+import net.meshmc.mesh.api.block.MapColor;
+import net.meshmc.mesh.api.block.Material;
 import net.meshmc.mesh.api.client.Session;
 import net.meshmc.mesh.api.entity.Entity;
 import net.meshmc.mesh.api.math.*;
@@ -59,6 +61,10 @@ public class MeshStatics {
 
     public static LocationIdentifier createLocationIdentifier(String path) {
         return (LocationIdentifier) new Identifier(path);
+    }
+
+    public static Material createMaterial(MapColor mapColor) {
+        return (Material) new net.minecraft.block.Material.Builder((net.minecraft.block.MapColor) mapColor).build();
     }
 
     // packets

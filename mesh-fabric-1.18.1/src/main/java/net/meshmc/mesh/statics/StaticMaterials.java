@@ -1,14 +1,9 @@
-package net.meshmc.mesh.api.block;
+package net.meshmc.mesh.statics;
 
-import net.meshmc.mesh.util.block.PistonPushReaction;
+import net.meshmc.mesh.api.block.Material;
 
-/**
- * @author Makrennel 04/21/2022
- *
- * 1.18 fabric implementation of the Material interface.
- */
-public interface Material {
-    Material
+public class StaticMaterials {
+    public static final Material
             AIR = (Material) net.minecraft.block.Material.AIR,
             AMETHYST = (Material) net.minecraft.block.Material.AMETHYST,
             ANVIL = (Material) net.minecraft.block.Material.REPAIR_STATION,
@@ -54,33 +49,4 @@ public interface Material {
             WEB = (Material) net.minecraft.block.Material.COBWEB,
             WOOD = (Material) net.minecraft.block.Material.WOOD,
             WOOL = (Material) net.minecraft.block.Material.WOOL;
-
-    static Material create(MapColor color) {
-        return (Material) new net.minecraft.block.Material.Builder((net.minecraft.block.MapColor) color).build();
-    }
-
-    boolean isLiquid_();
-    Material setLiquid(boolean value);
-
-    boolean isSolid_();
-    Material setSolid(boolean value);
-
-    boolean doesBlockMovement();
-    Material setBlocksMovement(boolean value);
-
-    boolean doesBlockLight();
-    Material setBlocksLight(boolean value);
-
-    boolean isBurnable();
-    Material setBurnable(boolean value);
-
-    boolean isReplaceable();
-    Material setReplaceable(boolean value);
-
-    MapColor getColorOnMap();
-    Material setColorOnMap(MapColor color);
-
-    PistonPushReaction getPistonPushReaction();
-    Material setPistonPushReaction(PistonPushReaction pistonPushReaction);
 }
-

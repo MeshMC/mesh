@@ -41,7 +41,7 @@ jar {
     archiveClassifier.set("all")
 
     exclude "net/meshmc/mesh/MeshStatics.class",
-            "net/meshmc/mesh/api/block/Material.class", "net/meshmc/mesh/api/block/MapColor.class",
+            "net/meshmc/mesh/statics/StaticMaterials.class", "net/meshmc/mesh/statics/StaticMapColors.class",
             "META-INF/maven", "META-INF/maven/**",
             "META-INF/versions", "META-INF/versions/**", "META-INF/proguard", "META-INF/proguard/**",
             "META-INF/com.android.tools", "META-INF/com.android.tools/**", "DebugProbesKt.bin"
@@ -51,13 +51,13 @@ task sourceJar(type: Jar) {
     from(sourceSets.main.java)
     archiveClassifier.set("sources")
     exclude "net/meshmc/mesh/MeshStatics.class",
-            "net/meshmc/mesh/api/block/Material.class", "net/meshmc/mesh/api/block/MapColor.class"
+            "net/meshmc/mesh/statics/StaticMaterials.class", "net/meshmc/mesh/statics/StaticMapColors.class"
 }
 build.dependsOn("sourceJar")
 
 task coreJar(type: Jar) {
     from(sourceSets.main.output)
     exclude "net/meshmc/mesh/MeshStatics.class",
-            "net/meshmc/mesh/api/block/Material.class", "net/meshmc/mesh/api/block/MapColor.class"
+            "net/meshmc/mesh/statics/StaticMaterials.class", "net/meshmc/mesh/statics/StaticMapColors.class"
 }
 build.dependsOn("coreJar")

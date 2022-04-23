@@ -1,13 +1,9 @@
-package net.meshmc.mesh.api.block;
+package net.meshmc.mesh.statics;
 
-/**
- * @author Makrennel 04/21/2022
- *
- * This is a 1.18 implementation of the MapColor interface
- *
- */
-public interface MapColor {
-    MapColor
+import net.meshmc.mesh.api.block.MapColor;
+
+public class StaticMapColors {
+    public static final MapColor
             CLEAR = (MapColor) net.minecraft.block.MapColor.CLEAR,
             PALE_GREEN = (MapColor) net.minecraft.block.MapColor.PALE_GREEN,
             PALE_YELLOW = (MapColor) net.minecraft.block.MapColor.PALE_YELLOW,
@@ -70,8 +66,4 @@ public interface MapColor {
             DEEPSLATE_GRAY = (MapColor) net.minecraft.block.MapColor.DEEPSLATE_GRAY,
             RAW_IRON_PINK = (MapColor) net.minecraft.block.MapColor.RAW_IRON_PINK,
             LICHEN_GREEN = (MapColor) net.minecraft.block.MapColor.LICHEN_GREEN;
-
-    int getColor();
-
-    int getId();
 }

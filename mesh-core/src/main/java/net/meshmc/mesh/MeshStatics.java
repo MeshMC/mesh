@@ -1,5 +1,7 @@
 package net.meshmc.mesh;
 
+import net.meshmc.mesh.api.block.MapColor;
+import net.meshmc.mesh.api.block.Material;
 import net.meshmc.mesh.api.client.Session;
 import net.meshmc.mesh.api.entity.Entity;
 import net.meshmc.mesh.api.math.*;
@@ -55,6 +57,10 @@ public class MeshStatics {
     }
 
     public static LocationIdentifier createLocationIdentifier(String path) {
+        throw new RuntimeException();
+    }
+
+    public static Material createMaterial(MapColor mapColor) {
         throw new RuntimeException();
     }
 

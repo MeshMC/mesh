@@ -7,7 +7,7 @@ import net.minecraft.client.multiplayer.WorldClient;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(WorldClient.class)
-public class MixinClientWorld extends MixinWorld implements ClientWorld {
+public abstract class MixinClientWorld extends MixinWorld implements ClientWorld {
     @Override
     public Iterable<Entity> getLoadedEntities() {
         return new IterableWrapper<>(loadedEntityList);
