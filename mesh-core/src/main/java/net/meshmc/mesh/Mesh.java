@@ -171,27 +171,67 @@ public abstract class Mesh {
 
         // find mods folder
         File modFolder = minecraftFolder.isDirectory() ? new File(minecraftFolder, "mods") : null;
-        if(modFolder == null || !modFolder.isDirectory()) return;
 
         // find mesh folder
-        File meshFolder = new File(modFolder, "mesh");
-        if(!meshFolder.isDirectory()) return;
+        File meshFolder = minecraftFolder.isDirectory() ? new File(minecraftFolder, "mesh") : null;
+
+        // find mesh folder in mods
+        File modMeshFolder = modFolder != null && modFolder.isDirectory() ? new File(modFolder, "mesh") : null;
+
+        if((meshFolder == null || !meshFolder.isDirectory())
+                && (modFolder == null || !modFolder.isDirectory())
+                && (modMeshFolder == null || !modMeshFolder.isDirectory())
+        ) {
+            loaded = true;
+            return;
+        }
 
         // find all mod files (.jar)s
-        File[] modFiles = meshFolder.listFiles(file -> file.getName().endsWith(".jar"));
-        if(modFiles == null || modFiles.length == 0) return;
+        File[] fromMesh = null, fromMods = null, fromModsMesh = null;
+
+        if(meshFolder != null && meshFolder.isDirectory())
+            fromMesh = meshFolder.listFiles(file -> file.getName().endsWith(".jar"));
+
+        if(modFolder != null && modFolder.isDirectory())
+            fromMods = modFolder.listFiles(file -> file.getName().endsWith(".jar"));
+
+        if(modMeshFolder != null && modMeshFolder.isDirectory())
+            fromModsMesh = modMeshFolder.listFiles(file -> file.getName().endsWith(".jar"));
+
+        if((fromMesh == null || fromMesh.length == 0)
+                && (fromMods == null || fromMods.length == 0)
+                && (fromModsMesh == null || fromModsMesh.length == 0)
+        ) {
+            loaded = true;
+            return;
+        }
 
         // load mesh mods into classpath
         try {
             Method addURL;
-            if(classLoader instanceof URLClassLoader) addURL = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
-            else addURL = classLoader.getClass().getDeclaredMethod("addURL", URL.class);
+
+            try { // loader v0.14.x
+                addURL = classLoader.getClass().getDeclaredMethod("addUrlFwd", URL.class);
+            } catch(Exception ignored) { // loader pre v0.14.x
+                if(classLoader instanceof URLClassLoader) addURL = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
+                else addURL = classLoader.getClass().getDeclaredMethod("addURL", URL.class);
+            }
 
             addURL.setAccessible(true);
 
-            for(File modFile: modFiles) {
-                addURL.invoke(classLoader, modFile.toURI().toURL());
-            }
+
+            if(fromMesh != null && fromMesh.length != 0)
+                for(File modFile: fromMesh)
+                    addURL.invoke(classLoader, modFile.toURI().toURL());
+
+            if(fromMods != null && fromMods.length != 0)
+                for(File modFile: fromMods)
+                    addURL.invoke(classLoader, modFile.toURI().toURL());
+
+            if(fromModsMesh != null && fromModsMesh.length != 0)
+                for(File modFile: fromModsMesh)
+                    addURL.invoke(classLoader, modFile.toURI().toURL());
+
         } catch(Exception e) {
             e.printStackTrace();
         }

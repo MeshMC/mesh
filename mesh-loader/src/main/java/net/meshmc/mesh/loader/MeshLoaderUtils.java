@@ -34,8 +34,13 @@ public class MeshLoaderUtils {
 
     static void load(ClassLoader classLoader, File... files) throws Exception {
         Method addURL;
-        if(classLoader instanceof URLClassLoader) addURL = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
-        else addURL = classLoader.getClass().getDeclaredMethod("addURL", URL.class);
+
+        try { // loader v0.14.x
+            addURL = classLoader.getClass().getDeclaredMethod("addUrlFwd", URL.class);
+        } catch(Exception ignored) { // loader pre v0.14.x
+            if(classLoader instanceof URLClassLoader) addURL = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
+            else addURL = classLoader.getClass().getDeclaredMethod("addURL", URL.class);
+        }
 
         addURL.setAccessible(true);
 

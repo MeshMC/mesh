@@ -111,7 +111,7 @@ task standaloneJar(type: Jar) {
         }
     }
     from {
-        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         configurations.coreLibs.collect {
             it.isDirectory() ? it : zipTree(it)
         }
