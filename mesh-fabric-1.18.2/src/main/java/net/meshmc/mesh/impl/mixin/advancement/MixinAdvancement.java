@@ -17,7 +17,7 @@ public abstract class MixinAdvancement implements Advancement {
     @Shadow @Final private Identifier id;
     @Shadow @Final private String[][] requirements;
     @Shadow @Final private Set<net.minecraft.advancement.Advancement> children;
-    @Shadow public abstract net.minecraft.advancement.Advancement.Task createTask();
+    @Shadow public abstract net.minecraft.advancement.Advancement.Builder createTask();
 
     @Override
     public Advancement getParent() {

@@ -219,7 +219,6 @@ public abstract class Mesh {
 
             addURL.setAccessible(true);
 
-
             if(fromMesh != null && fromMesh.length != 0)
                 for(File modFile: fromMesh)
                     addURL.invoke(classLoader, modFile.toURI().toURL());

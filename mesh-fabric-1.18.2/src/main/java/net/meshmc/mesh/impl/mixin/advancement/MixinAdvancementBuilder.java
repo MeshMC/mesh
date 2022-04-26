@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
-@Mixin(net.minecraft.advancement.Advancement.Task.class)
+@Mixin(net.minecraft.advancement.Advancement.Builder.class)
 public class MixinAdvancementBuilder implements Advancement.Builder {
     @Shadow @Nullable private Identifier parentId;
     @Shadow @Nullable private net.minecraft.advancement.Advancement parentObj;

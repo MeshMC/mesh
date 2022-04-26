@@ -60,7 +60,7 @@ public class ScreenAdapter extends net.minecraft.client.gui.screen.Screen {
     }
 
     @Override
-    public boolean isPauseScreen() {
+    public boolean shouldPause() {
         return screen.shouldPause();
     }
 
@@ -70,8 +70,8 @@ public class ScreenAdapter extends net.minecraft.client.gui.screen.Screen {
     }
 
     @Override
-    public void onClose() {
+    public void close() {
         screen.close();
-        super.onClose();
+        super.close();
     }
 }

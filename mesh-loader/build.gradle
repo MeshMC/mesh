@@ -18,7 +18,7 @@ dependencies {
     }
 
     // mesh implementations
-    embeddedJars(project(":mesh-fabric-1.18.1")) {
+    embeddedJars(project(":mesh-fabric-1.18.2")) {
         exclude module: "fabric-loader"
         exclude module: "fabric-language-kotlin"
     }

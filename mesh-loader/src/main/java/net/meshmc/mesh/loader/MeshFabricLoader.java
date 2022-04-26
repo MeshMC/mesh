@@ -84,7 +84,9 @@ public class MeshFabricLoader implements ModInitializer, PreLaunchEntrypoint {
         } catch(Exception ignored) {
         }
         if(targetClass != null) {
-            return FabricLoaderImpl.INSTANCE.getGameProvider().getNormalizedGameVersion();
+            String version = FabricLoaderImpl.INSTANCE.getGameProvider().getNormalizedGameVersion();
+            if(version.startsWith("1.18")) return "1.18.2";
+            return version;
         }
 
         // loader v0.11.x
@@ -94,9 +96,12 @@ public class MeshFabricLoader implements ModInitializer, PreLaunchEntrypoint {
         }
         if(targetClass != null) {
             try {
-                return (String) Class.forName("net.fabricmc.loader.game.GameProvider").getMethod("getNormalizedGameVersion")
+                String version = (String) Class.forName("net.fabricmc.loader.game.GameProvider").getMethod("getNormalizedGameVersion")
                 .invoke(Class.forName("net.fabricmc.loader.FabricLoader").getMethod("getGameProvider")
                 .invoke(targetClass.getMethod("getInstance").invoke(null)));
+
+                if(version.startsWith("1.18")) return "1.18.2";
+                return version;
             } catch(Exception ignored) {
             }
         }

@@ -47,7 +47,7 @@ public abstract class MixinEntity implements Entity {
     @Shadow private float pitch;
     @Shadow public float prevYaw;
     @Shadow public float prevPitch;
-    @Shadow private net.minecraft.util.math.Box entityBounds;
+    @Shadow private net.minecraft.util.math.Box boundingBox;
     @Shadow public boolean horizontalCollision;
     @Shadow public boolean verticalCollision;
     @Shadow public boolean collidedSoftly;
@@ -328,12 +328,12 @@ public abstract class MixinEntity implements Entity {
 
     @Override
     public Box getBounds() {
-        return (Box) entityBounds;
+        return (Box) boundingBox;
     }
 
     @Override
     public void setBounds(Box box) {
-        entityBounds = (net.minecraft.util.math.Box) box;
+        boundingBox = (net.minecraft.util.math.Box) box;
     }
 
     @Override @Shadow public abstract boolean isOnGround();

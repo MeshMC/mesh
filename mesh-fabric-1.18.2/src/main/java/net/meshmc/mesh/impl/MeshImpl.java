@@ -13,7 +13,7 @@ import net.meshmc.mesh.impl.wrapper.util.UtilitiesMesh;
 import net.minecraft.client.MinecraftClient;
 
 /**
- * Implementation of Mesh for Fabric 1.18.1
+ * Implementation of Mesh for Fabric 1.18.2
  *
  * @author Tigermouthbear 1/1/22
  */
@@ -23,7 +23,7 @@ public class MeshImpl extends Mesh implements ModInitializer, PreLaunchEntrypoin
     private static UtilitiesMesh UTILITIES;
 
     public MeshImpl() {
-        super(LoaderType.FABRIC, "1.18.1");
+        super(LoaderType.FABRIC, "1.18.2");
     }
 
     @Override

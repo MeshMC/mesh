@@ -28,7 +28,9 @@ import org.spongepowered.asm.mixin.Shadow;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Mixin(net.minecraft.entity.Entity.class)
 public abstract class MixinEntity implements Entity {

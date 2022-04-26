@@ -19,7 +19,7 @@ import java.util.Set;
 public abstract class MixinSPacketAdvancementUpdate implements SPacketAdvancementUpdate {
     @Shadow public abstract boolean shouldClearCurrent();
     @Shadow @Final private Set<Identifier> toRemove;
-    @Shadow @Final private Map<Identifier, net.minecraft.advancement.Advancement.Task> toEarn;
+    @Shadow @Final private Map<Identifier, net.minecraft.advancement.Advancement.Builder> toEarn;
     @Shadow @Final private Map<Identifier, net.minecraft.advancement.AdvancementProgress> toSetProgress;
 
     @Override
