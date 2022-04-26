@@ -5,50 +5,183 @@ import net.meshmc.mesh.api.block.Material;
 import net.meshmc.mesh.util.block.PistonPushReaction;
 
 public class StaticMaterials {
-    public static final Material
-            AIR = (Material) net.minecraft.block.material.Material.AIR,
-            AMETHYST = Material.create(MapColor.PURPLE),
-            ANVIL = (Material) net.minecraft.block.material.Material.ANVIL,
-            BAMBOO = Material.create(MapColor.OAK_TAN).setBurnable(true).setPistonPushReaction(PistonPushReaction.DESTROY),
-            BAMBOO_SAPLING = Material.create(MapColor.OAK_TAN).setBurnable(true).setPistonPushReaction(PistonPushReaction.DESTROY).setBlocksMovement(false),
-            BARRIER = (Material) net.minecraft.block.material.Material.BARRIER,
-            BUBBLE_COLUMN = Material.create(MapColor.WATER_BLUE).setBlocksMovement(false).setBlocksLight(false).setSolid(false).setPistonPushReaction(PistonPushReaction.DESTROY).setReplaceable(true),
-            CACTUS = (Material) net.minecraft.block.material.Material.CACTUS,
-            CAKE = (Material) net.minecraft.block.material.Material.CAKE,
-            CARPET = (Material) net.minecraft.block.material.Material.CARPET,
-            CLAY = (Material) net.minecraft.block.material.Material.CLAY,
-            DECORATION = (Material) net.minecraft.block.material.Material.CIRCUITS,
-            DRAGON_EGG = (Material) net.minecraft.block.material.Material.DRAGON_EGG,
-            FIRE = (Material) net.minecraft.block.material.Material.FIRE,
-            GLASS = (Material) net.minecraft.block.material.Material.GLASS,
-            GOURD = (Material) net.minecraft.block.material.Material.GOURD,
-            GRASS = (Material) net.minecraft.block.material.Material.GRASS,
-            IRON = (Material) net.minecraft.block.material.Material.IRON,
-            ICE = (Material) net.minecraft.block.material.Material.ICE,
-            ICE_DENSE = (Material) net.minecraft.block.material.Material.PACKED_ICE,
-            LAVA = (Material) net.minecraft.block.material.Material.LAVA,
-            LEAVES = (Material) net.minecraft.block.material.Material.LEAVES,
-            MOSS_BLOCK = Material.create(MapColor.DARK_GREEN).setPistonPushReaction(PistonPushReaction.DESTROY),
-            NETHER_SHOOTS = Material.create(MapColor.DARK_GREEN).setBlocksMovement(false).setBlocksLight(false).setSolid(false).setPistonPushReaction(PistonPushReaction.DESTROY).setReplaceable(true).setBurnable(true),
-            NETHER_WOOD = Material.create(MapColor.OAK_TAN),
-            PISTON = (Material) net.minecraft.block.material.Material.PISTON,
-            PLANT = (Material) net.minecraft.block.material.Material.PLANTS,
-            PLANT_REPLACEABLE = (Material) net.minecraft.block.material.Material.VINE,
-            PLANT_UNDERWATER = (Material) net.minecraft.block.material.Material.CORAL,
-            PORTAL = (Material) net.minecraft.block.material.Material.PORTAL,
-            REDSTONE_LIGHT = (Material) net.minecraft.block.material.Material.REDSTONE_LIGHT,
-            ROCK = (Material) net.minecraft.block.material.Material.ROCK,
-            SAND = (Material) net.minecraft.block.material.Material.SAND,
-            SCULK = Material.create(MapColor.BLACK),
-            SNOW_BLOCK = (Material) net.minecraft.block.material.Material.CRAFTED_SNOW,
-            SNOW_LAYER = (Material) net.minecraft.block.material.Material.SNOW,
-            SNOW_POWDER = Material.create(MapColor.WHITE).setSolid(false).setBlocksMovement(false),
-            SOIL = (Material) net.minecraft.block.material.Material.GROUND,
-            SPONGE = (Material) net.minecraft.block.material.Material.SPONGE,
-            STRUCTURE_VOID = (Material) net.minecraft.block.material.Material.STRUCTURE_VOID,
-            TNT = (Material) net.minecraft.block.material.Material.TNT,
-            WATER = (Material) net.minecraft.block.material.Material.WATER,
-            WEB = (Material) net.minecraft.block.material.Material.WEB,
-            WOOD = (Material) net.minecraft.block.material.Material.WOOD,
-            WOOL = (Material) net.minecraft.block.material.Material.CLOTH;
+    public static Material AIR() {
+        return (Material) net.minecraft.block.material.Material.AIR;
+    }
+
+    public static Material AMETHYST() {
+        return Material.create(MapColor.PURPLE);
+    }
+
+    public static Material ANVIL() {
+        return (Material) net.minecraft.block.material.Material.ANVIL;
+    }
+
+    public static Material BAMBOO() {
+        return Material.create(MapColor.OAK_TAN).setBurnable(true).setPistonPushReaction(PistonPushReaction.DESTROY);
+    }
+
+    public static Material BAMBOO_SAPLING() {
+        return Material.create(MapColor.OAK_TAN).setBurnable(true).setPistonPushReaction(PistonPushReaction.DESTROY).setBlocksMovement(false);
+    }
+
+    public static Material BARRIER() {
+        return (Material) net.minecraft.block.material.Material.BARRIER;
+    }
+
+    public static Material BUBBLE_COLUMN() {
+        return Material.create(MapColor.WATER_BLUE).setBlocksMovement(false).setBlocksLight(false).setSolid(false).setPistonPushReaction(PistonPushReaction.DESTROY).setReplaceable(true);
+    }
+
+    public static Material CACTUS() {
+        return (Material) net.minecraft.block.material.Material.CACTUS;
+    }
+
+    public static Material CAKE() {
+        return (Material) net.minecraft.block.material.Material.CAKE;
+    }
+
+    public static Material CARPET() {
+        return (Material) net.minecraft.block.material.Material.CARPET;
+    }
+
+    public static Material CLAY() {
+        return (Material) net.minecraft.block.material.Material.CLAY;
+    }
+
+    public static Material DECORATION() {
+        return (Material) net.minecraft.block.material.Material.CIRCUITS;
+    }
+
+    public static Material DRAGON_EGG() {
+        return (Material) net.minecraft.block.material.Material.DRAGON_EGG;
+    }
+
+    public static Material FIRE() {
+        return (Material) net.minecraft.block.material.Material.FIRE;
+    }
+
+    public static Material GLASS() {
+        return (Material) net.minecraft.block.material.Material.GLASS;
+    }
+
+    public static Material GOURD() {
+        return (Material) net.minecraft.block.material.Material.GOURD;
+    }
+
+    public static Material GRASS() {
+        return (Material) net.minecraft.block.material.Material.GRASS;
+    }
+
+    public static Material IRON() {
+        return (Material) net.minecraft.block.material.Material.IRON;
+    }
+
+    public static Material ICE() {
+        return (Material) net.minecraft.block.material.Material.ICE;
+    }
+
+    public static Material ICE_DENSE() {
+        return (Material) net.minecraft.block.material.Material.PACKED_ICE;
+    }
+
+    public static Material LAVA() {
+        return (Material) net.minecraft.block.material.Material.LAVA;
+    }
+
+    public static Material LEAVES() {
+        return (Material) net.minecraft.block.material.Material.LEAVES;
+    }
+
+    public static Material MOSS_BLOCK() {
+        return Material.create(MapColor.DARK_GREEN).setPistonPushReaction(PistonPushReaction.DESTROY);
+    }
+
+    public static Material NETHER_SHOOTS() {
+        return Material.create(MapColor.DARK_GREEN).setBlocksMovement(false).setBlocksLight(false).setSolid(false).setPistonPushReaction(PistonPushReaction.DESTROY).setReplaceable(true).setBurnable(true);
+    }
+
+    public static Material NETHER_WOOD() {
+        return Material.create(MapColor.OAK_TAN);
+    }
+
+    public static Material PISTON() {
+        return (Material) net.minecraft.block.material.Material.PISTON;
+    }
+
+    public static Material PLANT() {
+        return (Material) net.minecraft.block.material.Material.PLANTS;
+    }
+
+    public static Material PLANT_REPLACEABLE() {
+        return (Material) net.minecraft.block.material.Material.VINE;
+    }
+
+    public static Material PLANT_UNDERWATER() {
+        return (Material) net.minecraft.block.material.Material.CORAL;
+    }
+
+    public static Material PORTAL() {
+        return (Material) net.minecraft.block.material.Material.PORTAL;
+    }
+
+    public static Material REDSTONE_LIGHT() {
+        return (Material) net.minecraft.block.material.Material.REDSTONE_LIGHT;
+    }
+
+    public static Material ROCK() {
+        return (Material) net.minecraft.block.material.Material.ROCK;
+    }
+
+    public static Material SAND() {
+        return (Material) net.minecraft.block.material.Material.SAND;
+    }
+
+    public static Material SCULK() {
+        return Material.create(MapColor.BLACK);
+    }
+
+    public static Material SNOW_BLOCK() {
+        return (Material) net.minecraft.block.material.Material.CRAFTED_SNOW;
+    }
+
+    public static Material SNOW_LAYER() {
+        return (Material) net.minecraft.block.material.Material.SNOW;
+    }
+
+    public static Material SNOW_POWDER() {
+        return Material.create(MapColor.WHITE).setSolid(false).setBlocksMovement(false);
+    }
+
+    public static Material SOIL() {
+        return (Material) net.minecraft.block.material.Material.GROUND;
+    }
+
+    public static Material SPONGE() {
+        return (Material) net.minecraft.block.material.Material.SPONGE;
+    }
+
+    public static Material STRUCTURE_VOID() {
+        return (Material) net.minecraft.block.material.Material.STRUCTURE_VOID;
+    }
+
+    public static Material TNT() {
+        return (Material) net.minecraft.block.material.Material.TNT;
+    }
+
+    public static Material WATER() {
+        return (Material) net.minecraft.block.material.Material.WATER;
+    }
+
+    public static Material WEB() {
+        return (Material) net.minecraft.block.material.Material.WEB;
+    }
+
+    public static Material WOOD() {
+        return (Material) net.minecraft.block.material.Material.WOOD;
+    }
+
+    public static Material WOOL() {
+        return (Material) net.minecraft.block.material.Material.CLOTH;
+    }
 }

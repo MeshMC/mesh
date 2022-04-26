@@ -3,50 +3,183 @@ package net.meshmc.mesh.statics;
 import net.meshmc.mesh.api.block.Material;
 
 public class StaticMaterials {
-    public static final Material
-            AIR = null,
-            AMETHYST = null,
-            ANVIL = null,
-            BAMBOO = null,
-            BAMBOO_SAPLING = null,
-            BARRIER = null,
-            BUBBLE_COLUMN = null,
-            CACTUS = null,
-            CAKE = null,
-            CARPET = null,
-            CLAY = null,
-            DECORATION = null,
-            DRAGON_EGG = null,
-            FIRE = null,
-            GLASS = null,
-            GOURD = null,
-            GRASS = null,
-            IRON = null,
-            ICE = null,
-            ICE_DENSE = null,
-            LAVA = null,
-            LEAVES = null,
-            MOSS_BLOCK = null,
-            NETHER_SHOOTS = null,
-            NETHER_WOOD = null,
-            PISTON = null,
-            PLANT = null,
-            PLANT_REPLACEABLE = null,
-            PLANT_UNDERWATER = null,
-            PORTAL = null,
-            REDSTONE_LIGHT = null,
-            ROCK = null,
-            SAND = null,
-            SCULK = null,
-            SNOW_BLOCK = null,
-            SNOW_LAYER = null,
-            SNOW_POWDER = null,
-            SOIL = null,
-            SPONGE = null,
-            STRUCTURE_VOID = null,
-            TNT = null,
-            WATER = null,
-            WEB = null,
-            WOOD = null,
-            WOOL = null;
+    public static Material AIR() {
+        throw new RuntimeException();
+    }
+
+    public static Material AMETHYST() {
+        throw new RuntimeException();
+    }
+
+    public static Material ANVIL() {
+        throw new RuntimeException();
+    }
+
+    public static Material BAMBOO() {
+        throw new RuntimeException();
+    }
+
+    public static Material BAMBOO_SAPLING() {
+        throw new RuntimeException();
+    }
+
+    public static Material BARRIER() {
+        throw new RuntimeException();
+    }
+
+    public static Material BUBBLE_COLUMN() {
+        throw new RuntimeException();
+    }
+
+    public static Material CACTUS() {
+        throw new RuntimeException();
+    }
+
+    public static Material CAKE() {
+        throw new RuntimeException();
+    }
+
+    public static Material CARPET() {
+        throw new RuntimeException();
+    }
+
+    public static Material CLAY() {
+        throw new RuntimeException();
+    }
+
+    public static Material DECORATION() {
+        throw new RuntimeException();
+    }
+
+    public static Material DRAGON_EGG() {
+        throw new RuntimeException();
+    }
+
+    public static Material FIRE() {
+        throw new RuntimeException();
+    }
+
+    public static Material GLASS() {
+        throw new RuntimeException();
+    }
+
+    public static Material GOURD() {
+        throw new RuntimeException();
+    }
+
+    public static Material GRASS() {
+        throw new RuntimeException();
+    }
+
+    public static Material IRON() {
+        throw new RuntimeException();
+    }
+
+    public static Material ICE() {
+        throw new RuntimeException();
+    }
+
+    public static Material ICE_DENSE() {
+        throw new RuntimeException();
+    }
+
+    public static Material LAVA() {
+        throw new RuntimeException();
+    }
+
+    public static Material LEAVES() {
+        throw new RuntimeException();
+    }
+
+    public static Material MOSS_BLOCK() {
+        throw new RuntimeException();
+    }
+
+    public static Material NETHER_SHOOTS() {
+        throw new RuntimeException();
+    }
+
+    public static Material NETHER_WOOD() {
+        throw new RuntimeException();
+    }
+
+    public static Material PISTON() {
+        throw new RuntimeException();
+    }
+
+    public static Material PLANT() {
+        throw new RuntimeException();
+    }
+
+    public static Material PLANT_REPLACEABLE() {
+        throw new RuntimeException();
+    }
+
+    public static Material PLANT_UNDERWATER() {
+        throw new RuntimeException();
+    }
+
+    public static Material PORTAL() {
+        throw new RuntimeException();
+    }
+
+    public static Material REDSTONE_LIGHT() {
+        throw new RuntimeException();
+    }
+
+    public static Material ROCK() {
+        throw new RuntimeException();
+    }
+
+    public static Material SAND() {
+        throw new RuntimeException();
+    }
+
+    public static Material SCULK() {
+        throw new RuntimeException();
+    }
+
+    public static Material SNOW_BLOCK() {
+        throw new RuntimeException();
+    }
+
+    public static Material SNOW_LAYER() {
+        throw new RuntimeException();
+    }
+
+    public static Material SNOW_POWDER() {
+        throw new RuntimeException();
+    }
+
+    public static Material SOIL() {
+        throw new RuntimeException();
+    }
+
+    public static Material SPONGE() {
+        throw new RuntimeException();
+    }
+
+    public static Material STRUCTURE_VOID() {
+        throw new RuntimeException();
+    }
+
+    public static Material TNT() {
+        throw new RuntimeException();
+    }
+
+    public static Material WATER() {
+        throw new RuntimeException();
+    }
+
+    public static Material WEB() {
+        throw new RuntimeException();
+    }
+
+    public static Material WOOD() {
+        throw new RuntimeException();
+    }
+
+    public static Material WOOL() {
+        throw new RuntimeException();
+    }
 }
