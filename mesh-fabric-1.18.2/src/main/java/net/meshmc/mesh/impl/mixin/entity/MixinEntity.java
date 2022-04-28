@@ -9,8 +9,12 @@ import net.meshmc.mesh.api.math.BlockPos;
 import net.meshmc.mesh.api.math.Box;
 import net.meshmc.mesh.api.math.Vec3d;
 import net.meshmc.mesh.api.world.World;
+import net.meshmc.mesh.impl.util.MCEnum;
+import net.meshmc.mesh.impl.util.MeshEnum;
+import net.meshmc.mesh.util.entity.Stance;
 import net.meshmc.mesh.util.math.Facing;
 import net.minecraft.entity.EntityDimensions;
+import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.MovementType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Direction;
@@ -112,6 +116,10 @@ public abstract class MixinEntity implements Entity {
     @Shadow public abstract void remove(net.minecraft.entity.Entity.RemovalReason par1);
     @Shadow public abstract boolean hasPassengers();
     @Shadow protected abstract void pushOutOfBlocks(double x, double y, double z);
+    @Shadow public abstract net.minecraft.entity.EntityPose getPose();
+    @Shadow public abstract float getHeadYaw();
+    @Shadow public abstract void setHeadYaw(float value);
+    @Shadow public abstract void setBodyYaw(float value);
 
     private static final Map<net.minecraft.entity.EntityType<?>, EntityType> entityTypeMap = new LinkedHashMap<>();
 
@@ -570,12 +578,12 @@ public abstract class MixinEntity implements Entity {
     }
 
     @Override
-    public int getTicksExisted() {
+    public int getAge() {
         return age;
     }
 
     @Override
-    public void setTicksExisted(int value) {
+    public void setAge(int value) {
         age = value;
     }
 
@@ -684,11 +692,7 @@ public abstract class MixinEntity implements Entity {
 
     @Override @Shadow public abstract boolean isSpectator();
     @Override @Shadow public abstract void kill();
-
-    @Override
-    public void discard() {
-        remove(net.minecraft.entity.Entity.RemovalReason.DISCARDED);
-    }
+    @Override @Shadow public abstract void discard();
 
     @Override
     public Box calculateBoundingBox() {
@@ -869,7 +873,17 @@ public abstract class MixinEntity implements Entity {
 
     @Override @Shadow public abstract boolean isSneaking();
     @Override @Shadow public abstract void setSneaking(boolean value);
-    @Override @Shadow public abstract boolean isInSneakingPose();
+
+    @Override
+    public Stance getStance() {
+        return MeshEnum.stance(getPose());
+    }
+
+    @Override
+    public void setStance(Stance stance) {
+        setPose(MCEnum.stance(stance));
+    }
+
     @Override @Shadow public abstract boolean isSprinting();
     @Override @Shadow public abstract void setSprinting(boolean value);
     @Override @Shadow public abstract boolean isInvisible();
@@ -889,9 +903,21 @@ public abstract class MixinEntity implements Entity {
         pushOutOfBlocks(x, y, z);
     }
 
-    @Override @Shadow public abstract float getHeadYaw();
-    @Override @Shadow public abstract void setHeadYaw(float headYaw);
-    @Override @Shadow public abstract void setBodyYaw(float bodyYaw);
+    @Override
+    public float getRenderHeadYaw() {
+        return getHeadYaw();
+    }
+
+    @Override
+    public void setRenderHeadYaw(float headYaw) {
+        setHeadYaw(headYaw);
+    }
+
+    @Override
+    public void setRenderBodyYaw(float bodyYaw) {
+        setBodyYaw(bodyYaw);
+    }
+
     @Override @Shadow public abstract boolean isAttackable();
 
     @Override
@@ -956,7 +982,7 @@ public abstract class MixinEntity implements Entity {
     }
 
     @Override
-    public boolean isRider(Entity entity) {
+    public boolean hasRider(Entity entity) {
         return hasPassenger((net.minecraft.entity.Entity) entity);
     }
 
@@ -968,6 +994,8 @@ public abstract class MixinEntity implements Entity {
     @Override @Shadow public abstract int getBurningDuration();
     @Override @Shadow public abstract float getWidth();
     @Override @Shadow public abstract float getHeight();
+
+    @Shadow public abstract void setPose(EntityPose par1);
 
     @Override
     public BlockPos getBlockPos() {

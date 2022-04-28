@@ -49,6 +49,7 @@
     "entity.living.player.MixinEntityServerPlayer",
     "events.client.MixinMinecraft",
     "events.client.MixinNetworkManager",
+    "events.entity.MixinEntity",
     "events.entity.MixinEntityPlayerSP",
     "events.render.MixinGuiIngame",
     "events.world.MixinWorld",

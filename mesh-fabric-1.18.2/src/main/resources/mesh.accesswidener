@@ -2,6 +2,7 @@ accessWidener   v1  named
 
 Extendable  class   net/minecraft/util/math/Vec3f
 Extendable  class   net/minecraft/block/Material
+Extendable  method  net/minecraft/entity/Entity discard ()V
 
 Accessible  class   net/minecraft/network/packet/c2s/play/PlayerInteractEntityC2SPacket$InteractType
 Accessible  class   net/minecraft/network/packet/c2s/play/PlayerInteractEntityC2SPacket$InteractTypeHandler

@@ -8,6 +8,7 @@ import net.meshmc.mesh.api.math.BlockPos;
 import net.meshmc.mesh.api.math.Box;
 import net.meshmc.mesh.api.math.Vec3d;
 import net.meshmc.mesh.api.world.World;
+import net.meshmc.mesh.util.entity.Stance;
 import net.meshmc.mesh.util.math.Facing;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
@@ -152,6 +153,7 @@ public abstract class MixinEntity implements Entity {
     @Shadow public abstract boolean isImmuneToExplosions();
     @Shadow public abstract void moveRelative(float strafe, float up, float forward, float friction);
     @Shadow public abstract void removePassengers();
+    @Shadow public abstract boolean isBeingRidden();
 
     private static final Map<Class<? extends net.minecraft.entity.Entity>, EntityType> entityTypeMap;
 
@@ -635,12 +637,12 @@ public abstract class MixinEntity implements Entity {
     }
 
     @Override
-    public int getTicksExisted() {
+    public int getAge() {
         return ticksExisted;
     }
 
     @Override
-    public void setTicksExisted(int value) {
+    public void setAge(int value) {
         ticksExisted = value;
     }
 
@@ -1034,15 +1036,21 @@ public abstract class MixinEntity implements Entity {
 
     @Override
     public boolean hasRiders() {
-        return !getPassengers().isEmpty();
+        return isBeingRidden();
     }
 
     @Override @Shadow public abstract boolean isSneaking();
     @Override @Shadow public abstract void setSneaking(boolean value);
 
     @Override
-    public boolean isInSneakingPose() {
-        return isSneaking();
+    public Stance getStance() {
+        if(isSneaking()) return Stance.CROUCHING;
+        else return Stance.STANDING;
+    }
+
+    @Override
+    public void setStance(Stance stance) {
+        //TODO: make this change clientside stance/animation like in 1.18?
     }
 
     @Override @Shadow public abstract boolean isSprinting();
@@ -1066,17 +1074,17 @@ public abstract class MixinEntity implements Entity {
     }
 
     @Override
-    public float getHeadYaw() {
+    public float getRenderHeadYaw() {
         return getRotationYawHead();
     }
 
     @Override
-    public void setHeadYaw(float headYaw) {
+    public void setRenderHeadYaw(float headYaw) {
         setRotationYawHead(headYaw);
     }
 
     @Override
-    public void setBodyYaw(float bodyYaw) {
+    public void setRenderBodyYaw(float bodyYaw) {
         setRenderYawOffset(bodyYaw);
     }
 
@@ -1176,7 +1184,7 @@ public abstract class MixinEntity implements Entity {
     }
 
     @Override
-    public boolean isRider(Entity entity) {
+    public boolean hasRider(Entity entity) {
         return isPassenger((net.minecraft.entity.Entity) entity);
     }
 

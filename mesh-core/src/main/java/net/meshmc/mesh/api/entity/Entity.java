@@ -5,6 +5,7 @@ import net.meshmc.mesh.api.math.BlockPos;
 import net.meshmc.mesh.api.math.Box;
 import net.meshmc.mesh.api.math.Vec3d;
 import net.meshmc.mesh.api.world.World;
+import net.meshmc.mesh.util.entity.Stance;
 import net.meshmc.mesh.util.math.Facing;
 
 import java.util.List;
@@ -132,8 +133,8 @@ public interface Entity {
     void setNoClip(boolean value);
 
     // age
-    int getTicksExisted();
-    void setTicksExisted(int value);
+    int getAge();
+    void setAge(int value);
 
     int getFireTicks();
     void setFireTicks(int value);
@@ -194,7 +195,6 @@ public interface Entity {
 
     // TODO: SCOREBOARD
 
-    // setDead
     void kill();
     void discard();
 
@@ -420,8 +420,9 @@ public interface Entity {
     boolean isSneaking();
     void setSneaking(boolean value);
 
-    // isSneaking for 1.12.2 and lower
-    boolean isInSneakingPose();
+    // ClientSide only
+    Stance getStance();
+    void setStance(Stance stance);
 
     // TODO: bypassesSteppingEffects, isDescending
 
@@ -458,11 +459,11 @@ public interface Entity {
 
     // TODO: getName (Text)
 
-    float getHeadYaw();
-    void setHeadYaw(float headYaw);
+    float getRenderHeadYaw();
+    void setRenderHeadYaw(float headYaw);
 
-    // setRenderYawOffset?
-    void setBodyYaw(float bodyYaw);
+    // TODO: custom renderHeadPitch getter/setter?
+    void setRenderBodyYaw(float bodyYaw);
 
     boolean isAttackable();
 
@@ -536,7 +537,7 @@ public interface Entity {
 
     Entity getControllingRider();
 
-    boolean isRider(Entity entity);
+    boolean hasRider(Entity entity);
 
     // getLowestRidingEntity / getRootVehicle
     Entity getLowestVehicle();
