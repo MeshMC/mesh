@@ -6,6 +6,7 @@ import net.meshmc.mesh.api.block.MapColor;
 import net.meshmc.mesh.api.block.Material;
 import net.meshmc.mesh.api.math.BlockPos;
 import net.meshmc.mesh.api.world.World;
+import net.meshmc.mesh.impl.wrapper.world.WorldMesh;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Blocks;
 
@@ -941,7 +942,7 @@ public class BlockStateMesh extends BlockState<AbstractBlock.AbstractBlockState>
 
     @Override
     public int getOpacity(World world, BlockPos blockPos) {
-        return getMeshValue().getOpacity((net.minecraft.world.World) world, (net.minecraft.util.math.BlockPos) blockPos);
+        return getMeshValue().getOpacity(((WorldMesh<?>) world).getMeshValue(), (net.minecraft.util.math.BlockPos) blockPos);
     }
 
     @Override
@@ -956,12 +957,12 @@ public class BlockStateMesh extends BlockState<AbstractBlock.AbstractBlockState>
 
     @Override
     public MapColor getMapColor(World world, BlockPos blockPos) {
-        return (MapColor) getMeshValue().getMapColor((net.minecraft.world.World) world, (net.minecraft.util.math.BlockPos) blockPos);
+        return (MapColor) getMeshValue().getMapColor(((WorldMesh<?>) world).getMeshValue(), (net.minecraft.util.math.BlockPos) blockPos);
     }
 
     @Override
     public float getHardness(World world, BlockPos blockPos) {
-        return getMeshValue().getHardness((net.minecraft.world.World) world, (net.minecraft.util.math.BlockPos) blockPos);
+        return getMeshValue().getHardness(((WorldMesh<?>) world).getMeshValue(), (net.minecraft.util.math.BlockPos) blockPos);
     }
 
     @Override

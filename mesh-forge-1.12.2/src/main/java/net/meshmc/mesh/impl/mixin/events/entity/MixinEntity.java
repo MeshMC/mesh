@@ -7,7 +7,9 @@ import net.meshmc.mesh.api.math.Box;
 import net.meshmc.mesh.api.math.Vec3d;
 import net.meshmc.mesh.event.events.entity.EntityEvent;
 import net.meshmc.mesh.impl.util.MCEnum;
+import net.meshmc.mesh.impl.util.Mappings;
 import net.meshmc.mesh.impl.util.MeshEnum;
+import net.meshmc.mesh.impl.wrapper.entity.EntityMesh;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MoverType;
 import net.minecraft.util.EnumFacing;
@@ -25,7 +27,7 @@ import static net.meshmc.mesh.event.MeshEvent.Era.BEFORE;
 @Mixin(Entity.class)
 public class MixinEntity {
     @Shadow private int entityId;
-    
+
     EventManager EVENT_MANAGER = Mesh.getMesh().getEventManager();
 
     @Inject(method = "onKillCommand", at = @At("HEAD"), cancellable = true)
@@ -120,20 +122,20 @@ public class MixinEntity {
 
     @Inject(method = "onCollideWithPlayer", at = @At("HEAD"), cancellable = true)
     public void beforePlayerCollision(net.minecraft.entity.player.EntityPlayer player, CallbackInfo ci) {
-        if(EVENT_MANAGER.post(new EntityEvent.onPlayerCollision(entityId, BEFORE, (EntityPlayer) player)).isCancelled()) ci.cancel();
+        if(EVENT_MANAGER.post(new EntityEvent.onPlayerCollision(entityId, BEFORE, (EntityPlayer) Mappings.entity(player))).isCancelled()) ci.cancel();
     }
     @Inject(method = "onCollideWithPlayer", at = @At("RETURN"))
     public void afterPlayerCollision(net.minecraft.entity.player.EntityPlayer player, CallbackInfo ci) {
-        EVENT_MANAGER.post(new EntityEvent.onPlayerCollision(entityId, BEFORE, (EntityPlayer) player));
+        EVENT_MANAGER.post(new EntityEvent.onPlayerCollision(entityId, BEFORE, (EntityPlayer) Mappings.entity(player)));
     }
 
     @Inject(method = "applyEntityCollision", at = @At("HEAD"), cancellable = true)
     public void beforePushAwayFrom(Entity entity, CallbackInfo ci) {
-        if(EVENT_MANAGER.post(new EntityEvent.pushAwayFrom(entityId, BEFORE, (net.meshmc.mesh.api.entity.Entity) entity)).isCancelled()) ci.cancel();
+        if(EVENT_MANAGER.post(new EntityEvent.pushAwayFrom(entityId, BEFORE, Mappings.entity(entity))).isCancelled()) ci.cancel();
     }
     @Inject(method = "applyEntityCollision", at = @At("RETURN"))
     public void afterPushAwayFrom(Entity entity, CallbackInfo ci) {
-        EVENT_MANAGER.post(new EntityEvent.pushAwayFrom(entityId, AFTER, (net.meshmc.mesh.api.entity.Entity) entity));
+        EVENT_MANAGER.post(new EntityEvent.pushAwayFrom(entityId, AFTER, Mappings.entity(entity)));
     }
 
     @Inject(method = "updateRidden", at = @At("HEAD"), cancellable = true)
@@ -147,25 +149,25 @@ public class MixinEntity {
 
     @Inject(method = "updatePassenger", at = @At("HEAD"), cancellable = true)
     public void beforeUpdateRiderPosition(Entity passenger, CallbackInfo ci) {
-        if(EVENT_MANAGER.post(new EntityEvent.updateRiderPosition(entityId, BEFORE, (net.meshmc.mesh.api.entity.Entity) passenger)).isCancelled()) ci.cancel();
+        if(EVENT_MANAGER.post(new EntityEvent.updateRiderPosition(entityId, BEFORE, Mappings.entity(passenger))).isCancelled()) ci.cancel();
     }
     @Inject(method = "updatePassenger", at = @At("RETURN"))
     public void afterUpdateRiderPosition(Entity passenger, CallbackInfo ci) {
-        EVENT_MANAGER.post(new EntityEvent.updateRiderPosition(entityId, AFTER, (net.meshmc.mesh.api.entity.Entity) passenger));
+        EVENT_MANAGER.post(new EntityEvent.updateRiderPosition(entityId, AFTER, Mappings.entity(passenger)));
     }
 
     @Inject(method = "applyOrientationToEntity", at = @At("HEAD"), cancellable = true)
     public void beforeRiderLookAround(Entity passenger, CallbackInfo ci) {
-        if(EVENT_MANAGER.post(new EntityEvent.onRiderLookAround(entityId, BEFORE, (net.meshmc.mesh.api.entity.Entity) passenger)).isCancelled()) ci.cancel();
+        if(EVENT_MANAGER.post(new EntityEvent.onRiderLookAround(entityId, BEFORE, Mappings.entity(passenger))).isCancelled()) ci.cancel();
     }
     @Inject(method = "applyOrientationToEntity", at = @At("RETURN"))
     public void afterRiderLookAround(Entity passenger, CallbackInfo ci) {
-        EVENT_MANAGER.post(new EntityEvent.onRiderLookAround(entityId, AFTER, (net.meshmc.mesh.api.entity.Entity) passenger));
+        EVENT_MANAGER.post(new EntityEvent.onRiderLookAround(entityId, AFTER, Mappings.entity(passenger)));
     }
 
     @Inject(method = "startRiding(Lnet/minecraft/entity/Entity;Z)Z", at = @At("HEAD"), cancellable = true)
     public void beforeRiderLookAround(Entity entity, boolean force, CallbackInfoReturnable<Boolean> cir) {
-        EntityEvent.startRidingEntity event = EVENT_MANAGER.post(new EntityEvent.startRidingEntity(entityId, BEFORE, cir.getReturnValue(), (net.meshmc.mesh.api.entity.Entity) entity, force));
+        EntityEvent.startRidingEntity event = EVENT_MANAGER.post(new EntityEvent.startRidingEntity(entityId, BEFORE, cir.getReturnValue(), Mappings.entity(entity), force));
         if(!event.isCancelled()) return;
 
         if(event.returnValue == null) throw new NullPointerException("Return value on cancelled " + event.getName() + " with Era:BEFORE is null!");
@@ -174,7 +176,7 @@ public class MixinEntity {
     }
     @Inject(method = "startRiding(Lnet/minecraft/entity/Entity;Z)Z", at = @At("RETURN"), cancellable = true)
     public void afterRiderLookAround(Entity entity, boolean force, CallbackInfoReturnable<Boolean> cir) {
-        EntityEvent.startRidingEntity event = EVENT_MANAGER.post(new EntityEvent.startRidingEntity(entityId, AFTER, cir.getReturnValue(), (net.meshmc.mesh.api.entity.Entity) entity, force));
+        EntityEvent.startRidingEntity event = EVENT_MANAGER.post(new EntityEvent.startRidingEntity(entityId, AFTER, cir.getReturnValue(), Mappings.entity(entity), force));
         if(!event.isCancelled()) return;
 
         cir.setReturnValue(event.returnValue);
@@ -201,25 +203,25 @@ public class MixinEntity {
 
     @Inject(method = "addPassenger", at = @At("HEAD"), cancellable = true)
     public void beforeAddRider(Entity passenger, CallbackInfo ci) {
-        if(EVENT_MANAGER.post(new EntityEvent.addRider(entityId, BEFORE, (net.meshmc.mesh.api.entity.Entity) passenger)).isCancelled()) ci.cancel();
+        if(EVENT_MANAGER.post(new EntityEvent.addRider(entityId, BEFORE, Mappings.entity(passenger))).isCancelled()) ci.cancel();
     }
     @Inject(method = "addPassenger", at = @At("RETURN"))
     public void afterAddRider(Entity passenger, CallbackInfo ci) {
-        EVENT_MANAGER.post(new EntityEvent.addRider(entityId, AFTER, (net.meshmc.mesh.api.entity.Entity) passenger));
+        EVENT_MANAGER.post(new EntityEvent.addRider(entityId, AFTER, Mappings.entity(passenger)));
     }
 
     @Inject(method = "removePassenger", at = @At("HEAD"), cancellable = true)
     public void beforeRemoveRider(Entity passenger, CallbackInfo ci) {
-        if(EVENT_MANAGER.post(new EntityEvent.removeRider(entityId, BEFORE, (net.meshmc.mesh.api.entity.Entity) passenger)).isCancelled()) ci.cancel();
+        if(EVENT_MANAGER.post(new EntityEvent.removeRider(entityId, BEFORE, Mappings.entity(passenger))).isCancelled()) ci.cancel();
     }
     @Inject(method = "removePassenger", at = @At("RETURN"))
     public void afterRemoveRider(Entity passenger, CallbackInfo ci) {
-        EVENT_MANAGER.post(new EntityEvent.removeRider(entityId, AFTER, (net.meshmc.mesh.api.entity.Entity) passenger));
+        EVENT_MANAGER.post(new EntityEvent.removeRider(entityId, AFTER, Mappings.entity(passenger)));
     }
 
     @Inject(method = "canFitPassenger", at = @At("HEAD"), cancellable = true)
     public void beforeCanAddRider(Entity passenger, CallbackInfoReturnable<Boolean> cir) {
-        EntityEvent.canAddRider event = EVENT_MANAGER.post(new EntityEvent.canAddRider(entityId, BEFORE, cir.getReturnValue(), (net.meshmc.mesh.api.entity.Entity) passenger));
+        EntityEvent.canAddRider event = EVENT_MANAGER.post(new EntityEvent.canAddRider(entityId, BEFORE, cir.getReturnValue(), Mappings.entity(passenger)));
         if(!event.isCancelled()) return;
 
         if(event.returnValue == null) throw new NullPointerException("Return value on cancelled " + event.getName() + " with Era:BEFORE is null!");
@@ -228,7 +230,7 @@ public class MixinEntity {
     }
     @Inject(method = "canFitPassenger", at = @At("RETURN"))
     public void afterCanAddRider(Entity passenger, CallbackInfoReturnable<Boolean> cir) {
-        EntityEvent.canAddRider event = EVENT_MANAGER.post(new EntityEvent.canAddRider(entityId, AFTER, cir.getReturnValue(), (net.meshmc.mesh.api.entity.Entity) passenger));
+        EntityEvent.canAddRider event = EVENT_MANAGER.post(new EntityEvent.canAddRider(entityId, AFTER, cir.getReturnValue(), Mappings.entity(passenger)));
         if(!event.isCancelled()) return;
 
         cir.setReturnValue(event.returnValue);
@@ -408,7 +410,7 @@ public class MixinEntity {
 
     @Inject(method = "isInvisibleToPlayer", at = @At("HEAD"), cancellable = true)
     public void beforeIsInvisibleTo(net.minecraft.entity.player.EntityPlayer player, CallbackInfoReturnable<Boolean> cir) {
-        EntityEvent.isInvisibleTo event = EVENT_MANAGER.post(new EntityEvent.isInvisibleTo(entityId, BEFORE, cir.getReturnValue(), (EntityPlayer) player));
+        EntityEvent.isInvisibleTo event = EVENT_MANAGER.post(new EntityEvent.isInvisibleTo(entityId, BEFORE, cir.getReturnValue(), (EntityPlayer) Mappings.entity(player)));
         if(!event.isCancelled()) return;
 
         if(event.returnValue == null) throw new NullPointerException("Return value on cancelled " + event.getName() + " with Era:BEFORE is null!");
@@ -417,7 +419,7 @@ public class MixinEntity {
     }
     @Inject(method = "isInvisibleToPlayer", at = @At("RETURN"), cancellable = true)
     public void afterIsInvisibleTo(net.minecraft.entity.player.EntityPlayer player, CallbackInfoReturnable<Boolean> cir) {
-        EntityEvent.isInvisibleTo event = EVENT_MANAGER.post(new EntityEvent.isInvisibleTo(entityId, AFTER, cir.getReturnValue(), (EntityPlayer) player));
+        EntityEvent.isInvisibleTo event = EVENT_MANAGER.post(new EntityEvent.isInvisibleTo(entityId, AFTER, cir.getReturnValue(), (EntityPlayer) Mappings.entity(player)));
         if(!event.isCancelled()) return;
 
         cir.setReturnValue(event.returnValue);
@@ -519,7 +521,7 @@ public class MixinEntity {
 
     @Inject(method = "hitByEntity", at = @At("HEAD"), cancellable = true)
     public void handleAttack1(Entity attacker, CallbackInfoReturnable<Boolean> cir) {
-        EntityEvent.handleAttack event = EVENT_MANAGER.post(new EntityEvent.handleAttack(entityId, BEFORE, cir.getReturnValue(), (net.meshmc.mesh.api.entity.Entity) attacker));
+        EntityEvent.handleAttack event = EVENT_MANAGER.post(new EntityEvent.handleAttack(entityId, BEFORE, cir.getReturnValue(), Mappings.entity(attacker)));
         if(!event.isCancelled()) return;
 
         if(event.returnValue == null) throw new NullPointerException("Return value on cancelled " + event.getName() + " with Era:BEFORE is null!");
@@ -528,7 +530,7 @@ public class MixinEntity {
     }
     @Inject(method = "hitByEntity", at = @At("RETURN"), cancellable = true)
     public void handleAttack2(Entity attacker, CallbackInfoReturnable<Boolean> cir) {
-        EntityEvent.handleAttack event = EVENT_MANAGER.post(new EntityEvent.handleAttack(entityId, AFTER, cir.getReturnValue(), (net.meshmc.mesh.api.entity.Entity) attacker));
+        EntityEvent.handleAttack event = EVENT_MANAGER.post(new EntityEvent.handleAttack(entityId, AFTER, cir.getReturnValue(), Mappings.entity(attacker)));
         if(!event.isCancelled()) return;
 
         cir.setReturnValue(event.returnValue);
@@ -537,20 +539,20 @@ public class MixinEntity {
 
     @Inject(method = "copyLocationAndAnglesFrom", at = @At("HEAD"), cancellable = true)
     public void copyPositionAndRotation1(Entity entity, CallbackInfo ci) {
-        if(EVENT_MANAGER.post(new EntityEvent.copyPositionAndRotation(entityId, BEFORE, (net.meshmc.mesh.api.entity.Entity) entity)).isCancelled()) ci.cancel();
+        if(EVENT_MANAGER.post(new EntityEvent.copyPositionAndRotation(entityId, BEFORE, Mappings.entity(entity))).isCancelled()) ci.cancel();
     }
     @Inject(method = "copyLocationAndAnglesFrom", at = @At("RETURN"))
     public void copyPositionAndRotation2(Entity entity, CallbackInfo ci) {
-        EVENT_MANAGER.post(new EntityEvent.copyPositionAndRotation(entityId, AFTER, (net.meshmc.mesh.api.entity.Entity) entity));
+        EVENT_MANAGER.post(new EntityEvent.copyPositionAndRotation(entityId, AFTER, Mappings.entity(entity)));
     }
 
     @Inject(method = "copyDataFromOld", at = @At("HEAD"), cancellable = true)
     public void copyFrom1(Entity original, CallbackInfo ci) {
-        if(EVENT_MANAGER.post(new EntityEvent.copyFrom(entityId, BEFORE, (net.meshmc.mesh.api.entity.Entity) original)).isCancelled()) ci.cancel();
+        if(EVENT_MANAGER.post(new EntityEvent.copyFrom(entityId, BEFORE, Mappings.entity(original))).isCancelled()) ci.cancel();
     }
     @Inject(method = "copyDataFromOld", at = @At("RETURN"))
     public void copyFrom2(Entity original, CallbackInfo ci) {
-        EVENT_MANAGER.post(new EntityEvent.copyFrom(entityId, AFTER, (net.meshmc.mesh.api.entity.Entity) original));
+        EVENT_MANAGER.post(new EntityEvent.copyFrom(entityId, AFTER, Mappings.entity(original)));
     }
 
     @Inject(method = "getMaxFallHeight", at = @At("HEAD"), cancellable = true)
@@ -789,25 +791,25 @@ public class MixinEntity {
 
     @Inject(method = "getControllingPassenger", at = @At("HEAD"), cancellable = true)
     public void getControllingRider1(CallbackInfoReturnable<Entity> cir) {
-        EntityEvent.getControllingRider event = EVENT_MANAGER.post(new EntityEvent.getControllingRider(entityId, BEFORE, (net.meshmc.mesh.api.entity.Entity) cir.getReturnValue()));
+        EntityEvent.getControllingRider event = EVENT_MANAGER.post(new EntityEvent.getControllingRider(entityId, BEFORE, Mappings.entity(cir.getReturnValue())));
         if(!event.isCancelled()) return;
 
         if(event.returnValue == null) throw new NullPointerException("Return value on cancelled " + event.getName() + " with Era:BEFORE is null!");
-        cir.setReturnValue((Entity) event.returnValue);
+        cir.setReturnValue(((EntityMesh<?>) event.returnValue).getMeshValue());
         cir.cancel();
     }
     @Inject(method = "getControllingPassenger", at = @At("RETURN"), cancellable = true)
     public void getControllingRider2(CallbackInfoReturnable<Entity> cir) {
-        EntityEvent.getControllingRider event = EVENT_MANAGER.post(new EntityEvent.getControllingRider(entityId, AFTER, (net.meshmc.mesh.api.entity.Entity) cir.getReturnValue()));
+        EntityEvent.getControllingRider event = EVENT_MANAGER.post(new EntityEvent.getControllingRider(entityId, AFTER, Mappings.entity(cir.getReturnValue())));
         if(!event.isCancelled()) return;
 
-        cir.setReturnValue((Entity) event.returnValue);
+        cir.setReturnValue(((EntityMesh<?>) event.returnValue).getMeshValue());
         cir.cancel();
     }
 
     @Inject(method = "isPassenger", at = @At("HEAD"), cancellable = true)
     public void hasRider1(Entity passenger, CallbackInfoReturnable<Boolean> cir) {
-        EntityEvent.hasRider event = EVENT_MANAGER.post(new EntityEvent.hasRider(entityId, BEFORE, cir.getReturnValue(), (net.meshmc.mesh.api.entity.Entity) passenger));
+        EntityEvent.hasRider event = EVENT_MANAGER.post(new EntityEvent.hasRider(entityId, BEFORE, cir.getReturnValue(), Mappings.entity(passenger)));
         if(!event.isCancelled()) return;
 
         if(event.returnValue == null) throw new NullPointerException("Return value on cancelled " + event.getName() + " with Era:BEFORE is null!");
@@ -816,7 +818,7 @@ public class MixinEntity {
     }
     @Inject(method = "isPassenger", at = @At("RETURN"), cancellable = true)
     public void hasRider2(Entity passenger, CallbackInfoReturnable<Boolean> cir) {
-        EntityEvent.hasRider event = EVENT_MANAGER.post(new EntityEvent.hasRider(entityId, AFTER, cir.getReturnValue(), (net.meshmc.mesh.api.entity.Entity) passenger));
+        EntityEvent.hasRider event = EVENT_MANAGER.post(new EntityEvent.hasRider(entityId, AFTER, cir.getReturnValue(), Mappings.entity(passenger)));
         if(!event.isCancelled()) return;
 
         cir.setReturnValue(event.returnValue);
@@ -825,19 +827,19 @@ public class MixinEntity {
 
     @Inject(method = "getLowestRidingEntity", at = @At("HEAD"), cancellable = true)
     public void getLowestVehicle1(CallbackInfoReturnable<Entity> cir) {
-        EntityEvent.getLowestVehicle event = EVENT_MANAGER.post(new EntityEvent.getLowestVehicle(entityId, BEFORE, (net.meshmc.mesh.api.entity.Entity) cir.getReturnValue()));
+        EntityEvent.getLowestVehicle event = EVENT_MANAGER.post(new EntityEvent.getLowestVehicle(entityId, BEFORE, Mappings.entity(cir.getReturnValue())));
         if(!event.isCancelled()) return;
 
         if(event.returnValue == null) throw new NullPointerException("Return value on cancelled " + event.getName() + " with Era:BEFORE is null!");
-        cir.setReturnValue((Entity) event.returnValue);
+        cir.setReturnValue(((EntityMesh<?>) event.returnValue).getMeshValue());
         cir.cancel();
     }
     @Inject(method = "getLowestRidingEntity", at = @At("RETURN"), cancellable = true)
     public void getLowestVehicle2(CallbackInfoReturnable<Entity> cir) {
-        EntityEvent.getLowestVehicle event = EVENT_MANAGER.post(new EntityEvent.getLowestVehicle(entityId, AFTER, (net.meshmc.mesh.api.entity.Entity) cir.getReturnValue()));
+        EntityEvent.getLowestVehicle event = EVENT_MANAGER.post(new EntityEvent.getLowestVehicle(entityId, AFTER, Mappings.entity(cir.getReturnValue())));
         if(!event.isCancelled()) return;
 
-        cir.setReturnValue((Entity) event.returnValue);
+        cir.setReturnValue(((EntityMesh<?>) event.returnValue).getMeshValue());
         cir.cancel();
     }
 

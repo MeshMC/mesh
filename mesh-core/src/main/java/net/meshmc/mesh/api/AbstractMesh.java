@@ -25,4 +25,12 @@ public abstract class AbstractMesh<T> {
     public boolean isNotNull() {
         return value != null;
     }
+
+    public boolean equals(Object obj) {
+        if(obj instanceof AbstractMesh) {
+            AbstractMesh<?> abstractMesh = (AbstractMesh<?>) obj;
+            return value.equals(abstractMesh.getMeshValue());
+        }
+        return value.equals(obj);
+    }
 }

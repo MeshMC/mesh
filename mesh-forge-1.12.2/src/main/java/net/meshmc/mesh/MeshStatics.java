@@ -15,6 +15,7 @@ import net.meshmc.mesh.api.packet.client.*;
 import net.meshmc.mesh.api.render.BufferBuilder;
 import net.meshmc.mesh.api.util.LocationIdentifier;
 import net.meshmc.mesh.impl.util.MCEnum;
+import net.meshmc.mesh.impl.wrapper.entity.EntityMesh;
 import net.meshmc.mesh.impl.wrapper.render.BufferBuilderMesh;
 import net.meshmc.mesh.util.math.Facing;
 import net.meshmc.mesh.util.math.Hand;
@@ -127,15 +128,15 @@ public class MeshStatics {
     }
 
     public static CPacketUseEntity createCPacketUseEntityAttack(Entity entity, boolean sneaking) {
-        return (CPacketUseEntity) new net.minecraft.network.play.client.CPacketUseEntity((net.minecraft.entity.Entity) entity);
+        return (CPacketUseEntity) new net.minecraft.network.play.client.CPacketUseEntity(((EntityMesh<?>) entity).getMeshValue());
     }
 
     public static CPacketUseEntity createCPacketUseEntityInteract(Entity entity, Hand hand, boolean sneaking) {
-        return (CPacketUseEntity) new net.minecraft.network.play.client.CPacketUseEntity((net.minecraft.entity.Entity) entity, MCEnum.hand(hand));
+        return (CPacketUseEntity) new net.minecraft.network.play.client.CPacketUseEntity(((EntityMesh<?>) entity).getMeshValue(), MCEnum.hand(hand));
     }
 
     public static CPacketUseEntity createCPacketUseEntityInteractAt(Entity entity, Hand hand, Vec3d pos, boolean sneaking) {
-        return (CPacketUseEntity) new net.minecraft.network.play.client.CPacketUseEntity((net.minecraft.entity.Entity) entity, MCEnum.hand(hand), (net.minecraft.util.math.Vec3d) pos);
+        return (CPacketUseEntity) new net.minecraft.network.play.client.CPacketUseEntity(((EntityMesh<?>) entity).getMeshValue(), MCEnum.hand(hand), (net.minecraft.util.math.Vec3d) pos);
     }
 
     public static CPacketUseItem createCPacketUseItem(Hand hand) {

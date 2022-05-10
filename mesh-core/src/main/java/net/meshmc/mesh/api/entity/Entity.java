@@ -8,12 +8,16 @@ import net.meshmc.mesh.api.world.World;
 import net.meshmc.mesh.util.entity.Stance;
 import net.meshmc.mesh.util.math.Facing;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
  * Provides a mesh interface for controlling a minecraft entity
+ *
  * @author Tigermouthbear 1/16/22
- * @author Makrennel    - moved from wrapper to mixin+interface 2022/01/30
+ * @author Makrennel    - 2022/01/30 - moved from wrapper to mixin+interface
+ *                      - 2022/05/10 - back to wrappers due to problems with abstract methods from mixins extending one
+ *                      another, but using interfaces instead of abstract classes for multiple inheritance with subclasses
  */
 public interface Entity {
     EntityType getEntityType();
@@ -28,14 +32,20 @@ public interface Entity {
     int getRidingCooldown();
     void setRidingCooldown(int value);
 
-    Entity getVehicle();
+    @Nullable Entity getVehicle();
     void setVehicle(Entity entity);
 
     World getWorld();
     void setWorld(World world);
 
-    Vec3d getPrevPosition();
-    void setPrevPosition(Vec3d position);
+    default Vec3d getPrevPosition() {
+        return Vec3d.create(getPrevX(), getPrevY(), getPrevZ());
+    }
+    default void setPrevPosition(Vec3d position) {
+        setPrevX(position.getX());
+        setPrevY(position.getY());
+        setPrevZ(position.getZ());
+    }
 
     double getPrevX();
     double getPrevY();
@@ -46,7 +56,9 @@ public interface Entity {
 
     Vec3d getPos();
     void setPosition(double x, double y, double z);
-    void setPosition(Vec3d position);
+    default void setPosition(Vec3d position) {
+        setPosition(position.getX(), position.getY(), position.getZ());
+    }
 
     double getX();
     double getY();
@@ -68,12 +80,12 @@ public interface Entity {
     void setVelocity(double x, double y, double z);
     void setVelocity(Vec3d velocity);
 
-    double getXVelocity();
-    double getYVelocity();
-    double getZVelocity();
-    void setXVelocity(double value);
-    void setYVelocity(double value);
-    void setZVelocity(double value);
+    double getVelocityX();
+    double getVelocityY();
+    double getVelocityZ();
+    void setVelocityX(double value);
+    void setVelocityY(double value);
+    void setVelocityZ(double value);
 
     float getYaw();
     float getPitch();
@@ -85,8 +97,8 @@ public interface Entity {
     void setPrevYaw(float value);
     void setPrevPitch(float value);
 
-    Box getBounds();
-    void setBounds(Box box);
+    Box getBoundingBox();
+    void setBoundingBox(Box box);
 
     boolean isOnGround();
     void setOnGround(boolean value);
@@ -207,7 +219,7 @@ public interface Entity {
 
     default void moveTo(double x, double y, double z) {
         setPosition(x, y, z);
-        setBounds(calculateBoundingBox());
+        setBoundingBox(calculateBoundingBox());
     }
 
     default void moveTo(Vec3d vec3d) {
@@ -511,14 +523,14 @@ public interface Entity {
     // getAlwaysRenderNameTagForRender
     boolean shouldRenderName();
 
-    Facing getHorizontalFacing_();
+    Facing getHorizontalFacing();
 
     // getAdjustedHorizontalFacing
-    Facing getMovementDirection_();
+    Facing getMovementDirection();
 
     // TODO: canBeSpectated (ServerPlayerEntity)
 
-    Box getRenderBoundingBox_();
+    Box getRenderBoundingBox();
 
     // TODO: getStackReference (StackReference)
 

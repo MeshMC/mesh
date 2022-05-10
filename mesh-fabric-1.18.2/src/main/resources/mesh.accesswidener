@@ -10,3 +10,6 @@ Accessible  class   net/minecraft/network/packet/c2s/play/PlayerInteractEntityC2
 Accessible  class   net/minecraft/network/packet/c2s/play/PlayerInteractEntityC2SPacket$InteractAtHandler
 Accessible  method  net/minecraft/network/packet/c2s/play/PlayerInteractEntityC2SPacket$InteractHandler <init>  (Lnet/minecraft/util/Hand;)V
 Accessible  method  net/minecraft/network/packet/c2s/play/PlayerInteractEntityC2SPacket$InteractAtHandler   <init>  (Lnet/minecraft/util/Hand;Lnet/minecraft/util/math/Vec3d;)V
+
+Accessible  field   net/minecraft/entity/Entity yaw F
+Accessible  field   net/minecraft/entity/Entity pitch   F

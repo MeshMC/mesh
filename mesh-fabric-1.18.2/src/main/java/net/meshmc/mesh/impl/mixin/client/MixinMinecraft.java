@@ -6,8 +6,11 @@ import net.meshmc.mesh.api.entity.living.player.EntityClientPlayer;
 import net.meshmc.mesh.api.render.TextRenderer;
 import net.meshmc.mesh.api.util.Profiler;
 import net.meshmc.mesh.api.world.ClientWorld;
+import net.meshmc.mesh.impl.util.Mappings;
 import net.meshmc.mesh.impl.util.ScreenAdapter;
+import net.meshmc.mesh.impl.wrapper.entity.living.player.EntityClientPlayerMesh;
 import net.meshmc.mesh.impl.wrapper.util.ProfilerMesh;
+import net.meshmc.mesh.impl.wrapper.world.ClientWorldMesh;
 import net.meshmc.mesh.util.render.Screen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -47,22 +50,23 @@ public class MixinMinecraft implements Minecraft {
 
     @Override
     public ClientWorld getWorld() {
-        return (ClientWorld) world;
+        return (ClientWorld) Mappings.world(world);
     }
 
     @Override
     public void setWorld(ClientWorld world) {
-        this.world = (net.minecraft.client.world.ClientWorld) world;
+        this.world = ((ClientWorldMesh<?>) world).getMeshValue();
     }
 
     @Override
     public EntityClientPlayer getPlayer() {
-        return (EntityClientPlayer) player;
+        if(player == null) return null;
+        return (EntityClientPlayer) Mappings.entity(player);
     }
 
     @Override
     public void setPlayer(EntityClientPlayer player) {
-        this.player = (ClientPlayerEntity) player;
+        this.player = ((EntityClientPlayerMesh<?>) player).getMeshValue();
     }
 
     @Override

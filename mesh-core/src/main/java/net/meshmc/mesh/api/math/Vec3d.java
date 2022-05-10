@@ -13,14 +13,19 @@ public interface Vec3d {
     double getY();
     double getZ();
 
+    /** Do not rely on these provided setters when setting vectors passed by mesh to mods */
     void setX(double value);
+    /** Do not rely on these provided setters when setting vectors passed by mesh to mods */
     void setY(double value);
+    /** Do not rely on these provided setters when setting vectors passed by mesh to mods */
     void setZ(double value);
 
+    /** Do not rely on these provided setters when setting vectors passed by mesh to mods */
     default void set(Vec3d vec3d) {
         set(vec3d.getX(), vec3d.getY(), vec3d.getZ());
     }
 
+    /** Do not rely on these provided setters when setting vectors passed by mesh to mods */
     default void set(double x, double y, double z) {
         setX(x);
         setY(y);

@@ -10,6 +10,7 @@ import net.meshmc.mesh.api.packet.client.*;
 import net.meshmc.mesh.api.render.BufferBuilder;
 import net.meshmc.mesh.api.util.LocationIdentifier;
 import net.meshmc.mesh.impl.util.MCEnum;
+import net.meshmc.mesh.impl.wrapper.entity.EntityMesh;
 import net.meshmc.mesh.impl.wrapper.render.BufferBuilderMesh;
 import net.meshmc.mesh.util.math.Facing;
 import net.meshmc.mesh.util.math.Hand;
@@ -89,7 +90,7 @@ public class MeshStatics {
     }
 
     public static CPacketMoveVehicle createCPacketMoveVehicle(Entity entity) {
-        return (CPacketMoveVehicle) new VehicleMoveC2SPacket((net.minecraft.entity.Entity) entity);
+        return (CPacketMoveVehicle) new VehicleMoveC2SPacket(((EntityMesh<?>) entity).getMeshValue());
     }
 
     public static CPacketMoveVehicle createCPacketMoveVehicle(double x, double y, double z, float yaw, float pitch) {
@@ -112,15 +113,15 @@ public class MeshStatics {
     }
 
     public static CPacketUseEntity createCPacketUseEntityAttack(Entity entity, boolean sneaking) {
-        return (CPacketUseEntity) PlayerInteractEntityC2SPacket.attack((net.minecraft.entity.Entity) entity, sneaking);
+        return (CPacketUseEntity) PlayerInteractEntityC2SPacket.attack(((EntityMesh<?>) entity).getMeshValue(), sneaking);
     }
 
     public static CPacketUseEntity createCPacketUseEntityInteract(Entity entity, Hand hand, boolean sneaking) {
-        return (CPacketUseEntity) PlayerInteractEntityC2SPacket.interact((net.minecraft.entity.Entity) entity, sneaking, MCEnum.hand(hand));
+        return (CPacketUseEntity) PlayerInteractEntityC2SPacket.interact(((EntityMesh<?>) entity).getMeshValue(), sneaking, MCEnum.hand(hand));
     }
 
     public static CPacketUseEntity createCPacketUseEntityInteractAt(Entity entity, Hand hand, Vec3d pos, boolean sneaking) {
-        return (CPacketUseEntity) PlayerInteractEntityC2SPacket.interactAt((net.minecraft.entity.Entity) entity, sneaking, MCEnum.hand(hand), (net.minecraft.util.math.Vec3d) pos);
+        return (CPacketUseEntity) PlayerInteractEntityC2SPacket.interactAt(((EntityMesh<?>) entity).getMeshValue(), sneaking, MCEnum.hand(hand), (net.minecraft.util.math.Vec3d) pos);
     }
 
     public static CPacketUseItem createCPacketUseItem(Hand hand) {
