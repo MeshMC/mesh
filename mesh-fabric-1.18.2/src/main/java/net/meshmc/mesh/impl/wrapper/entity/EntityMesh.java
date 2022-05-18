@@ -61,7 +61,6 @@ public class EntityMesh<T extends net.minecraft.entity.Entity> extends AbstractM
     @Nullable
     @Override
     public Entity getVehicle() {
-        if(getMeshValue().getVehicle() == null) return null;
         return Mappings.entity(getMeshValue().getVehicle());
     }
 

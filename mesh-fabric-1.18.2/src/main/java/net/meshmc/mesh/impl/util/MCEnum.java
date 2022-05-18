@@ -2,6 +2,7 @@ package net.meshmc.mesh.impl.util;
 
 import net.meshmc.mesh.api.entity.MoverType;
 import net.meshmc.mesh.util.block.PistonPushReaction;
+import net.meshmc.mesh.util.entity.Arm;
 import net.meshmc.mesh.util.entity.Stance;
 import net.meshmc.mesh.util.math.Facing;
 import net.minecraft.block.piston.PistonBehavior;
@@ -18,6 +19,7 @@ public class MCEnum {
     private static final MovementType[] MOVEMENT_TYPES = MovementType.values();
     private static final PistonBehavior[] PISTON_BEHAVIORS = PistonBehavior.values();
     private static final EntityPose[] STANCES = EntityPose.values();
+    private static final net.minecraft.util.Arm[] ARMS = net.minecraft.util.Arm.values();
 
     public static DyeColor dyeColor(net.meshmc.mesh.util.item.DyeColor dyeColor) {
         return DYES[dyeColor.ordinal()];
@@ -41,5 +43,9 @@ public class MCEnum {
 
     public static EntityPose stance(Stance stance) {
         return STANCES[stance.ordinal()];
+    }
+
+    public static net.minecraft.util.Arm arm(Arm arm) {
+        return ARMS[arm.ordinal()];
     }
 }

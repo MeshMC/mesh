@@ -6,7 +6,8 @@
   "mixins": [
     "accessors.BlockHitResultAccessor",
     "accessors.entity.EntityAccessor",
-    "accessors.entity.PlayerEntityAccessor",
+    "accessors.entity.EntityLivingAccessor",
+    "accessors.entity.EntityPlayerAccessor",
     "accessors.packet.InteractAtHandlerAccessor",
     "accessors.packet.InteractHandlerAccessor",
     "accessors.render.BufferBuilderAccessor",

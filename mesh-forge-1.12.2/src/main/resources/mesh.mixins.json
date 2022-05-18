@@ -4,8 +4,9 @@
   "package": "net.meshmc.mesh.impl.mixin",
   "refmap": "mesh.mixins.refmap.json",
   "mixins": [
-    "accessors.MixinEntity",
-    "accessors.MixinEntityPlayer",
+    "accessors.EntityAccessor",
+    "accessors.EntityLivingAccessor",
+    "accessors.EntityPlayerAccessor",
     "advancement.MixinAdvancement",
     "advancement.MixinAdvancementBuilder",
     "advancement.MixinAdvancementProgress",

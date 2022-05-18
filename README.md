@@ -6,7 +6,7 @@
 Mesh is a cross-version minecraft mod development platform for Forge and Fabric.
 
 ## Supported Versions
-Mesh will eventually be able to run on most forge and fabric versions, but development is currently on the API, forge 1.12.2, and fabric 1.18.1.
+Mesh will eventually be able to run on most forge and fabric versions, but development is currently on the API, forge 1.12.2, and fabric 1.18.2.
 
 ## How it works
 Mesh works as an API over minecraft's version specific code. It runs as a forge and fabric mod, translating Mesh API calls into version specific code.
@@ -21,8 +21,8 @@ This means that Mesh mods only have to compile for once for all versions of mine
 - The Example Mod will also be built into this folder
 
 ## Running a Mesh mod
-To run a Mesh mod, place the Mesh Loader or the Mesh API for the minecraft version you are using in your mods folder.
-Then place the Mesh mods you want to run in the mods folder too. When you run supported mod loaders and versions, the
+To run a Mesh mod, place the Mesh Loader or the Mesh API for the minecraft version you are using in your .minecraft/mods folder.
+Then place the Mesh mods you want to run in the .minecraft/mods/mesh folder. When you run supported mod loaders and versions, the
 Mesh mod will be loaded at start!
 
 ## Example Mesh Mods

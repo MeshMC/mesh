@@ -60,7 +60,6 @@ public class MixinMinecraft implements Minecraft {
 
     @Override
     public EntityClientPlayer getPlayer() {
-        if(player == null) return null;
         return (EntityClientPlayer) Mappings.entity(player);
     }
 
