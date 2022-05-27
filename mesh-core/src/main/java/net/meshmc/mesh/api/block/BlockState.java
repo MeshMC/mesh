@@ -26,11 +26,14 @@ public abstract class BlockState<T> extends AbstractMesh<T> {
         this.block = block.get();
     }
 
-    final Block block;
+    protected final Block block;
 
     public Block getBlock() {
         return block;
     }
+
+    public abstract Enum<?> getBlockVariant();
+    public abstract <V extends Enum<?>> V getBlockVariant(Class<V> variantsEnum);
 
     public abstract int getLuminance();
     public abstract int getOpacity(World world, BlockPos blockPos);

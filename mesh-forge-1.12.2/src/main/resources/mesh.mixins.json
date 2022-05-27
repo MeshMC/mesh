@@ -10,6 +10,8 @@
     "advancement.MixinAdvancement",
     "advancement.MixinAdvancementBuilder",
     "advancement.MixinAdvancementProgress",
+    "block.MixinBlockFenceGate",
+    "block.MixinBlockGlazedTerracotta",
     "block.MixinMapColor",
     "block.MixinMaterial",
     "client.MixinMinecraft",
