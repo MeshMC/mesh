@@ -21,7 +21,5 @@ public abstract class BufferBuilder<T> extends AbstractMesh<T> {
 
     public abstract void construct(Vertex... vertices);
 
-    public abstract void construct(double... values);
-
     public abstract void draw();
 }

@@ -74,66 +74,6 @@ public class BufferBuilderMesh extends BufferBuilder<net.minecraft.client.render
     }
 
     @Override
-    public void construct(double... values) {
-        Double
-                x = null, y = null, z = null;
-        Float
-                r = null, g = null, b = null, a = null,
-                u = null, v = null;
-
-        VertexFormat format = getMeshValue().getVertexFormat();
-
-        if(format == DefaultVertexFormats.POSITION_COLOR) {
-            for(Double val : values) {
-                if(x == null) x = val;
-                else if(y == null) y = val;
-                else if(z == null) z = val;
-                else if(r == null) r = val.floatValue();
-                else if(g == null) g = val.floatValue();
-                else if(b == null) b = val.floatValue();
-                else {
-                    a = val.floatValue();
-
-                    getMeshValue().pos(x, y, z).color(r, g, b, a).endVertex();
-                    x = y = z = null; r = g = b = a = null;
-                }
-            }
-        }
-        else if(format == DefaultVertexFormats.POSITION_TEX) {
-            for(Double val : values) {
-                if(x == null) x = val;
-                else if(y == null) y = val;
-                else if(z == null) z = val;
-                else if(u == null) u = val.floatValue();
-                else {
-                    v = val.floatValue();
-
-                    getMeshValue().pos(x, y, z).tex(u, v).endVertex();
-                    x = y = z = null; u = v = null;
-                }
-            }
-        }
-        else if(format == DefaultVertexFormats.POSITION_TEX_COLOR) {
-            for(Double val : values) {
-                if(x == null) x = val;
-                else if(y == null) y = val;
-                else if(z == null) z = val;
-                else if(r == null) r = val.floatValue();
-                else if(g == null) g = val.floatValue();
-                else if(b == null) b = val.floatValue();
-                else if(a == null) a = val.floatValue();
-                else if(u == null) u = val.floatValue();
-                else {
-                    v = val.floatValue();
-
-                    getMeshValue().pos(x, y, z).tex(u, v).color(r, g, b, a).endVertex();
-                    x = y = z = null; r = g = b = a = u = v = null;
-                }
-            }
-        }
-    }
-
-    @Override
     public void draw() {
         GlStateManager.color(1,1,1,1);
         getMeshValue().finishDrawing();
