@@ -71,6 +71,8 @@ public class LineHelper {
                 qAngle = Math.atan(thickness / dist),
                 qDist = Math.sqrt(dist * dist + thickness * thickness);
 
+        int mod = yDiff < 0 ? -1 : 1;
+
         Vertex v1 = new Vertex(
                 xA + thickness * Math.cos(bearing - (Math.PI / 2)),
                 yA + thickness * Math.sin(bearing - (Math.PI / 2))
@@ -79,10 +81,10 @@ public class LineHelper {
                 yA + thickness * Math.sin(bearing + (Math.PI / 2))
         ), v3 = new Vertex(
                 xA + qDist * Math.cos(bearing + qAngle),
-                yA + (yDiff < 0 ? - qDist * Math.sin(bearing + qAngle) : qDist * Math.sin(bearing + qAngle))
+                yA + (mod * (qDist * Math.sin(bearing + qAngle)))
         ), v4 = new Vertex(
                 xA + qDist * Math.cos(bearing - qAngle),
-                yA + (yDiff < 0 ? - qDist * Math.sin(bearing - qAngle) : qDist * Math.sin(bearing - qAngle))
+                yA + (mod * (qDist * Math.sin(bearing - qAngle)))
         );
 
         v1.color(x1 > x2 ? color2 : color1);
@@ -90,7 +92,7 @@ public class LineHelper {
         v3.color(x1 > x2 ? color1 : color2);
         v4.color(x1 > x2 ? color1 : color2);
 
-        if(yDiff < 0)
+        if(mod == -1)
             return new Vertex[] {v2, v1, v3, v1, v4, v3};
         else
             return new Vertex[] {v1, v2, v3, v1, v3, v4};

@@ -4,6 +4,7 @@ import net.meshmc.mesh.api.block.Block;
 import net.meshmc.mesh.api.entity.EntityType;
 import net.meshmc.mesh.impl.wrapper.entity.EntityMesh;
 import net.meshmc.mesh.impl.wrapper.entity.living.EntityLivingMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.EntitySlimeMesh;
 import net.meshmc.mesh.impl.wrapper.entity.living.mob.EntityMobMesh;
 import net.meshmc.mesh.impl.wrapper.entity.living.mob.hostile.*;
 import net.meshmc.mesh.impl.wrapper.entity.living.mob.hostile.guardian.EntityElderGuardianMesh;
@@ -20,7 +21,36 @@ import net.meshmc.mesh.impl.wrapper.entity.living.mob.hostile.spider.EntityCaveS
 import net.meshmc.mesh.impl.wrapper.entity.living.mob.hostile.spider.EntitySpiderMesh;
 import net.meshmc.mesh.impl.wrapper.entity.living.mob.hostile.zombie.*;
 import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.EntityPassiveMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.EntityVillagerMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.EntityWanderingTraderMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.*;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.cow.EntityCowMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.cow.EntityMooshroomMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.horse.EntityHorseBaseMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.horse.EntityHorseMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.horse.EntitySkeletonHorseMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.horse.EntityZombieHorseMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.horse.donkey.EntityAbstractDonkeyMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.horse.donkey.EntityDonkeyMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.horse.donkey.EntityMuleMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.horse.donkey.llama.EntityLlamaMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.horse.donkey.llama.EntityTraderLlamaMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.tameable.EntityCatMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.tameable.EntityTameableMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.tameable.EntityWolfMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.tameable.shoulder.EntityParrotMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.tameable.shoulder.EntityShoulderTameableMesh;
 import net.meshmc.mesh.impl.wrapper.entity.living.player.*;
+import net.meshmc.mesh.impl.wrapper.entity.living.water.EntityDolphinMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.water.EntityWaterCreatureMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.water.fish.EntityFishMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.water.fish.EntityPufferfishMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.water.fish.schooling.EntityCodMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.water.fish.schooling.EntitySalmonMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.water.fish.schooling.EntitySchoolingFishMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.water.fish.schooling.EntityTropicalFishMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.water.squid.EntityGlowSquidMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.water.squid.EntitySquidMesh;
 import net.meshmc.mesh.impl.wrapper.world.ClientWorldMesh;
 import net.meshmc.mesh.impl.wrapper.world.WorldMesh;
 import net.meshmc.mesh.util.block.BlockVariant;
@@ -35,7 +65,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.mob.*;
-import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.raid.RaiderEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -83,6 +113,7 @@ public class Mappings {
 
         // Living Entities
         entityClassMap.put(LivingEntity.class, value -> new EntityLivingMesh<>((LivingEntity) value));
+        entityClassMap.put(SlimeEntity.class, value -> new EntitySlimeMesh<>((SlimeEntity) value));
 
         // Player Entities
         entityClassMap.put(PlayerEntity.class, value -> new EntityPlayerMesh<>((PlayerEntity) value));
@@ -137,6 +168,56 @@ public class Mappings {
 
         // Passive Entities
         entityClassMap.put(PassiveEntity.class, value -> new EntityPassiveMesh<>((PassiveEntity) value));
+
+        entityClassMap.put(VillagerEntity.class, value -> new EntityVillagerMesh<>((VillagerEntity) value));
+        entityClassMap.put(WanderingTraderEntity.class, value -> new EntityWanderingTraderMesh<>((WanderingTraderEntity) value));
+
+        entityClassMap.put(AnimalEntity.class, value -> new EntityAnimalMesh<>((AnimalEntity) value));
+
+        entityClassMap.put(CowEntity.class, value -> new EntityCowMesh<>((CowEntity) value));
+        entityClassMap.put(MooshroomEntity.class, value -> new EntityMooshroomMesh<>((MooshroomEntity) value));
+
+        entityClassMap.put(HorseBaseEntity.class, value -> new EntityHorseBaseMesh<>((HorseBaseEntity) value));
+        entityClassMap.put(HorseEntity.class, value -> new EntityHorseMesh<>((HorseEntity) value));
+        entityClassMap.put(SkeletonHorseEntity.class, value -> new EntitySkeletonHorseMesh<>((SkeletonHorseEntity) value));
+        entityClassMap.put(ZombieHorseEntity.class, value -> new EntityZombieHorseMesh<>((ZombieHorseEntity) value));
+        entityClassMap.put(AbstractDonkeyEntity.class, value -> new EntityAbstractDonkeyMesh<>((AbstractDonkeyEntity) value));
+        entityClassMap.put(DonkeyEntity.class, value -> new EntityDonkeyMesh<>((DonkeyEntity) value));
+        entityClassMap.put(MuleEntity.class, value -> new EntityMuleMesh<>((MuleEntity) value));
+        entityClassMap.put(LlamaEntity.class, value -> new EntityLlamaMesh<>((LlamaEntity) value));
+        entityClassMap.put(TraderLlamaEntity.class, value -> new EntityTraderLlamaMesh<>((TraderLlamaEntity) value));
+
+        entityClassMap.put(TameableEntity.class, value -> new EntityTameableMesh<>((TameableEntity) value));
+        entityClassMap.put(CatEntity.class, value -> new EntityCatMesh<>((CatEntity) value));
+        entityClassMap.put(WolfEntity.class, value -> new EntityWolfMesh<>((WolfEntity) value));
+        entityClassMap.put(TameableShoulderEntity.class, value -> new EntityShoulderTameableMesh<>((TameableShoulderEntity) value));
+        entityClassMap.put(ParrotEntity.class, value -> new EntityParrotMesh<>((ParrotEntity) value));
+
+        entityClassMap.put(AxolotlEntity.class, value -> new EntityAxolotlMesh<>((AxolotlEntity) value));
+        entityClassMap.put(BeeEntity.class, value -> new EntityBeeMesh<>((BeeEntity) value));
+        entityClassMap.put(ChickenEntity.class, value -> new EntityChickenMesh<>((ChickenEntity) value));
+        entityClassMap.put(FoxEntity.class, value -> new EntityFoxMesh<>((FoxEntity) value));
+        entityClassMap.put(GoatEntity.class, value -> new EntityGoatMesh<>((GoatEntity) value));
+        entityClassMap.put(HoglinEntity.class, value -> new EntityHoglinMesh<>((HoglinEntity) value));
+        entityClassMap.put(OcelotEntity.class, value -> new EntityOcelotMesh<>((OcelotEntity) value));
+        entityClassMap.put(PandaEntity.class, value -> new EntityPandaMesh<>((PandaEntity) value));
+        entityClassMap.put(PigEntity.class, value -> new EntityPigMesh<>((PigEntity) value));
+        entityClassMap.put(PolarBearEntity.class, value -> new EntityPolarBearMesh<>((PolarBearEntity) value));
+        entityClassMap.put(RabbitEntity.class, value -> new EntityRabbitMesh<>((RabbitEntity) value));
+        entityClassMap.put(SheepEntity.class, value -> new EntitySheepMesh<>((SheepEntity) value));
+        entityClassMap.put(StriderEntity.class, value -> new EntityStriderMesh<>((StriderEntity) value));
+        entityClassMap.put(TurtleEntity.class, value -> new EntityTurtleMesh<>((TurtleEntity) value));
+
+        entityClassMap.put(WaterCreatureEntity.class, value -> new EntityWaterCreatureMesh<>((WaterCreatureEntity) value));
+        entityClassMap.put(DolphinEntity.class, value -> new EntityDolphinMesh<>((DolphinEntity) value));
+        entityClassMap.put(SquidEntity.class, value -> new EntitySquidMesh<>((SquidEntity) value));
+        entityClassMap.put(GlowSquidEntity.class, value -> new EntityGlowSquidMesh<>((GlowSquidEntity) value));
+        entityClassMap.put(FishEntity.class, value -> new EntityFishMesh<>((FishEntity) value));
+        entityClassMap.put(PufferfishEntity.class, value -> new EntityPufferfishMesh<>((PufferfishEntity) value));
+        entityClassMap.put(SchoolingFishEntity.class, value -> new EntitySchoolingFishMesh<>((SchoolingFishEntity) value));
+        entityClassMap.put(CodEntity.class, value -> new EntityCodMesh<>((CodEntity) value));
+        entityClassMap.put(SalmonEntity.class, value -> new EntitySalmonMesh<>((SalmonEntity) value));
+        entityClassMap.put(TropicalFishEntity.class, value -> new EntityTropicalFishMesh<>((TropicalFishEntity) value));
     }
 
     // ENTITY Type Map

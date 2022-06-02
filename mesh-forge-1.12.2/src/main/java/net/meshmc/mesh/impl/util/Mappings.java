@@ -6,6 +6,7 @@ import net.meshmc.mesh.impl.util.duck.BlockFenceGateDuck;
 import net.meshmc.mesh.impl.util.duck.BlockGlazedTerracottaDuck;
 import net.meshmc.mesh.impl.wrapper.entity.EntityMesh;
 import net.meshmc.mesh.impl.wrapper.entity.living.EntityLivingMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.EntitySlimeMesh;
 import net.meshmc.mesh.impl.wrapper.entity.living.mob.EntityMobMesh;
 import net.meshmc.mesh.impl.wrapper.entity.living.mob.hostile.*;
 import net.meshmc.mesh.impl.wrapper.entity.living.mob.hostile.guardian.EntityElderGuardianMesh;
@@ -22,7 +23,26 @@ import net.meshmc.mesh.impl.wrapper.entity.living.mob.hostile.zombie.EntityZombi
 import net.meshmc.mesh.impl.wrapper.entity.living.mob.hostile.zombie.EntityZombiePigmanMesh;
 import net.meshmc.mesh.impl.wrapper.entity.living.mob.hostile.zombie.EntityZombieVillagerMesh;
 import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.EntityPassiveMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.EntityVillagerMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.*;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.cow.EntityCowMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.cow.EntityMooshroomMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.horse.EntityHorseBaseMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.horse.EntityHorseMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.horse.EntitySkeletonHorseMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.horse.EntityZombieHorseMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.horse.donkey.EntityAbstractDonkeyMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.horse.donkey.EntityDonkeyMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.horse.donkey.EntityMuleMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.horse.donkey.llama.EntityLlamaMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.tameable.EntityCatMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.tameable.EntityTameableMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.tameable.EntityWolfMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.tameable.shoulder.EntityParrotMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.mob.passive.animal.tameable.shoulder.EntityShoulderTameableMesh;
 import net.meshmc.mesh.impl.wrapper.entity.living.player.*;
+import net.meshmc.mesh.impl.wrapper.entity.living.water.EntityWaterCreatureMesh;
+import net.meshmc.mesh.impl.wrapper.entity.living.water.squid.EntitySquidMesh;
 import net.meshmc.mesh.impl.wrapper.world.ClientWorldMesh;
 import net.meshmc.mesh.impl.wrapper.world.WorldMesh;
 import net.meshmc.mesh.util.block.BlockVariant;
@@ -87,6 +107,7 @@ public class Mappings {
 
         // Living Entities
         entityClassMap.put(EntityLiving.class, value -> new EntityLivingMesh<>((EntityLiving) value));
+        entityClassMap.put(EntitySlime.class, value -> new EntitySlimeMesh<>((EntitySlime) value));
 
         // Player Entities
         entityClassMap.put(EntityPlayer.class, value -> new EntityPlayerMesh<>((EntityPlayer) value));
@@ -133,6 +154,37 @@ public class Mappings {
 
         // Passive Entities
         entityClassMap.put(EntityAgeable.class, value -> new EntityPassiveMesh<>((EntityAgeable) value));
+
+        entityClassMap.put(EntityVillager.class, value -> new EntityVillagerMesh<>((EntityVillager) value));
+
+        entityClassMap.put(EntityAnimal.class, value -> new EntityAnimalMesh<>((EntityAnimal) value));
+
+        entityClassMap.put(EntityCow.class, value -> new EntityCowMesh<>((EntityCow) value));
+        entityClassMap.put(EntityMooshroom.class, value -> new EntityMooshroomMesh<>((EntityMooshroom) value));
+
+        entityClassMap.put(AbstractHorse.class, value -> new EntityHorseBaseMesh<>((AbstractHorse) value));
+        entityClassMap.put(EntityHorse.class, value -> new EntityHorseMesh<>((EntityHorse) value));
+        entityClassMap.put(EntitySkeletonHorse.class, value -> new EntitySkeletonHorseMesh<>((EntitySkeletonHorse) value));
+        entityClassMap.put(EntityZombieHorse.class, value -> new EntityZombieHorseMesh<>((EntityZombieHorse) value));
+        entityClassMap.put(AbstractChestHorse.class, value -> new EntityAbstractDonkeyMesh<>((AbstractChestHorse) value));
+        entityClassMap.put(EntityDonkey.class, value -> new EntityDonkeyMesh<>((EntityDonkey) value));
+        entityClassMap.put(EntityMule.class, value -> new EntityMuleMesh<>((EntityMule) value));
+        entityClassMap.put(EntityLlama.class, value -> new EntityLlamaMesh<>((EntityLlama) value));
+
+        entityClassMap.put(EntityTameable.class, value -> new EntityTameableMesh<>((EntityTameable) value));
+        entityClassMap.put(EntityOcelot.class, value -> new EntityCatMesh<>((EntityOcelot) value));
+        entityClassMap.put(EntityWolf.class, value -> new EntityWolfMesh<>((EntityWolf) value));
+        entityClassMap.put(EntityShoulderRiding.class, value -> new EntityShoulderTameableMesh<>((EntityShoulderRiding) value));
+        entityClassMap.put(EntityParrot.class, value -> new EntityParrotMesh<>((EntityParrot) value));
+
+        entityClassMap.put(EntityChicken.class, value -> new EntityChickenMesh<>((EntityChicken) value));
+        entityClassMap.put(EntityPig.class, value -> new EntityPigMesh<>((EntityPig) value));
+        entityClassMap.put(EntityPolarBear.class, value -> new EntityPolarBearMesh<>((EntityPolarBear) value));
+        entityClassMap.put(EntityRabbit.class, value -> new EntityRabbitMesh<>((EntityRabbit) value));
+        entityClassMap.put(EntitySheep.class, value -> new EntitySheepMesh<>((EntitySheep) value));
+
+        entityClassMap.put(EntityWaterMob.class, value -> new EntityWaterCreatureMesh<>((EntityWaterMob) value));
+        entityClassMap.put(EntitySquid.class, value -> new EntitySquidMesh<>((EntitySquid) value));
     }
 
     // ENTITY Type Map
