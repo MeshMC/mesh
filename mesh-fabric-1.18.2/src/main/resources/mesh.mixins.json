@@ -53,6 +53,7 @@
     "packet.server.MixinSPacketBreakProgress",
     "packet.server.MixinSPacketPlayerPosRot",
     "packet.server.MixinSPacketTileEntityUpdate",
+    "render.MixinFramebuffer",
     "render.MixinTextRenderer",
     "util.MixinLocationIdentifier"
   ]

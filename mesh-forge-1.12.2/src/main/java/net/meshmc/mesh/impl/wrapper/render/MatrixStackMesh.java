@@ -1,12 +1,12 @@
 package net.meshmc.mesh.impl.wrapper.render;
 
-import net.meshmc.mesh.api.render.IMatrixStack;
+import net.meshmc.mesh.api.render.MatrixStack;
 import net.minecraft.client.renderer.GlStateManager;
 
 /**
  * @author Tigermouthbear 1/15/22
  */
-public class MatrixStackMesh implements IMatrixStack {
+public class MatrixStackMesh implements MatrixStack {
     @Override
     public void push() {
         GlStateManager.pushMatrix();

@@ -4,7 +4,7 @@ package net.meshmc.mesh.api.render;
  * Provides an interface for manipulating the opengl matrix stack
  * @author Tigermouthbear 1/15/22
  */
-public interface IMatrixStack {
+public interface MatrixStack {
     void push();
 
     void pop();

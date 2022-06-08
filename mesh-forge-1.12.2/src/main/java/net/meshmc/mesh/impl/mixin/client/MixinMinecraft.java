@@ -2,6 +2,7 @@ package net.meshmc.mesh.impl.mixin.client;
 
 import net.meshmc.mesh.api.client.Session;
 import net.meshmc.mesh.api.entity.living.player.EntityClientPlayer;
+import net.meshmc.mesh.api.render.Framebuffer;
 import net.meshmc.mesh.api.render.TextRenderer;
 import net.meshmc.mesh.api.util.Profiler;
 import net.meshmc.mesh.api.world.ClientWorld;
@@ -10,10 +11,12 @@ import net.meshmc.mesh.impl.util.ScreenAdapter;
 import net.meshmc.mesh.impl.wrapper.entity.living.player.EntityClientPlayerMesh;
 import net.meshmc.mesh.impl.wrapper.util.ProfilerMesh;
 import net.meshmc.mesh.impl.wrapper.world.ClientWorldMesh;
+import net.meshmc.mesh.util.render.Resolution;
 import net.meshmc.mesh.util.render.Screen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.multiplayer.WorldClient;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,12 +24,13 @@ import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(Minecraft.class)
-public class MixinMinecraft implements net.meshmc.mesh.api.client.Minecraft {
+public abstract class MixinMinecraft implements net.meshmc.mesh.api.client.Minecraft {
     @Shadow @Final public net.minecraft.profiler.Profiler profiler;
     @Shadow public FontRenderer fontRenderer;
     @Mutable @Shadow @Final private net.minecraft.util.Session session;
     @Shadow public WorldClient world;
     @Shadow public EntityPlayerSP player;
+    @Shadow private net.minecraft.client.shader.Framebuffer framebuffer;
 
     @Override
     public Profiler<?> getProfiler() {
@@ -77,5 +81,23 @@ public class MixinMinecraft implements net.meshmc.mesh.api.client.Minecraft {
     @Override
     public void closeScreen() {
         ((Minecraft)((Object) this)).displayGuiScreen(null);
+    }
+
+    @Override
+    public Resolution getResolution() {
+        Minecraft mc = (Minecraft) ((Object) this);
+        ScaledResolution scaledResolution = new ScaledResolution(mc);
+        return new Resolution(
+                mc.displayWidth,
+                mc.displayHeight,
+                scaledResolution.getScaledWidth(),
+                scaledResolution.getScaledHeight(),
+                scaledResolution.getScaleFactor()
+        );
+    }
+
+    @Override
+    public Framebuffer getFramebuffer() {
+        return (Framebuffer) this.framebuffer;
     }
 }

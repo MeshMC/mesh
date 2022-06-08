@@ -49,5 +49,8 @@
     "packet.server.MixinSPacketTileEntityUpdate",
     "render.MixinTextRenderer",
     "util.MixinLocationIdentifier"
+  ],
+  "client": [
+    "render.MixinFramebuffer"
   ]
 }

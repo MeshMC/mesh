@@ -23,11 +23,11 @@ public abstract class Renderer {
         LINES
     }
 
-    private final IMatrixStack renderStack;
-    private final IRenderState renderState;
+    private final MatrixStack renderStack;
+    private final RenderState renderState;
     private final BufferBuilder<?> bufferBuilder;
 
-    public Renderer(IMatrixStack renderStack, IRenderState renderState, BufferBuilder<?> bufferBuilder) {
+    public Renderer(MatrixStack renderStack, RenderState renderState, BufferBuilder<?> bufferBuilder) {
         this.renderStack = renderStack;
         this.renderState = renderState;
         this.bufferBuilder = bufferBuilder;
@@ -35,11 +35,11 @@ public abstract class Renderer {
 
     public abstract void bindTexture(LocationIdentifier locationIdentifier);
 
-    public IMatrixStack getRenderStack() {
+    public MatrixStack getRenderStack() {
         return renderStack;
     }
 
-    public IRenderState getRenderState() {
+    public RenderState getRenderState() {
         return renderState;
     }
 
