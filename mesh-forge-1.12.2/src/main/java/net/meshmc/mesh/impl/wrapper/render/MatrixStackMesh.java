@@ -1,6 +1,6 @@
 package net.meshmc.mesh.impl.wrapper.render;
 
-import net.meshmc.mesh.api.render.MatrixStack;
+import net.meshmc.mesh.api.render.buffer.MatrixStack;
 import net.minecraft.client.renderer.GlStateManager;
 
 /**

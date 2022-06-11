@@ -2,7 +2,7 @@ package net.meshmc.mesh.impl.wrapper.render;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.meshmc.mesh.Mesh;
-import net.meshmc.mesh.api.render.BufferBuilder;
+import net.meshmc.mesh.api.render.buffer.BufferBuilder;
 import net.meshmc.mesh.api.render.Renderer;
 import net.meshmc.mesh.impl.mixin.accessors.render.BufferBuilderAccessor;
 import net.meshmc.mesh.util.render.Vertex;

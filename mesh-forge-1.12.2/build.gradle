@@ -42,9 +42,12 @@ dependencies {
     coreLibs(project(":mesh-core")) {
         exclude module: "log4j-api"
         exclude module: "gson"
+        exclude module: "guava"
+        exclude module: "authlib"
     }
-
     implementation configurations.coreLibs
+
+    coreLibs "org.slf4j:slf4j-api:1.7.32"
 
     embeddedLibs("org.spongepowered:mixin:0.7.11-SNAPSHOT") {
         exclude module: "commons-io"

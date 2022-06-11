@@ -1,12 +1,13 @@
 package net.meshmc.mesh.api.client;
 
 import net.meshmc.mesh.api.entity.living.player.EntityClientPlayer;
-import net.meshmc.mesh.api.render.Framebuffer;
+import net.meshmc.mesh.api.render.buffer.BufferRenderer;
+import net.meshmc.mesh.api.render.buffer.Framebuffer;
 import net.meshmc.mesh.api.render.TextRenderer;
 import net.meshmc.mesh.api.util.Profiler;
 import net.meshmc.mesh.api.world.ClientWorld;
 import net.meshmc.mesh.util.render.Resolution;
-import net.meshmc.mesh.util.render.Screen;
+import net.meshmc.mesh.api.render.Screen;
 
 /**
  * Provides a mesh interface for the main minecraft class
@@ -32,4 +33,6 @@ public interface Minecraft {
     Resolution getResolution();
 
     Framebuffer getFramebuffer();
+
+    BufferRenderer getBufferRenderer();
 }

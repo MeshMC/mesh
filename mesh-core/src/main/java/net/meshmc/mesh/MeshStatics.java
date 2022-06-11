@@ -6,7 +6,7 @@ import net.meshmc.mesh.api.client.Session;
 import net.meshmc.mesh.api.entity.Entity;
 import net.meshmc.mesh.api.math.*;
 import net.meshmc.mesh.api.packet.client.*;
-import net.meshmc.mesh.api.render.BufferBuilder;
+import net.meshmc.mesh.api.render.buffer.BufferBuilder;
 import net.meshmc.mesh.api.util.LocationIdentifier;
 import net.meshmc.mesh.util.math.Facing;
 import net.meshmc.mesh.util.math.Hand;

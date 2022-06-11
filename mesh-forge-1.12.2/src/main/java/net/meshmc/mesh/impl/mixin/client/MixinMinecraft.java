@@ -2,7 +2,8 @@ package net.meshmc.mesh.impl.mixin.client;
 
 import net.meshmc.mesh.api.client.Session;
 import net.meshmc.mesh.api.entity.living.player.EntityClientPlayer;
-import net.meshmc.mesh.api.render.Framebuffer;
+import net.meshmc.mesh.api.render.buffer.BufferRenderer;
+import net.meshmc.mesh.api.render.buffer.Framebuffer;
 import net.meshmc.mesh.api.render.TextRenderer;
 import net.meshmc.mesh.api.util.Profiler;
 import net.meshmc.mesh.api.world.ClientWorld;
@@ -12,7 +13,7 @@ import net.meshmc.mesh.impl.wrapper.entity.living.player.EntityClientPlayerMesh;
 import net.meshmc.mesh.impl.wrapper.util.ProfilerMesh;
 import net.meshmc.mesh.impl.wrapper.world.ClientWorldMesh;
 import net.meshmc.mesh.util.render.Resolution;
-import net.meshmc.mesh.util.render.Screen;
+import net.meshmc.mesh.api.render.Screen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
@@ -31,6 +32,8 @@ public abstract class MixinMinecraft implements net.meshmc.mesh.api.client.Minec
     @Shadow public WorldClient world;
     @Shadow public EntityPlayerSP player;
     @Shadow private net.minecraft.client.shader.Framebuffer framebuffer;
+
+    @Shadow public abstract void resize(int width, int height);
 
     @Override
     public Profiler<?> getProfiler() {
@@ -99,5 +102,19 @@ public abstract class MixinMinecraft implements net.meshmc.mesh.api.client.Minec
     @Override
     public Framebuffer getFramebuffer() {
         return (Framebuffer) this.framebuffer;
+    }
+
+    // NOP BufferRenderer because there is no BufferRenderer in this version
+    private static final BufferRenderer BUFFER_RENDERER = new BufferRenderer() {
+        @Override public int getVertexArray() { return 0; }
+        @Override public void setVertexArray(int vao) { }
+        @Override public int getVertexBuffer() { return 0; }
+        @Override public void setVertexBuffer(int vbo) { }
+        @Override public int getElementBuffer() { return 0; }
+        @Override public void setElementBuffer(int ibo) { }
+    };
+    @Override
+    public BufferRenderer getBufferRenderer() {
+        return BUFFER_RENDERER;
     }
 }

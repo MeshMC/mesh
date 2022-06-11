@@ -1,5 +1,7 @@
 package net.meshmc.mesh.api.render;
 
+import net.meshmc.mesh.api.render.buffer.BufferBuilder;
+import net.meshmc.mesh.api.render.buffer.MatrixStack;
 import net.meshmc.mesh.api.util.LocationIdentifier;
 
 /**

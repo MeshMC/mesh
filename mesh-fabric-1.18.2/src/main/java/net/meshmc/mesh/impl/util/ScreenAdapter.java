@@ -1,6 +1,7 @@
 package net.meshmc.mesh.impl.util;
 
-import net.meshmc.mesh.util.render.Screen;
+import net.meshmc.mesh.api.render.Screen;
+import net.meshmc.mesh.api.render.ScreenContext;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
@@ -15,6 +16,12 @@ public class ScreenAdapter extends net.minecraft.client.gui.screen.Screen {
     public ScreenAdapter(Screen screen) {
         super(new LiteralText(screen.getTitle()));
         this.screen = screen;
+        screen.setContext((ScreenContext) this);
+    }
+
+    @Override
+    public void init() {
+        screen.init();
     }
 
     @Override

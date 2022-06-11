@@ -51,6 +51,7 @@
     "util.MixinLocationIdentifier"
   ],
   "client": [
-    "render.MixinFramebuffer"
+    "render.MixinFramebuffer",
+    "render.MixinGuiScreen"
   ]
 }

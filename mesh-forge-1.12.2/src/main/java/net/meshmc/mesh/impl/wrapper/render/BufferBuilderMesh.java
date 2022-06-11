@@ -1,6 +1,6 @@
 package net.meshmc.mesh.impl.wrapper.render;
 
-import net.meshmc.mesh.api.render.BufferBuilder;
+import net.meshmc.mesh.api.render.buffer.BufferBuilder;
 import net.meshmc.mesh.api.render.Renderer;
 import net.meshmc.mesh.util.render.Vertex;
 import net.minecraft.client.renderer.GlStateManager;

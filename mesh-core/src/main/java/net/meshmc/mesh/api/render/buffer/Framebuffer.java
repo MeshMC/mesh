@@ -1,4 +1,4 @@
-package net.meshmc.mesh.api.render;
+package net.meshmc.mesh.api.render.buffer;
 
 public interface Framebuffer {
     int getTextureWidth();

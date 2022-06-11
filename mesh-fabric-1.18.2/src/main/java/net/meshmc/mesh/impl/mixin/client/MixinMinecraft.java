@@ -3,17 +3,19 @@ package net.meshmc.mesh.impl.mixin.client;
 import net.meshmc.mesh.api.client.Minecraft;
 import net.meshmc.mesh.api.client.Session;
 import net.meshmc.mesh.api.entity.living.player.EntityClientPlayer;
-import net.meshmc.mesh.api.render.Framebuffer;
+import net.meshmc.mesh.api.render.buffer.BufferRenderer;
+import net.meshmc.mesh.api.render.buffer.Framebuffer;
 import net.meshmc.mesh.api.render.TextRenderer;
 import net.meshmc.mesh.api.util.Profiler;
 import net.meshmc.mesh.api.world.ClientWorld;
 import net.meshmc.mesh.impl.util.Mappings;
 import net.meshmc.mesh.impl.util.ScreenAdapter;
 import net.meshmc.mesh.impl.wrapper.entity.living.player.EntityClientPlayerMesh;
+import net.meshmc.mesh.impl.wrapper.render.BufferRendererMesh;
 import net.meshmc.mesh.impl.wrapper.util.ProfilerMesh;
 import net.meshmc.mesh.impl.wrapper.world.ClientWorldMesh;
 import net.meshmc.mesh.util.render.Resolution;
-import net.meshmc.mesh.util.render.Screen;
+import net.meshmc.mesh.api.render.Screen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.util.Window;
@@ -97,5 +99,11 @@ public class MixinMinecraft implements Minecraft {
     @Override
     public Framebuffer getFramebuffer() {
         return (Framebuffer) this.framebuffer;
+    }
+
+    private static final BufferRenderer BUFFER_RENDERER = new BufferRendererMesh();
+    @Override
+    public BufferRenderer getBufferRenderer() {
+        return BUFFER_RENDERER;
     }
 }

@@ -11,6 +11,7 @@
     "accessors.packet.InteractAtHandlerAccessor",
     "accessors.packet.InteractHandlerAccessor",
     "accessors.render.BufferBuilderAccessor",
+    "accessors.render.BufferRendererAccessor",
     "advancement.MixinAdvancement",
     "advancement.MixinAdvancementBuilder",
     "advancement.MixinAdvancementProgress",
@@ -54,6 +55,7 @@
     "packet.server.MixinSPacketPlayerPosRot",
     "packet.server.MixinSPacketTileEntityUpdate",
     "render.MixinFramebuffer",
+    "render.MixinScreen",
     "render.MixinTextRenderer",
     "util.MixinLocationIdentifier"
   ]

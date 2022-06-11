@@ -1,7 +1,8 @@
-package net.meshmc.mesh.api.render;
+package net.meshmc.mesh.api.render.buffer;
 
 import net.meshmc.mesh.MeshStatics;
 import net.meshmc.mesh.api.AbstractMesh;
+import net.meshmc.mesh.api.render.Renderer;
 import net.meshmc.mesh.util.render.Vertex;
 
 /**

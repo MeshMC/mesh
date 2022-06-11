@@ -1,4 +1,6 @@
-package net.meshmc.mesh.api.render;
+package net.meshmc.mesh.api.render.buffer;
+
+import net.meshmc.mesh.api.render.Camera;
 
 /**
  * Provides an interface for manipulating the opengl matrix stack

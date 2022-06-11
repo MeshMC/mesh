@@ -1,6 +1,7 @@
 package net.meshmc.mesh.impl.util;
 
-import net.meshmc.mesh.util.render.Screen;
+import net.meshmc.mesh.api.render.Screen;
+import net.meshmc.mesh.api.render.ScreenContext;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import org.lwjgl.input.Mouse;
@@ -16,6 +17,12 @@ public class ScreenAdapter extends GuiScreen {
 
     public ScreenAdapter(Screen screen) {
         this.screen = screen;
+        screen.setContext((ScreenContext) this);
+    }
+
+    @Override
+    public void initGui() {
+        screen.init();
     }
 
     @Override

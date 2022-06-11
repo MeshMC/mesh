@@ -5,7 +5,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(Framebuffer.class)
-public abstract class MixinFramebuffer implements net.meshmc.mesh.api.render.Framebuffer {
+public abstract class MixinFramebuffer implements net.meshmc.mesh.api.render.buffer.Framebuffer {
     @Shadow public int framebufferTextureWidth;
 
     @Shadow public int framebufferTextureHeight;

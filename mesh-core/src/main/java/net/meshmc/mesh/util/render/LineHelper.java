@@ -1,7 +1,7 @@
 package net.meshmc.mesh.util.render;
 
 import net.meshmc.mesh.Mesh;
-import net.meshmc.mesh.api.render.BufferBuilder;
+import net.meshmc.mesh.api.render.buffer.BufferBuilder;
 import net.meshmc.mesh.api.render.Renderer;
 
 /**

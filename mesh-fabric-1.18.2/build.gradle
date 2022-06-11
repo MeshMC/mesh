@@ -21,6 +21,8 @@ dependencies {
     coreLibs(project(":mesh-core")) {
         exclude module: "log4j-api"
         exclude module: "gson"
+        exclude module: "guava"
+        exclude module: "authlib"
     }
 
     implementation configurations.coreLibs

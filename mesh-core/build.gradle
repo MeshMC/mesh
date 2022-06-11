@@ -17,6 +17,7 @@ dependencies {
     embeddedLibs("org.reflections:reflections:0.10.2") {
         exclude module: "gson"
         exclude module: "guava"
+        exclude module: "slf4j-api"
     }
 
     implementation configurations.embeddedLibs
