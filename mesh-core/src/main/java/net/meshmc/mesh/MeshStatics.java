@@ -6,6 +6,7 @@ import net.meshmc.mesh.api.client.Session;
 import net.meshmc.mesh.api.entity.Entity;
 import net.meshmc.mesh.api.math.*;
 import net.meshmc.mesh.api.packet.client.*;
+import net.meshmc.mesh.api.render.Screen;
 import net.meshmc.mesh.api.render.buffer.BufferBuilder;
 import net.meshmc.mesh.api.util.LocationIdentifier;
 import net.meshmc.mesh.util.math.Facing;
@@ -126,6 +127,31 @@ public class MeshStatics {
     }
 
     public static CPacketConfirmTeleport createCPacketConfirmTeleport(int id) {
+        throw new RuntimeException();
+    }
+
+    // TODO: CHANGE THE WAY SCREENS ARE HANDLED!!
+    public static void openChatScreen(String input) {
+        throw new RuntimeException();
+    }
+
+    public static void openDemoScreen() {
+        throw new RuntimeException();
+    }
+
+    public static void openMultiplayerScreen() {
+        throw new RuntimeException();
+    }
+
+    public static void openOptionsScreen() {
+        throw new RuntimeException();
+    }
+
+    public static void openSelectWorldScreen() {
+        throw new RuntimeException();
+    }
+
+    public static void openRealmsMainScreen() {
         throw new RuntimeException();
     }
 }

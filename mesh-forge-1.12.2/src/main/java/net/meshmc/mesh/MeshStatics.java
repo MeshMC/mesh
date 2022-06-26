@@ -19,8 +19,11 @@ import net.meshmc.mesh.impl.wrapper.entity.EntityMesh;
 import net.meshmc.mesh.impl.wrapper.render.BufferBuilderMesh;
 import net.meshmc.mesh.util.math.Facing;
 import net.meshmc.mesh.util.math.Hand;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.*;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.client.*;
+import net.minecraft.realms.RealmsBridge;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import org.lwjgl.util.vector.Vector3f;
@@ -31,6 +34,8 @@ import java.io.IOException;
  * @author Tigermouthbear 1/10/22
  */
 public class MeshStatics {
+    private static final Minecraft MC = Minecraft.getMinecraft();
+
     // types: legacy, mojang, msa (only on newer versions)
     public static Session createSession(String username, String uuid, String accessToken, String type) {
         return (Session) new net.minecraft.util.Session(username, uuid, accessToken, type);
@@ -153,5 +158,30 @@ public class MeshStatics {
 
     public static CPacketConfirmTeleport createCPacketConfirmTeleport(int id) {
         return (CPacketConfirmTeleport) new net.minecraft.network.play.client.CPacketConfirmTeleport(id);
+    }
+
+    public static void openChatScreen(String input) {
+        MC.displayGuiScreen(new GuiChat(input));
+    }
+
+    public static void openDemoScreen() {
+        MC.displayGuiScreen(new GuiScreenDemo());
+    }
+
+    public static void openMultiplayerScreen() {
+        MC.displayGuiScreen(new GuiMultiplayer(MC.currentScreen));
+    }
+
+    public static void openOptionsScreen() {
+        MC.displayGuiScreen(new GuiOptions(MC.currentScreen, MC.gameSettings));
+    }
+
+    public static void openSelectWorldScreen() {
+        MC.displayGuiScreen(new GuiWorldSelection(MC.currentScreen));
+    }
+
+    public static void openRealmsMainScreen() {
+        RealmsBridge realmsbridge = new RealmsBridge();
+        realmsbridge.switchToRealms(MC.currentScreen);
     }
 }

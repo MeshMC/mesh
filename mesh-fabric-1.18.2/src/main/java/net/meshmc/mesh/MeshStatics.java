@@ -7,6 +7,7 @@ import net.meshmc.mesh.api.client.Session;
 import net.meshmc.mesh.api.entity.Entity;
 import net.meshmc.mesh.api.math.*;
 import net.meshmc.mesh.api.packet.client.*;
+import net.meshmc.mesh.api.render.Screen;
 import net.meshmc.mesh.api.render.buffer.BufferBuilder;
 import net.meshmc.mesh.api.util.LocationIdentifier;
 import net.meshmc.mesh.impl.util.MCEnum;
@@ -14,6 +15,14 @@ import net.meshmc.mesh.impl.wrapper.entity.EntityMesh;
 import net.meshmc.mesh.impl.wrapper.render.BufferBuilderMesh;
 import net.meshmc.mesh.util.math.Facing;
 import net.meshmc.mesh.util.math.Hand;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.ChatScreen;
+import net.minecraft.client.gui.screen.DemoScreen;
+import net.minecraft.client.gui.screen.GameMenuScreen;
+import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
+import net.minecraft.client.gui.screen.option.OptionsScreen;
+import net.minecraft.client.gui.screen.world.SelectWorldScreen;
+import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.c2s.play.*;
 import net.minecraft.util.Identifier;
@@ -138,5 +147,29 @@ public class MeshStatics {
 
     public static CPacketConfirmTeleport createCPacketConfirmTeleport(int id) {
         return (CPacketConfirmTeleport) new TeleportConfirmC2SPacket(id);
+    }
+
+    public static void openChatScreen(String input) {
+        MinecraftClient.getInstance().setScreen(new ChatScreen(input));
+    }
+
+    public static void openDemoScreen() {
+        MinecraftClient.getInstance().setScreen(new DemoScreen());
+    }
+
+    public static void openMultiplayerScreen() {
+        MinecraftClient.getInstance().setScreen(new MultiplayerScreen(MinecraftClient.getInstance().currentScreen));
+    }
+
+    public static void openOptionsScreen() {
+        MinecraftClient.getInstance().setScreen(new OptionsScreen(MinecraftClient.getInstance().currentScreen, MinecraftClient.getInstance().options));
+    }
+
+    public static void openSelectWorldScreen() {
+        MinecraftClient.getInstance().setScreen(new SelectWorldScreen(MinecraftClient.getInstance().currentScreen));
+    }
+
+    public static void openRealmsMainScreen() {
+        MinecraftClient.getInstance().setScreen(new RealmsMainScreen(MinecraftClient.getInstance().currentScreen));
     }
 }

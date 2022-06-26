@@ -2,8 +2,11 @@ package net.meshmc.mesh.impl.mixin.events.client;
 
 import net.meshmc.mesh.Mesh;
 import net.meshmc.mesh.event.MeshEvent;
+import net.meshmc.mesh.event.events.client.ScreenOpenedEvent;
 import net.meshmc.mesh.event.events.client.TickEvent;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiMainMenu;
+import net.minecraft.client.gui.GuiScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -29,5 +32,10 @@ public class MixinMinecraft {
     @Inject(method = "runGameLoop", at = @At("RETURN"))
     public void postGameLoop(CallbackInfo ci) {
         Mesh.getMesh().getEventManager().post(new TickEvent.GameLoop(MeshEvent.Era.AFTER));
+    }
+
+    @Inject(method = "displayGuiScreen", at = @At("RETURN"))
+    public void postSetScreen(GuiScreen guiScreenIn, CallbackInfo ci) {
+        Mesh.getMesh().getEventManager().post(new ScreenOpenedEvent(guiScreenIn instanceof GuiMainMenu));
     }
 }

@@ -1,7 +1,7 @@
 package net.meshmc.mesh.api.render;
 
+import net.meshmc.mesh.MeshStatics;
 import net.meshmc.mesh.api.client.Minecraft;
-import net.meshmc.mesh.util.render.Resolution;
 
 /**
  * Represents a minecraft gui screen across versions
@@ -84,6 +84,30 @@ public class Screen implements ScreenContext {
     @Override
     public void setMinecraft(Minecraft minecraft) {
         context.setMinecraft(minecraft);
+    }
+
+    public static void openChatScreen(String input) {
+        MeshStatics.openChatScreen(input);
+    }
+
+    public static void openDemoScreen() {
+        MeshStatics.openDemoScreen();
+    }
+
+    public static void openMultiplayerScreen() {
+        MeshStatics.openMultiplayerScreen();
+    }
+
+    public static void openOptionsScreen() {
+        MeshStatics.openOptionsScreen();
+    }
+
+    public static void openSelectWorldScreen() {
+        MeshStatics.openSelectWorldScreen();
+    }
+
+    public static void openRealmsMainScreen() {
+        MeshStatics.openRealmsMainScreen();
     }
 
     // TODO: ADD MORE HELPER FUNCTIONS
