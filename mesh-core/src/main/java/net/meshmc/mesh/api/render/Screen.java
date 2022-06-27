@@ -110,5 +110,9 @@ public class Screen implements ScreenContext {
         MeshStatics.openRealmsMainScreen();
     }
 
+    public static void openTitleScreen() {
+        MeshStatics.openTitleScreen();
+    }
+
     // TODO: ADD MORE HELPER FUNCTIONS
 }

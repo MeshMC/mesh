@@ -6,9 +6,11 @@ import net.meshmc.mesh.api.render.Renderer;
 import net.meshmc.mesh.api.util.Utilities;
 import net.meshmc.mesh.impl.wrapper.render.RendererMesh;
 import net.meshmc.mesh.impl.wrapper.util.UtilitiesMesh;
+import net.minecraft.client.shader.Framebuffer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 /**
  * Implementation of Mesh for Forge 1.12.2
@@ -23,6 +25,12 @@ public class MeshImpl extends Mesh {
 
     public MeshImpl() {
         super(LoaderType.FORGE, "1.12.2");
+    }
+
+    @net.minecraftforge.fml.common.Mod.EventHandler
+    public void preinit(FMLPreInitializationEvent event) {
+        Framebuffer framebuffer = net.minecraft.client.Minecraft.getMinecraft().getFramebuffer();
+        if(!framebuffer.isStencilEnabled()) framebuffer.enableStencil();
     }
 
     @net.minecraftforge.fml.common.Mod.EventHandler

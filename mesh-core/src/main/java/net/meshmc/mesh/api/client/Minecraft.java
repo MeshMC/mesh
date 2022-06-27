@@ -35,4 +35,6 @@ public interface Minecraft {
     Framebuffer getFramebuffer();
 
     BufferRenderer getBufferRenderer();
+
+    void shutdown();
 }

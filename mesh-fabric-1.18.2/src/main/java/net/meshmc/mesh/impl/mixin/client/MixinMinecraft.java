@@ -106,4 +106,9 @@ public class MixinMinecraft implements Minecraft {
     public BufferRenderer getBufferRenderer() {
         return BUFFER_RENDERER;
     }
+
+    @Override
+    public void shutdown() {
+        ((MinecraftClient)((Object) this)).scheduleStop();
+    }
 }

@@ -184,4 +184,8 @@ public class MeshStatics {
         RealmsBridge realmsbridge = new RealmsBridge();
         realmsbridge.switchToRealms(MC.currentScreen);
     }
+
+    public static void openTitleScreen() {
+        MC.displayGuiScreen(new GuiMainMenu());
+    }
 }

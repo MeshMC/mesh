@@ -19,6 +19,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.screen.DemoScreen;
 import net.minecraft.client.gui.screen.GameMenuScreen;
+import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.gui.screen.option.OptionsScreen;
 import net.minecraft.client.gui.screen.world.SelectWorldScreen;
@@ -171,5 +172,9 @@ public class MeshStatics {
 
     public static void openRealmsMainScreen() {
         MinecraftClient.getInstance().setScreen(new RealmsMainScreen(MinecraftClient.getInstance().currentScreen));
+    }
+
+    public static void openTitleScreen() {
+        MinecraftClient.getInstance().setScreen(new TitleScreen());
     }
 }

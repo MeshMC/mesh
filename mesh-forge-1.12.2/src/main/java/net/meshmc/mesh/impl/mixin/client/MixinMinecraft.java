@@ -117,4 +117,9 @@ public abstract class MixinMinecraft implements net.meshmc.mesh.api.client.Minec
     public BufferRenderer getBufferRenderer() {
         return BUFFER_RENDERER;
     }
+
+    @Override
+    public void shutdown() {
+        ((Minecraft)((Object) this)).shutdown();
+    }
 }

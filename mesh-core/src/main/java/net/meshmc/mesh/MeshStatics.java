@@ -154,4 +154,8 @@ public class MeshStatics {
     public static void openRealmsMainScreen() {
         throw new RuntimeException();
     }
+
+    public static void openTitleScreen() {
+        throw new RuntimeException();
+    }
 }
