@@ -8,8 +8,11 @@ import net.meshmc.mesh.util.entity.Stance;
 import net.meshmc.mesh.util.item.DyeColor;
 import net.meshmc.mesh.util.math.Facing;
 import net.meshmc.mesh.util.math.Hand;
+import net.meshmc.mesh.util.network.NetworkDirection;
+import net.meshmc.mesh.util.network.NetworkState;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.MovementType;
+import net.minecraft.network.NetworkSide;
 import net.minecraft.util.math.Direction;
 
 public class MeshEnum {
@@ -21,6 +24,8 @@ public class MeshEnum {
     private static final Stance[] STANCES = Stance.values();
     private static final ActionResult[] ACTION_RESULTS = ActionResult.values();
     private static final Arm[] ARMS = Arm.values();
+    private static final NetworkDirection[] NETWORK_DIRECTIONS = NetworkDirection.values();
+    private static final NetworkState[] NETWORK_STATES = NetworkState.values();
 
     public static DyeColor dyeColor(net.minecraft.util.DyeColor dyeColor) {
         return DYES[dyeColor.ordinal()];
@@ -54,5 +59,13 @@ public class MeshEnum {
 
     public static Arm arm(net.minecraft.util.Arm arm) {
         return ARMS[arm.ordinal()];
+    }
+
+    public static NetworkDirection networkDirection(NetworkSide networkSide) {
+        return NETWORK_DIRECTIONS[networkSide.ordinal()];
+    }
+
+    public static NetworkState networkState(net.minecraft.network.NetworkState networkState) {
+        return NETWORK_STATES[networkState.ordinal()];
     }
 }

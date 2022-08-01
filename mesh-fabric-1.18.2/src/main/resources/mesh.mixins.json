@@ -8,6 +8,7 @@
     "accessors.entity.EntityAccessor",
     "accessors.entity.EntityLivingAccessor",
     "accessors.entity.EntityPlayerAccessor",
+    "accessors.network.ClientConnectionAccessor",
     "accessors.packet.InteractAtHandlerAccessor",
     "accessors.packet.InteractHandlerAccessor",
     "accessors.render.BufferBuilderAccessor",
@@ -58,5 +59,8 @@
     "render.MixinScreen",
     "render.MixinTextRenderer",
     "util.MixinLocationIdentifier"
+  ],
+  "client": [
+    "network.MixinNetworkConnectionQueuedPacket"
   ]
 }
