@@ -30,10 +30,10 @@ public class Screen implements ScreenContext {
     public void type(Character typedChar, int keyCode) {
     }
 
-    public void scroll(double mouseX, double mouseY, double value) {
+    public void scroll(int mouseX, int mouseY, double value) {
     }
 
-    // TODO: THIS ISNT CONSISTEN ACROSS VERSIONS
+    // TODO: THIS ISNT CONSISTENT ACROSS VERSIONS
     public void resize(int width, int height) {
     }
 

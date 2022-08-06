@@ -27,7 +27,7 @@ public class ScreenAdapter extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        if(Mouse.hasWheel()) screen.scroll(mouseX, mouseY, Mouse.getDWheel());
+        if(Mouse.hasWheel()) screen.scroll(mouseX, mouseY, Mouse.getDWheel() / 10d);
         screen.render(mouseX, mouseY, partialTicks);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }

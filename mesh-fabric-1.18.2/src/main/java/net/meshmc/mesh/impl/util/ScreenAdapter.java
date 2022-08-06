@@ -56,7 +56,7 @@ public class ScreenAdapter extends net.minecraft.client.gui.screen.Screen {
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double value) {
-        screen.scroll(mouseX, mouseY, value);
+        screen.scroll((int) mouseX, (int) mouseY, value * 15);
         return super.mouseScrolled(mouseX, mouseY, value);
     }
 
