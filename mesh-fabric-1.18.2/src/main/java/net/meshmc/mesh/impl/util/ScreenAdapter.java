@@ -49,12 +49,6 @@ public class ScreenAdapter extends net.minecraft.client.gui.screen.Screen {
     }
 
     @Override
-    public boolean keyPressed(int keycode, int something, int mods) {
-        screen.type(null, keycode);
-        return super.keyPressed(keycode, something, mods);
-    }
-
-    @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double value) {
         screen.scroll((int) mouseX, (int) mouseY, value * 15);
         return super.mouseScrolled(mouseX, mouseY, value);
