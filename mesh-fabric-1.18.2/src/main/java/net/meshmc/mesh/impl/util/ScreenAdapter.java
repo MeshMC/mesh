@@ -43,6 +43,12 @@ public class ScreenAdapter extends net.minecraft.client.gui.screen.Screen {
     }
 
     @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        screen.type(null, keyCode);
+        return super.keyPressed(keyCode, scanCode, modifiers);
+    }
+
+    @Override
     public boolean charTyped(char character, int keycode) {
         screen.type(character, keycode);
         return super.charTyped(character, keycode);
