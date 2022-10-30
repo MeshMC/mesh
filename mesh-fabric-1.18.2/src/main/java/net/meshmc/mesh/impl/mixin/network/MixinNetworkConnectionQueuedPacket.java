@@ -3,7 +3,9 @@ package net.meshmc.mesh.impl.mixin.network;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 import net.meshmc.mesh.api.network.NetworkConnection;
-import net.minecraft.network.Packet;
+import net.meshmc.mesh.api.network.Packet;
+import net.meshmc.mesh.impl.util.Mappings;
+import net.meshmc.mesh.impl.wrapper.network.PacketMesh;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -12,17 +14,18 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(targets = "net.minecraft.network.ClientConnection$QueuedPacket")
 public class MixinNetworkConnectionQueuedPacket implements NetworkConnection.QueuedPacket {
-    @Mutable @Shadow @Final Packet<?> packet;
+    @Mutable @Shadow @Final
+    net.minecraft.network.Packet<?> packet;
     @Mutable @Shadow @Final @Nullable GenericFutureListener<? extends Future<? super Void>> callback;
 
     @Override
-    public Object getPacket() {
-        return packet;
+    public Packet getPacket() {
+        return Mappings.packet(packet);
     }
 
     @Override
-    public void setPacket(Object packet) {
-        this.packet = (Packet<?>) packet;
+    public void setPacket(Packet packet) {
+        this.packet = ((PacketMesh<?>) packet).getMeshValue();
     }
 
     @Override

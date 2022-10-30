@@ -5,6 +5,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 import net.meshmc.mesh.api.network.NetworkConnection;
+import net.meshmc.mesh.api.network.Packet;
 import net.meshmc.mesh.api.network.PacketListener;
 import net.meshmc.mesh.impl.mixin.accessors.network.ClientConnectionAccessor;
 import net.meshmc.mesh.impl.util.MCEnum;
@@ -12,7 +13,6 @@ import net.meshmc.mesh.impl.util.MeshEnum;
 import net.meshmc.mesh.util.network.NetworkDirection;
 import net.meshmc.mesh.util.network.NetworkState;
 import net.minecraft.network.ClientConnection;
-import net.minecraft.network.Packet;
 import net.minecraft.network.encryption.NetworkEncryptionException;
 import net.minecraft.network.encryption.NetworkEncryptionUtils;
 
@@ -130,8 +130,8 @@ public class NetworkConnectionMesh extends NetworkConnection<ClientConnection> {
     }
 
     @Override
-    public void channelRead(ChannelHandlerContext context, Object packet) {
-        ((ClientConnectionAccessor) getMeshValue()).channelRead(context, (Packet<?>) packet);
+    public void channelRead(ChannelHandlerContext context, Packet packet) {
+        ((ClientConnectionAccessor) getMeshValue()).channelRead(context, ((PacketMesh<?>) packet).getMeshValue());
     }
 
     @Override
@@ -140,21 +140,21 @@ public class NetworkConnectionMesh extends NetworkConnection<ClientConnection> {
     }
 
     @Override
-    public void sendPacket(Object packet) {
-        getMeshValue().send((Packet<?>) packet);
+    public void sendPacket(Packet packet) {
+        getMeshValue().send(((PacketMesh<?>) packet).getMeshValue());
     }
 
     @Override
-    public void sendPacket(Object packet, GenericFutureListener<? extends Future<? super Void>> callback) {
-        getMeshValue().send((Packet<?>) packet, callback);
+    public void sendPacket(Packet packet, GenericFutureListener<? extends Future<? super Void>> callback) {
+        getMeshValue().send(((PacketMesh<?>) packet).getMeshValue(), callback);
     }
 
     @Override
-    public void sendPacketImmediately(Object packet, GenericFutureListener<? extends Future<? super Void>>[] callbacks) {
+    public void sendPacketImmediately(Packet packet, GenericFutureListener<? extends Future<? super Void>>[] callbacks) {
         if(callbacks == null) throw new NullPointerException("callbacks is null");
         for(var call: callbacks) {
             if(call == null) continue;
-            ((ClientConnectionAccessor) getMeshValue()).sendImmediately((Packet<?>) packet, call);
+            ((ClientConnectionAccessor) getMeshValue()).sendImmediately(((PacketMesh<?>) packet).getMeshValue(), call);
             break;
         }
     }

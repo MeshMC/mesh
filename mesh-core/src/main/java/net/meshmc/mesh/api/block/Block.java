@@ -1,9 +1,12 @@
 package net.meshmc.mesh.api.block;
 
+import net.meshmc.mesh.util.block.BlockVariant;
+import net.meshmc.mesh.util.item.DyeColor;
+import org.jetbrains.annotations.Nullable;
+
 /**
  * @author Makrennel 23/04/2022
  * All possible block values
- *
  * TODO: make utils for blocks with multiple states
  * TODO: attach properties to blocks
  * TODO: a method for custom block creation?
@@ -12,19 +15,19 @@ public class Block {
     public static final Block
     AIR = new Block(),
     /** Variants of type "Stone"*/
-    STONE = new Block(),
+    STONE = new Block(BlockVariant.Stone.class),
     /** Variants of type "Dirt"*/
-    DIRT = new Block(),
+    DIRT = new Block(BlockVariant.Dirt.class),
             COBBLESTONE = new Block(),
     /** Variants of type "Wood"*/
-    WOOD_PLANKS = new Block(),
+    WOOD_PLANKS = new Block(BlockVariant.Wood.class),
     /** Variants of type "Sand"*/
-    WOOD_SAPLING = new Block(),
+    WOOD_SAPLING = new Block(BlockVariant.Wood.class),
             BEDROCK = new Block(),
             WATER = new Block(),
             LAVA = new Block(),
     /** Variants of type "Sand"*/
-    SAND = new Block(),
+    SAND = new Block(BlockVariant.Sand.class),
             GRAVEL = new Block(),
             GOLD_ORE = new Block(),
             DEEPSLATE_GOLD_ORE = new Block(),
@@ -34,15 +37,15 @@ public class Block {
             DEEPSLATE_COAL_ORE = new Block(),
             NETHER_GOLD_ORE = new Block(),
     /** Variants of type "Wood"*/
-    WOOD_LOG = new Block(),
+    WOOD_LOG = new Block(BlockVariant.Wood.class),
     /** Variants of type "Wood"*/
-    STRIPPED_WOOD_LOG = new Block(),
+    STRIPPED_WOOD_LOG = new Block(BlockVariant.Wood.class),
     /** Variants of type "Wood"*/
-    WOOD_BLOCK = new Block(),
+    WOOD_BLOCK = new Block(BlockVariant.Wood.class),
     /** Variants of type "Wood"*/
-    STRIPPED_WOOD_BLOCK = new Block(),
+    STRIPPED_WOOD_BLOCK = new Block(BlockVariant.Wood.class),
     /** Variants of type "Leaves"*/
-    LEAVES = new Block(),
+    LEAVES = new Block(BlockVariant.Leaves.class),
             SPONGE = new Block(),
             GLASS = new Block(),
             LAPIS_ORE = new Block(),
@@ -50,7 +53,7 @@ public class Block {
             LAPIS_BLOCK = new Block(),
             DISPENSER = new Block(),
     /** Variants of type "Sandstone"*/
-    SANDSTONE = new Block(),
+    SANDSTONE = new Block(BlockVariant.Sandstone.class),
             NOTE_BLOCK = new Block(),
             BED = new Block(), //TODO: BedUtil
             POWERED_RAIL = new Block(),
@@ -65,10 +68,10 @@ public class Block {
             PISTON = new Block(),
             PISTON_HEAD = new Block(),
     /** Variants of type "DyeColor"*/
-    WOOL = new Block(),
+    WOOL = new Block(DyeColor.class),
             MOVING_PISTON = new Block(),
     /** Variants of type "Flower"*/
-    FLOWER = new Block(),
+    FLOWER = new Block(BlockVariant.Flower.class),
             BROWN_MUSHROOM = new Block(),
             RED_MUSHROOM = new Block(),
             GOLD_BLOCK = new Block(),
@@ -83,7 +86,7 @@ public class Block {
             SOUL_FIRE = new Block(),
             SPAWNER = new Block(),
     /** Variants of type "Wood"*/
-    WOOD_STAIRS = new Block(), //TODO: StairsUtils
+    WOOD_STAIRS = new Block(BlockVariant.Wood.class), //TODO: StairsUtils
             CHEST = new Block(),
             REDSTONE_WIRE = new Block(),
             DIAMOND_ORE = new Block(),
@@ -94,11 +97,11 @@ public class Block {
             FARMLAND = new Block(),
             FURNACE = new Block(),
     /** Variants of type "Wood"*/
-    WOOD_SIGN = new Block(),
+    WOOD_SIGN = new Block(BlockVariant.Wood.class),
     /** Variants of type "Wood"*/
-    WOOD_WALL_SIGN = new Block(),
+    WOOD_WALL_SIGN = new Block(BlockVariant.Wood.class),
     /** Variants of type "Wood"*/
-    WOOD_DOOR = new Block(),
+    WOOD_DOOR = new Block(BlockVariant.Wood.class),
             LADDER = new Block(),
             RAIL = new Block(),
             COBBLESTONE_STAIRS = new Block(),
@@ -106,7 +109,7 @@ public class Block {
             STONE_PRESSURE_PLATE = new Block(),
             IRON_DOOR = new Block(),
     /** Variants of type "Wood"*/
-    WOOD_PRESSURE_PLATE = new Block(),
+    WOOD_PRESSURE_PLATE = new Block(BlockVariant.Wood.class),
             REDSTONE_ORE = new Block(),
             DEEPSLATE_REDSTONE_ORE = new Block(),
             REDSTONE_TORCH = new Block(),
@@ -119,7 +122,7 @@ public class Block {
             SUGAR_CANE = new Block(),
             JUKEBOX = new Block(),
     /** Variants of type "Wood"*/
-    WOOD_FENCE = new Block(),
+    WOOD_FENCE = new Block(BlockVariant.Wood.class),
             PUMPKIN = new Block(),
             NETHERRACK = new Block(),
             SOUL_SAND = new Block(),
@@ -134,15 +137,15 @@ public class Block {
             CAKE = new Block(),
             REPEATER = new Block(),
     /** Variants of type "DyeColor"*/
-    STAINED_GLASS = new Block(),
+    STAINED_GLASS = new Block(DyeColor.class),
     /** Variants of type "Wood"*/
-    WOOD_TRAPDOOR = new Block(),
+    WOOD_TRAPDOOR = new Block(BlockVariant.Wood.class),
     /** Variants of type "StoneBricks"*/
-    STONE_BRICKS = new Block(),
+    STONE_BRICKS = new Block(BlockVariant.StoneBricks.class),
     /** Variants of type "InfestedStone"*/
-    INFESTED_STONE = new Block(),
+    INFESTED_STONE = new Block(BlockVariant.InfestedStone.class),
     /** Variants of type "MushroomBlock"*/
-    MUSHROOM_BLOCK = new Block(),
+    MUSHROOM_BLOCK = new Block(BlockVariant.MushroomBlock.class),
             IRON_BARS = new Block(),
             CHAIN = new Block(),
             GLASS_PANE = new Block(),
@@ -152,7 +155,7 @@ public class Block {
             VINE = new Block(),
             GLOW_LICHEN = new Block(),
     /** Variants of type "Wood"*/
-    WOOD_FENCE_GATE = new Block(),
+    WOOD_FENCE_GATE = new Block(BlockVariant.Wood.class),
             BRICK_STAIRS = new Block(),
             STONE_BRICK_STAIRS = new Block(),
             LILY_PAD = new Block(),
@@ -163,7 +166,7 @@ public class Block {
             ENCHANTING_TABLE = new Block(),
             BREWING_STAND = new Block(),
     /** Variants of type "CauldronContents"*/
-    CAULDRON = new Block(),
+    CAULDRON = new Block(BlockVariant.CauldronContents.class),
             END_PORTAL = new Block(),
             END_PORTAL_FRAME = new Block(),
             END_STONE = new Block(),
@@ -180,13 +183,13 @@ public class Block {
             COMMAND_BLOCK = new Block(),
             BEACON = new Block(),
     /** Variants of type "CobblestoneWall"*/
-    COBBLESTONE_WALL = new Block(),
+    COBBLESTONE_WALL = new Block(BlockVariant.CobblestoneWall.class),
     /** Variants of type "PotContents"*/
-    FLOWER_POT = new Block(),
+    FLOWER_POT = new Block(BlockVariant.PotContents.class),
             CARROTS = new Block(),
             POTATOES = new Block(),
     /** Variants of type "Wood"*/
-    WOOD_BUTTON = new Block(),
+    WOOD_BUTTON = new Block(BlockVariant.Wood.class),
             SKULL = new Block(), //TODO: SkullUtil
 //            SKELETON_WALL_SKULL = new Block(),
 //            WITHER_SKELETON_SKULL = new Block(),
@@ -200,7 +203,7 @@ public class Block {
 //            DRAGON_HEAD = new Block(),
 //            DRAGON_WALL_HEAD = new Block(),
     /** Variants of type "Anvil"*/
-    ANVIL = new Block(),
+    ANVIL = new Block(BlockVariant.Anvil.class),
             TRAPPED_CHEST = new Block(),
             LIGHT_WEIGHTED_PRESSURE_PLATE = new Block(),
             HEAVY_WEIGHTED_PRESSURE_PLATE = new Block(),
@@ -211,20 +214,20 @@ public class Block {
             HOPPER = new Block(),
 
     /** Variants of type "Quartz"*/
-    QUARTZ = new Block(),
+    QUARTZ = new Block(BlockVariant.Quartz.class),
             QUARTZ_STAIRS = new Block(),
             ACTIVATOR_RAIL = new Block(),
             DROPPER = new Block(),
     /** Variants of type "DyeColor"*/
-    STAINED_TERRACOTTA = new Block(),
+    STAINED_TERRACOTTA = new Block(DyeColor.class),
     /** Variants of type "DyeColor"*/
-    STAINED_GLASS_PANE = new Block(),
+    STAINED_GLASS_PANE = new Block(DyeColor.class),
             SLIME_BLOCK = new Block(),
             BARRIER = new Block(),
             LIGHT = new Block(),
             IRON_TRAPDOOR = new Block(),
     /** Variants of type "Prismarine"*/
-            PRISMARINE = new Block(),
+    PRISMARINE = new Block(BlockVariant.Prismarine.class),
             PRISMARINE_STAIRS = new Block(),
             PRISMARINE_BRICK_STAIRS = new Block(),
             DARK_PRISMARINE_STAIRS = new Block(),
@@ -234,21 +237,21 @@ public class Block {
             SEA_LANTERN = new Block(),
             HAY_BLOCK = new Block(),
     /** Variants of type "DyeColor"*/
-    CARPET = new Block(),
+    CARPET = new Block(DyeColor.class),
             TERRACOTTA = new Block(),
             COAL_BLOCK = new Block(),
             PACKED_ICE = new Block(),
     /** Variants of type "DoublePlant"*/
-    DOUBLE_PLANT = new Block(),
+    DOUBLE_PLANT = new Block(BlockVariant.DoublePlant.class),
             STANDING_BANNER = new Block(), //TODO: BannerUtils
             WALL_BANNER = new Block(),
     /** Variants of type "Sandstone"*/
-    RED_SANDSTONE = new Block(),
+    RED_SANDSTONE = new Block(BlockVariant.Sandstone.class),
             RED_SANDSTONE_STAIRS = new Block(),
     /** Variants of type "Wood"*/
-    WOOD_SLAB = new Block(),
+    WOOD_SLAB = new Block(BlockVariant.Wood.class),
     /** Variants of type "StoneSlab"*/
-    STONE_SLAB = new Block(),
+    STONE_SLAB = new Block(BlockVariant.StoneSlab.class),
             SMOOTH_STONE = new Block(),
             SMOOTH_SANDSTONE = new Block(),
             SMOOTH_RED_SANDSTONE = new Block(),
@@ -272,13 +275,13 @@ public class Block {
             STRUCTURE_VOID = new Block(),
             OBSERVER = new Block(),
     /** Variants of type "DyeColor" or null*/
-    SHULKER_BOX = new Block(),
+    SHULKER_BOX = new Block(DyeColor.class),
     /** Variants of type "DyeColor"*/
-    GLAZED_TERRACOTTA = new Block(),
+    GLAZED_TERRACOTTA = new Block(DyeColor.class),
     /** Variants of type "DyeColor"*/
-    CONCRETE = new Block(),
+    CONCRETE = new Block(DyeColor.class),
     /** Variants of type "DyeColor"*/
-    CONCRETE_POWDER = new Block(),
+    CONCRETE_POWDER = new Block(DyeColor.class),
             KELP = new Block(),
             KELP_PLANT = new Block(),
             DRIED_KELP_BLOCK = new Block(),
@@ -561,4 +564,19 @@ public class Block {
             RAW_GOLD_BLOCK = new Block(),
             POTTED_AZALEA_BUSH = new Block(),
             POTTED_FLOWERING_AZALEA_BUSH = new Block();
+
+    @Nullable
+    public final Class<? extends Enum<?>> variantsClass;
+
+    public Block(@Nullable Class<? extends Enum<?>> variantsClass) {
+        this.variantsClass = variantsClass;
+    }
+
+    public Block() {
+        this(null);
+    }
+
+    public boolean hasVariants() {
+        return variantsClass != null;
+    }
 }

@@ -51,6 +51,9 @@ import net.meshmc.mesh.impl.wrapper.entity.living.water.fish.schooling.EntitySch
 import net.meshmc.mesh.impl.wrapper.entity.living.water.fish.schooling.EntityTropicalFishMesh;
 import net.meshmc.mesh.impl.wrapper.entity.living.water.squid.EntityGlowSquidMesh;
 import net.meshmc.mesh.impl.wrapper.entity.living.water.squid.EntitySquidMesh;
+import net.meshmc.mesh.impl.wrapper.network.PacketMesh;
+import net.meshmc.mesh.impl.wrapper.network.client.*;
+import net.meshmc.mesh.impl.wrapper.network.server.*;
 import net.meshmc.mesh.impl.wrapper.world.ClientWorldMesh;
 import net.meshmc.mesh.impl.wrapper.world.WorldMesh;
 import net.meshmc.mesh.util.block.BlockVariant;
@@ -68,6 +71,9 @@ import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.raid.RaiderEntity;
+import net.minecraft.network.Packet;
+import net.minecraft.network.packet.c2s.play.*;
+import net.minecraft.network.packet.s2c.play.*;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
@@ -75,6 +81,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class Mappings {
@@ -1714,5 +1721,55 @@ public class Mappings {
             if(state.getBlock() == Blocks.BLACK_CONCRETE_POWDER) return DyeColor.BLACK;
             return DyeColor.WHITE;
         });
+    }
+
+
+    public static <T extends Packet<?>> net.meshmc.mesh.api.network.Packet packet(T packet) {
+        if(packet == null) return null;
+        var p = packetMap.get(packet.getClass());
+        if(p == null) return new PacketMesh<>(packet);
+        return (net.meshmc.mesh.api.network.Packet) p.apply(packet);
+    }
+
+    public static final Map<Class<? extends Packet>, Function> packetMap;
+    static {
+        packetMap = new HashMap<>();
+
+        // C2S
+        packetMap.put(ChatMessageC2SPacket.class, packet -> new CPacketChatMessageMesh((ChatMessageC2SPacket) packet));
+
+        packetMap.put(TeleportConfirmC2SPacket.class, packet -> new CPacketConfirmTeleportMesh((TeleportConfirmC2SPacket) packet));
+
+        packetMap.put(HandSwingC2SPacket.class, packet -> new CPacketHandSwingMesh((HandSwingC2SPacket) packet));
+
+        packetMap.put(PlayerInputC2SPacket.class, packet -> new CPacketInputMesh((PlayerInputC2SPacket) packet));
+
+        packetMap.put(PlayerMoveC2SPacket.OnGroundOnly.class, packet -> new CPacketMovePlayerMesh.OnGround((PlayerMoveC2SPacket.OnGroundOnly) packet));
+        packetMap.put(PlayerMoveC2SPacket.PositionAndOnGround.class, packet -> new CPacketMovePlayerMesh.Position((PlayerMoveC2SPacket.PositionAndOnGround) packet));
+        packetMap.put(PlayerMoveC2SPacket.Full.class, packet -> new CPacketMovePlayerMesh.PositionRotation((PlayerMoveC2SPacket.Full) packet));
+        packetMap.put(PlayerMoveC2SPacket.LookAndOnGround.class, packet -> new CPacketMovePlayerMesh.Rotation((PlayerMoveC2SPacket.LookAndOnGround) packet));
+
+        packetMap.put(VehicleMoveC2SPacket.class, packet -> new CPacketMoveVehicleMesh((VehicleMoveC2SPacket) packet));
+
+        packetMap.put(BoatPaddleStateC2SPacket.class, packet -> new CPacketSteerBoatMesh((BoatPaddleStateC2SPacket) packet));
+
+        packetMap.put(PlayerInteractBlockC2SPacket.class, packet -> new CPacketUseBlockMesh((PlayerInteractBlockC2SPacket) packet));
+
+        packetMap.put(PlayerInteractEntityC2SPacket.class, packet -> new CPacketUseEntityMesh((PlayerInteractEntityC2SPacket) packet));
+
+        packetMap.put(PlayerInteractItemC2SPacket.class, packet -> new CPacketUseItemMesh((PlayerInteractItemC2SPacket) packet));
+
+        // S2C
+        packetMap.put(AdvancementUpdateS2CPacket.class, packet -> new SPacketAdvancementUpdateMesh((AdvancementUpdateS2CPacket) packet));
+
+        packetMap.put(BlockEventS2CPacket.class, packet -> new SPacketBlockActionMesh((BlockEventS2CPacket) packet));
+
+        packetMap.put(BlockUpdateS2CPacket.class, packet -> new SPacketBlockUpdateMesh((BlockUpdateS2CPacket) packet));
+
+        packetMap.put(BlockBreakingProgressS2CPacket.class, packet -> new SPacketBreakProgressMesh((BlockBreakingProgressS2CPacket) packet));
+
+        packetMap.put(PlayerPositionLookS2CPacket.class, packet -> new SPacketPlayerPositionRotationMesh((PlayerPositionLookS2CPacket) packet));
+
+        packetMap.put(BlockEntityUpdateS2CPacket.class, packet -> new SPacketTileEntityUpdateMesh((BlockEntityUpdateS2CPacket) packet));
     }
 }

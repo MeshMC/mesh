@@ -33,7 +33,7 @@ public abstract class MixinMinecraft implements net.meshmc.mesh.api.client.Minec
     @Shadow public EntityPlayerSP player;
     @Shadow private net.minecraft.client.shader.Framebuffer framebuffer;
 
-    @Shadow public abstract void resize(int width, int height);
+//    @Shadow public abstract void resize(int width, int height);
 
     @Override
     public Profiler<?> getProfiler() {

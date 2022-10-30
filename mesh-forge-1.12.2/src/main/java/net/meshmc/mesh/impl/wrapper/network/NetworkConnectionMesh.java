@@ -5,6 +5,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 import net.meshmc.mesh.api.network.NetworkConnection;
+import net.meshmc.mesh.api.network.Packet;
 import net.meshmc.mesh.api.network.PacketListener;
 import net.meshmc.mesh.impl.mixin.accessors.network.NetworkManagerAccessor;
 import net.meshmc.mesh.impl.util.MCEnum;
@@ -13,7 +14,6 @@ import net.meshmc.mesh.impl.util.duck.NetworkConnectionDuck;
 import net.meshmc.mesh.util.network.NetworkDirection;
 import net.meshmc.mesh.util.network.NetworkState;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
 
 import javax.annotation.Nullable;
 import javax.crypto.SecretKey;
@@ -138,9 +138,9 @@ public class NetworkConnectionMesh extends NetworkConnection<NetworkManager> {
     }
 
     @Override
-    public void channelRead(ChannelHandlerContext context, Object packet) {
+    public void channelRead(ChannelHandlerContext context, Packet packet) {
         try {
-            ((NetworkManagerAccessor) getMeshValue()).channelRead(context, (Packet<?>) packet);
+            ((NetworkManagerAccessor) getMeshValue()).channelRead(context, ((PacketMesh<?>) packet).getMeshValue());
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -152,18 +152,18 @@ public class NetworkConnectionMesh extends NetworkConnection<NetworkManager> {
     }
 
     @Override
-    public void sendPacket(Object packet) {
-        getMeshValue().sendPacket((Packet<?>) packet);
+    public void sendPacket(Packet packet) {
+        getMeshValue().sendPacket(((PacketMesh<?>) packet).getMeshValue());
     }
 
     @Override
-    public void sendPacket(Object packet, GenericFutureListener<? extends Future<? super Void>> callback) {
-        getMeshValue().sendPacket((Packet<?>) packet, callback);
+    public void sendPacket(Packet packet, GenericFutureListener<? extends Future<? super Void>> callback) {
+        getMeshValue().sendPacket(((PacketMesh<?>) packet).getMeshValue(), callback);
     }
 
     @Override
-    public void sendPacketImmediately(Object packet, @Nullable GenericFutureListener<? extends Future<? super Void>>[] callbacks) {
-        ((NetworkManagerAccessor) getMeshValue()).dispatchPacket((Packet<?>) packet, callbacks);
+    public void sendPacketImmediately(Packet packet, @Nullable GenericFutureListener<? extends Future<? super Void>>[] callbacks) {
+        ((NetworkManagerAccessor) getMeshValue()).dispatchPacket(((PacketMesh<?>) packet).getMeshValue(), callbacks);
     }
 
     @Override

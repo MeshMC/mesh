@@ -3,14 +3,9 @@ package net.meshmc.mesh;
 import net.meshmc.mesh.api.block.MapColor;
 import net.meshmc.mesh.api.block.Material;
 import net.meshmc.mesh.api.client.Session;
-import net.meshmc.mesh.api.entity.Entity;
 import net.meshmc.mesh.api.math.*;
-import net.meshmc.mesh.api.packet.client.*;
-import net.meshmc.mesh.api.render.Screen;
 import net.meshmc.mesh.api.render.buffer.BufferBuilder;
 import net.meshmc.mesh.api.util.LocationIdentifier;
-import net.meshmc.mesh.util.math.Facing;
-import net.meshmc.mesh.util.math.Hand;
 
 /**
  * CALLS TO THIS SHOULD ONLY BE USED IN MESH IMPLEMENTATIONS, IT IS NOT PRESENT IN mesh-core builds
@@ -62,71 +57,6 @@ public class MeshStatics {
     }
 
     public static Material createMaterial(MapColor mapColor) {
-        throw new RuntimeException();
-    }
-
-    // packets
-    public static CPacketInput createCPacketInput(float sideways, float forward, boolean jumping, boolean sneaking) {
-        throw new RuntimeException();
-    }
-
-    public static CPacketMovePlayer createCPacketMovePlayerOnGround(boolean onGround) {
-        throw new RuntimeException();
-    }
-
-    public static CPacketMovePlayer createCPacketMovePlayerMoving(double x, double y, double z, boolean onGround) {
-        throw new RuntimeException();
-    }
-
-    public static CPacketMovePlayer createCPacketMovePlayerRotating(float yaw, float pitch, boolean onGround) {
-        throw new RuntimeException();
-    }
-
-    public static CPacketMovePlayer createCPacketMovePlayerFull(double x, double y, double z, float yaw, float pitch, boolean onGround) {
-        throw new RuntimeException();
-    }
-
-    public static CPacketMoveVehicle createCPacketMoveVehicle(Entity entity) {
-        throw new RuntimeException();
-    }
-
-    public static CPacketMoveVehicle createCPacketMoveVehicle(double x, double y, double z, float yaw, float pitch) {
-        throw new RuntimeException();
-    }
-
-    public static CPacketSteerBoat createCPacketSteerBoat(boolean left, boolean right) {
-        throw new RuntimeException();
-    }
-
-    public static CPacketUseBlock createCPacketUseBlock(Hand hand, BlockPos blockPos, Facing facing, Vec3d vector, boolean insideBlock) {
-        throw new RuntimeException();
-    }
-
-    public static CPacketUseEntity createCPacketUseEntityAttack(Entity entity, boolean sneaking) {
-        throw new RuntimeException();
-    }
-
-    public static CPacketUseEntity createCPacketUseEntityInteract(Entity entity, Hand hand, boolean sneaking) {
-        throw new RuntimeException();
-    }
-
-    public static CPacketUseEntity createCPacketUseEntityInteractAt(Entity entity, Hand hand, Vec3d pos, boolean sneaking) {
-        throw new RuntimeException();
-    }
-
-    public static CPacketUseItem createCPacketUseItem(Hand hand) {
-        throw new RuntimeException();
-    }
-
-    public static CPacketHandSwing createCPacketHandSwing(Hand hand) {
-        throw new RuntimeException();
-    }
-
-    public static CPacketChatMessage createCPacketChatMessage(String message) {
-        throw new RuntimeException();
-    }
-
-    public static CPacketConfirmTeleport createCPacketConfirmTeleport(int id) {
         throw new RuntimeException();
     }
 

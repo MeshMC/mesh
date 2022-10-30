@@ -6,8 +6,7 @@ import net.meshmc.mesh.api.block.Material;
 import net.meshmc.mesh.api.client.Session;
 import net.meshmc.mesh.api.entity.Entity;
 import net.meshmc.mesh.api.math.*;
-import net.meshmc.mesh.api.packet.client.*;
-import net.meshmc.mesh.api.render.Screen;
+import net.meshmc.mesh.api.network.client.*;
 import net.meshmc.mesh.api.render.buffer.BufferBuilder;
 import net.meshmc.mesh.api.util.LocationIdentifier;
 import net.meshmc.mesh.impl.util.MCEnum;
@@ -18,7 +17,6 @@ import net.meshmc.mesh.util.math.Hand;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.screen.DemoScreen;
-import net.minecraft.client.gui.screen.GameMenuScreen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.gui.screen.option.OptionsScreen;
@@ -79,29 +77,6 @@ public class MeshStatics {
     }
 
     // packets
-    public static CPacketInput createCPacketInput(float sideways, float forward, boolean jumping, boolean sneaking) {
-        return (CPacketInput) new PlayerInputC2SPacket(sideways, forward, jumping, sneaking);
-    }
-
-    public static CPacketMovePlayer createCPacketMovePlayerOnGround(boolean onGround) {
-        return (CPacketMovePlayer) new PlayerMoveC2SPacket.OnGroundOnly(onGround);
-    }
-
-    public static CPacketMovePlayer createCPacketMovePlayerMoving(double x, double y, double z, boolean onGround) {
-        return (CPacketMovePlayer) new PlayerMoveC2SPacket.PositionAndOnGround(x, y, z, onGround);
-    }
-
-    public static CPacketMovePlayer createCPacketMovePlayerRotating(float yaw, float pitch, boolean onGround) {
-        return (CPacketMovePlayer) new PlayerMoveC2SPacket.LookAndOnGround(yaw, pitch, onGround);
-    }
-
-    public static CPacketMovePlayer createCPacketMovePlayerFull(double x, double y, double z, float yaw, float pitch, boolean onGround) {
-        return (CPacketMovePlayer) new PlayerMoveC2SPacket.Full(x, y, z, yaw, pitch, onGround);
-    }
-
-    public static CPacketMoveVehicle createCPacketMoveVehicle(Entity entity) {
-        return (CPacketMoveVehicle) new VehicleMoveC2SPacket(((EntityMesh<?>) entity).getMeshValue());
-    }
 
     public static CPacketMoveVehicle createCPacketMoveVehicle(double x, double y, double z, float yaw, float pitch) {
         // kind of a hack

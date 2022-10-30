@@ -53,15 +53,15 @@ public abstract class NetworkConnection<T> extends AbstractMesh<T> {
 
     public abstract void exceptionCaught(ChannelHandlerContext context, Throwable ex);
 
-    public abstract void channelRead(ChannelHandlerContext context, Object packet);
+    public abstract void channelRead(ChannelHandlerContext context, Packet packet);
 
     public abstract void setPacketListener(PacketListener listener);
 
-    public abstract void sendPacket(Object packet);
+    public abstract void sendPacket(Packet packet);
 
-    public abstract void sendPacket(Object packet, @Nullable GenericFutureListener<? extends Future<? super Void>> callback);
+    public abstract void sendPacket(Packet packet, @Nullable GenericFutureListener<? extends Future<? super Void>> callback);
 
-    public abstract void sendPacketImmediately(Object packet, @Nullable GenericFutureListener<? extends Future<? super Void>>[] callbacks);
+    public abstract void sendPacketImmediately(Packet packet, @Nullable GenericFutureListener<? extends Future<? super Void>>[] callbacks);
 
     public abstract NetworkState getState();
 
@@ -91,14 +91,14 @@ public abstract class NetworkConnection<T> extends AbstractMesh<T> {
     public abstract void handleDisconnection();
 
     public interface QueuedPacket {
-        static void create(Object packet) {
+        static void create(Packet packet) {
         }
 
-        static void create(Object packet, GenericFutureListener<? extends Future<? super Void>> callbacks) {
+        static void create(Packet packet, GenericFutureListener<? extends Future<? super Void>> callbacks) {
         }
 
-        Object getPacket();
-        void setPacket(Object packet);
+        Packet getPacket();
+        void setPacket(Packet packet);
 
         @Nullable
         GenericFutureListener<? extends Future<? super Void>>[] getCallbacks();
