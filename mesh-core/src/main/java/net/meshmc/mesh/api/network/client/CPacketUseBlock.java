@@ -4,7 +4,7 @@ import net.meshmc.mesh.api.math.BlockPos;
 import net.meshmc.mesh.api.math.Vec3d;
 import net.meshmc.mesh.api.network.Packet;
 import net.meshmc.mesh.statics.StaticPackets;
-import net.meshmc.mesh.util.MCVersion;
+import net.meshmc.mesh.util.GameVersion;
 import net.meshmc.mesh.util.math.Facing;
 import net.meshmc.mesh.util.math.Hand;
 
@@ -32,8 +32,8 @@ public interface CPacketUseBlock extends Packet.Client {
     void setInteractionVector(Vec3d vec);
 
     @Nullable
-    @MCVersion.OnlyOn(value = MCVersion.v1_14, minimumVersion = true)
+    @GameVersion.OnlyOn(value = GameVersion.v1_14, minimumVersion = true)
     Boolean isInsideBlock();
-    @MCVersion.OnlyOn(value = MCVersion.v1_14, minimumVersion = true)
+    @GameVersion.OnlyOn(value = GameVersion.v1_14, minimumVersion = true)
     void setInsideBlock(boolean value);
 }

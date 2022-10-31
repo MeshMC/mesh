@@ -6,9 +6,9 @@ import net.meshmc.mesh.api.client.Minecraft;
 import net.meshmc.mesh.api.render.Renderer;
 import net.meshmc.mesh.api.util.Utilities;
 import net.meshmc.mesh.event.MeshEventManager;
+import net.meshmc.mesh.util.GameVersion;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jetbrains.annotations.Nullable;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
 import org.reflections.util.ClasspathHelper;
@@ -21,9 +21,7 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.function.Supplier;
 
 /**
  * The main Mesh class. This manages all APIs and version specific procedures.
@@ -129,6 +127,7 @@ public abstract class Mesh {
 
     private final LoaderType loaderType;
     private final String loaderVersion;
+    private GameVersion gameVersion;
 
     // The event manager for mesh, all game, render, and client events are posted through this
     private final EventManager eventManager = new MeshEventManager(this);
@@ -142,7 +141,7 @@ public abstract class Mesh {
 
     /**
      * Creates a new implementation of the Mesh interface. This should only
-     * be called by the Mesh implementation sub-classes.
+     * be called by the Mesh implementation subclasses.
      * @param loaderType The loader that the implementation is running on.
      * @param loaderVersion The version of the loader that the implementation is running.
      */
@@ -264,18 +263,33 @@ public abstract class Mesh {
     /**
      * Calls the initialization method for all mesh mods, and mesh utilities
      */
-    public static void init() {
+    public static void init(String gameVersion) {
         if(!INSTANCE.loaded)
             throw new RuntimeException("Mesh tried to initialize mods before loading them!");
+
+        INSTANCE.gameVersion = getGameVersion(gameVersion);
 
         long start = System.currentTimeMillis();
 
         INSTANCE.initMods();
 
-        MESH_LOGGER.info("Mesh for {} {} initialized {} mods in {} milliseconds!",
+        MESH_LOGGER.info("Mesh for {} {} initialized {} mods on Minecraft {} in {} milliseconds!",
                 INSTANCE.loaderType.name().toLowerCase(), INSTANCE.loaderVersion,
-                INSTANCE.mods.size(), System.currentTimeMillis() - start);
+                INSTANCE.mods.size(), INSTANCE.gameVersion, System.currentTimeMillis() - start);
 
+    }
+
+    /**
+     * Finds the equivalent enumerated GameVersion from String
+     * @param gameVersionString The string value of the GameVersion to find
+     * @return The equivalent GameVersion
+     */
+    protected static GameVersion getGameVersion(String gameVersionString) {
+        for(GameVersion version: GameVersion.values())
+            if(version.versionString.equals(gameVersionString))
+                return version;
+
+        throw new RuntimeException("Failed to determine the version of the game");
     }
 
     // call the initializers for each loaded mod
@@ -318,6 +332,14 @@ public abstract class Mesh {
     }
 
     /**
+     * Gets the version of the game that Mesh is running on.
+     * @return An enum value corresponding to the current game version.
+     */
+    public GameVersion getGameVersion() {
+        return gameVersion;
+    }
+
+    /**
      * Gets the event manager for the Mesh interface
      * @return {@link EventManager} that mesh is using to post game events
      */
@@ -357,91 +379,5 @@ public abstract class Mesh {
      */
     public static Mesh getMesh() {
         return INSTANCE;
-    }
-
-    /**
-     * @param loaderType The LoaderType to look for
-     * @param versions version numbers to look for
-     * @return Whether the current loader version is included in the string
-     */
-    public boolean isVersion(LoaderType loaderType, String... versions) {
-        if(loaderType != this.loaderType && loaderType != null) return false;
-        return isVersion(versions);
-    }
-
-    /**
-     * @param versions "/" separable version strings. LoaderType names can be included
-     * @return Whether the current loader is included in the array of version strings
-     */
-    public boolean isVersion(String... versions) {
-        if(Arrays.stream(versions).anyMatch(str -> str.equalsIgnoreCase(loaderVersion))) return true;
-
-        String[] toCheck;
-        if(versions.length == 1 && versions[0].contains("/")) toCheck = versions[0].split("/");
-        else toCheck = versions;
-
-        for(String str: toCheck) {
-            str = str.toUpperCase();
-            int numStart = str.indexOf('1');
-            int lenCompare = str.contains(".X") ? str.indexOf(".X") -1: str.indexOf('.', numStart +2) +1;
-            lenCompare -= numStart;
-            if(str.contains("FA") && loaderType != LoaderType.FABRIC) continue;
-            if(str.contains("FO") && loaderType != LoaderType.FORGE) continue;
-            if(loaderVersion.regionMatches(0, str, numStart, lenCompare)) return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @param version "/" separable versions to compare to the loader's current version number. LoaderType names can be included
-     * @param supplier Lambda runnable which returns a value
-     * @param <T> The return type of the supplier
-     * @return If executed returns supplier's value, else returns null
-     */
-    @Nullable
-    public <T> T runIfVersion(String version, Supplier<T> supplier) {
-        if(isVersion(version)) return supplier.get();
-        return null;
-    }
-
-    /**
-     * @param supplier Lambda runnable which returns a value
-     * @param versions Strings of versions to compare to the loader's current version number. LoaderType names can be included
-     * @param <T> The return type of the supplier
-     * @return If executed returns supplier's value, else returns null
-     */
-    @Nullable
-    public <T> T runIfVersion(Supplier<T> supplier, String... versions) {
-        if(isVersion(versions)) return supplier.get();
-        return null;
-    }
-
-    /**
-     * @param version "/" separable versions to compare to the loader's current version number. LoaderType names can be included
-     * @param runnable Lambda runnable
-     * @return If is executed returns true, else returns false
-     */
-    public boolean runIfVersion(String version, Runnable runnable) {
-        if(isVersion(version)) {
-            runnable.run();
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @param runnable Lambda runnable
-     * @param versions Strings of versions to compare to the loader's current version number. LoaderType names can be included
-     * @return If is executed returns true, else returns false
-     */
-    public boolean runIfVersion(Runnable runnable, String... versions) {
-        if(isVersion(versions)) {
-            runnable.run();
-            return true;
-        }
-
-        return false;
     }
 }

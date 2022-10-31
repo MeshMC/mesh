@@ -39,7 +39,7 @@ public class MeshImpl extends Mesh {
         RENDERER = new RendererMesh();
         UTILITIES = new UtilitiesMesh();
 
-        Mesh.init();
+        Mesh.init(net.minecraft.client.Minecraft.getMinecraft().getVersion());
 
         MinecraftForge.EVENT_BUS.register(new ForgeEvents());
     }

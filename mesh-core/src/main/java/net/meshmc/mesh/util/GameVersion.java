@@ -1,5 +1,7 @@
 package net.meshmc.mesh.util;
 
+import net.meshmc.mesh.Mesh;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 
@@ -7,14 +9,14 @@ import java.lang.annotation.Target;
  * We, of course, will not be supporting every version listed here,
  * but the data is here... for whoever needs it.
  */
-public enum MCVersion {
+public enum GameVersion {
     v1_19_2("1.19.2", 760),
     v1_19_1("1.19.1", 760),
     v1_19("1.19", 759),
 
-    v1_18_2("1.18.2", 758, Loader.Fabric),
-    v1_18_1("1.18.1", 757, Loader.Fabric, v1_18_2),
-    v1_18("1.18", 757, Loader.Fabric, v1_18_2),
+    v1_18_2("1.18.2", 758, Mesh.LoaderType.FABRIC),
+    v1_18_1("1.18.1", 757, v1_18_2, Mesh.LoaderType.FABRIC),
+    v1_18("1.18", 757, v1_18_2, Mesh.LoaderType.FABRIC),
 
     v1_17_1("1.17.1", 756),
     v1_17("1.17", 755),
@@ -40,7 +42,7 @@ public enum MCVersion {
     v1_13_1("1.13.1", 401),
     v1_13("1.13", 393),
 
-    v1_12_2("1.12.2", 340, Loader.Forge),
+    v1_12_2("1.12.2", 340, Mesh.LoaderType.FORGE),
     v1_12_1("1.12.1", 338),
     v1_12("1.12", 335),
 
@@ -118,36 +120,47 @@ public enum MCVersion {
     v1_0("1.0", 22),
     ;
 
-    enum Loader {
+    public enum Loader {
         Fabric,
         Forge,
         Both
     }
 
-    public final String version;
+    public final String versionString;
     public final int procotol;
-    public final Loader compatibleLoader;
-    public final MCVersion compatibleVersion;
+    /**
+     * The loaders that mesh supports on the game version
+     */
+    public final Mesh.LoaderType[] compatibleLoaders;
+    /**
+     * The version of the loader the game version is compatible with running on
+     */
+    public final GameVersion compatibleLoaderVersion;
 
-    MCVersion(String version, int procotol, Loader compatibleLoader, MCVersion compatibleVersion) {
-        this.version = version;
+    GameVersion(String versionString, int procotol, GameVersion compatibleLoaderVersion, Mesh.LoaderType... compatibleLoaders) {
+        this.versionString = versionString;
         this.procotol = procotol;
-        this.compatibleLoader = compatibleLoader;
-        this.compatibleVersion = compatibleVersion;
+        this.compatibleLoaderVersion = compatibleLoaderVersion;
+        this.compatibleLoaders = compatibleLoaders;
     }
 
-    MCVersion(String version, int procotol, Loader loader) {
-        this.version = version;
+    GameVersion(String versionString, int procotol, Mesh.LoaderType... compatibleLoaders) {
+        this.versionString = versionString;
         this.procotol = procotol;
-        this.compatibleLoader = loader;
-        this.compatibleVersion = this;
+        this.compatibleLoaderVersion = this;
+        this.compatibleLoaders = compatibleLoaders;
     }
 
-    MCVersion(String version, int procotol) {
-        this.version = version;
+    GameVersion(String versionString, int procotol) {
+        this.versionString = versionString;
         this.procotol = procotol;
-        this.compatibleLoader = null;
-        this.compatibleVersion = null;
+        this.compatibleLoaderVersion = null;
+        this.compatibleLoaders = new Mesh.LoaderType[] {};
+    }
+
+    @Override
+    public String toString() {
+        return versionString;
     }
 
     /**
@@ -155,7 +168,7 @@ public enum MCVersion {
      */
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
     public @interface OnlyOn {
-        MCVersion[] value();
+        GameVersion[] value();
 
         boolean minimumVersion() default false;
 

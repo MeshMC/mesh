@@ -37,7 +37,7 @@ public class MeshImpl extends Mesh implements ModInitializer, PreLaunchEntrypoin
         RENDERER = new RendererMesh();
         UTILITIES = new UtilitiesMesh();
 
-        Mesh.init();
+        Mesh.init(MinecraftClient.getInstance().getGameVersion());
     }
 
     @Override

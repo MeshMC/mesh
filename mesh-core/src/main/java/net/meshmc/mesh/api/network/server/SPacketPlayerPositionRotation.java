@@ -1,7 +1,7 @@
 package net.meshmc.mesh.api.network.server;
 
 import net.meshmc.mesh.api.network.Packet;
-import net.meshmc.mesh.util.MCVersion;
+import net.meshmc.mesh.util.GameVersion;
 
 import javax.annotation.Nullable;
 import java.util.Set;
@@ -42,8 +42,8 @@ public interface SPacketPlayerPositionRotation extends Packet.Server {
     void removeFlag(Flag flag);
 
     @Nullable
-    @MCVersion.OnlyOn(value = MCVersion.v1_17, minimumVersion = true)
+    @GameVersion.OnlyOn(value = GameVersion.v1_17, minimumVersion = true)
     Boolean getShouldDismount();
-    @MCVersion.OnlyOn(value = MCVersion.v1_17, minimumVersion = true)
+    @GameVersion.OnlyOn(value = GameVersion.v1_17, minimumVersion = true)
     void setShouldDismount(boolean value);
 }
