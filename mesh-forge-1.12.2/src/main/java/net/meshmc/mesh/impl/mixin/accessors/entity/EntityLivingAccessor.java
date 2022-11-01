@@ -1,4 +1,4 @@
-package net.meshmc.mesh.impl.mixin.accessors;
+package net.meshmc.mesh.impl.mixin.accessors.entity;
 
 import net.meshmc.mesh.api.block.BlockState;
 import net.minecraft.block.state.IBlockState;

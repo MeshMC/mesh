@@ -86,7 +86,7 @@ public interface EntityPlayer extends EntityLiving {
 
     // TODO: playSound, getSoundCategory
 
-    void closeScreen();
+    void closeHandledScreen();
 
     int getScore();
 

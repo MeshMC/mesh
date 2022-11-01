@@ -1,34 +1,19 @@
 package net.meshmc.mesh;
 
-import io.netty.buffer.Unpooled;
 import net.meshmc.mesh.api.block.MapColor;
 import net.meshmc.mesh.api.block.Material;
 import net.meshmc.mesh.api.client.Session;
-import net.meshmc.mesh.api.entity.Entity;
 import net.meshmc.mesh.api.math.*;
-import net.meshmc.mesh.api.network.client.CPacketChatMessage;
-import net.meshmc.mesh.api.network.client.CPacketConfirmTeleport;
-import net.meshmc.mesh.api.network.client.CPacketInput;
-import net.meshmc.mesh.api.network.client.CPacketSteerBoat;
-import net.meshmc.mesh.api.network.client.CPacketUseEntity;
-import net.meshmc.mesh.api.network.client.*;
 import net.meshmc.mesh.api.render.buffer.BufferBuilder;
 import net.meshmc.mesh.api.util.LocationIdentifier;
-import net.meshmc.mesh.impl.util.MCEnum;
-import net.meshmc.mesh.impl.wrapper.entity.EntityMesh;
 import net.meshmc.mesh.impl.wrapper.render.BufferBuilderMesh;
-import net.meshmc.mesh.util.math.Facing;
-import net.meshmc.mesh.util.math.Hand;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.gui.*;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.network.play.client.*;
 import net.minecraft.realms.RealmsBridge;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import org.lwjgl.util.vector.Vector3f;
-
-import java.io.IOException;
 
 /**
  * @author Tigermouthbear 1/10/22
@@ -108,5 +93,9 @@ public class MeshStatics {
 
     public static void openTitleScreen() {
         MC.displayGuiScreen(new GuiMainMenu());
+    }
+
+    public static LocationIdentifier EntityAbstractClientPlayer_getSkinId(String playerName) {
+        return (LocationIdentifier) AbstractClientPlayer.getLocationSkin(playerName);
     }
 }

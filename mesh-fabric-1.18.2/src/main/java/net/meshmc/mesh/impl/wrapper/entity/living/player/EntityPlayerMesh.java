@@ -202,7 +202,7 @@ public class EntityPlayerMesh<T extends PlayerEntity> extends EntityLivingMesh<T
     }
 
     @Override
-    public void closeScreen() {
+    public void closeHandledScreen() {
         ((EntityPlayerAccessor) getMeshValue()).closeHandledScreen();
     }
 

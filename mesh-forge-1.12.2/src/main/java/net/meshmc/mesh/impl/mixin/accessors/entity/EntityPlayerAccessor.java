@@ -1,4 +1,4 @@
-package net.meshmc.mesh.impl.mixin.accessors;
+package net.meshmc.mesh.impl.mixin.accessors.entity;
 
 import com.mojang.authlib.GameProfile;
 import net.minecraft.entity.player.EntityPlayer;

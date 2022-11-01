@@ -5,7 +5,7 @@ import net.meshmc.mesh.api.block.BlockState;
 import net.meshmc.mesh.api.entity.Entity;
 import net.meshmc.mesh.api.entity.living.player.EntityPlayer;
 import net.meshmc.mesh.api.math.BlockPos;
-import net.meshmc.mesh.impl.mixin.accessors.EntityPlayerAccessor;
+import net.meshmc.mesh.impl.mixin.accessors.entity.EntityPlayerAccessor;
 import net.meshmc.mesh.impl.util.MCEnum;
 import net.meshmc.mesh.impl.util.MeshEnum;
 import net.meshmc.mesh.impl.wrapper.block.BlockStateMesh;
@@ -205,7 +205,7 @@ public class EntityPlayerMesh<T extends net.minecraft.entity.player.EntityPlayer
     }
 
     @Override
-    public void closeScreen() {
+    public void closeHandledScreen() {
         getMeshValue().closeScreen();
     }
 

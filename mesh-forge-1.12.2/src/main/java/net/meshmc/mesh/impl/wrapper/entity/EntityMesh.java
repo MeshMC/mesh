@@ -12,7 +12,7 @@ import net.meshmc.mesh.api.world.World;
 import net.meshmc.mesh.impl.util.MCEnum;
 import net.meshmc.mesh.impl.util.Mappings;
 import net.meshmc.mesh.impl.util.MeshEnum;
-import net.meshmc.mesh.impl.mixin.accessors.EntityAccessor;
+import net.meshmc.mesh.impl.mixin.accessors.entity.EntityAccessor;
 import net.meshmc.mesh.impl.wrapper.collections.EntityList;
 import net.meshmc.mesh.impl.wrapper.entity.living.player.EntityPlayerMesh;
 import net.meshmc.mesh.impl.wrapper.world.WorldMesh;

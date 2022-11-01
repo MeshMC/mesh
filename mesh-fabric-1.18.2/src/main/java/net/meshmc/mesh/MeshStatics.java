@@ -1,19 +1,12 @@
 package net.meshmc.mesh;
 
-import io.netty.buffer.Unpooled;
 import net.meshmc.mesh.api.block.MapColor;
 import net.meshmc.mesh.api.block.Material;
 import net.meshmc.mesh.api.client.Session;
-import net.meshmc.mesh.api.entity.Entity;
 import net.meshmc.mesh.api.math.*;
-import net.meshmc.mesh.api.network.client.*;
 import net.meshmc.mesh.api.render.buffer.BufferBuilder;
 import net.meshmc.mesh.api.util.LocationIdentifier;
-import net.meshmc.mesh.impl.util.MCEnum;
-import net.meshmc.mesh.impl.wrapper.entity.EntityMesh;
 import net.meshmc.mesh.impl.wrapper.render.BufferBuilderMesh;
-import net.meshmc.mesh.util.math.Facing;
-import net.meshmc.mesh.util.math.Hand;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.screen.DemoScreen;
@@ -21,11 +14,9 @@ import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.gui.screen.option.OptionsScreen;
 import net.minecraft.client.gui.screen.world.SelectWorldScreen;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.packet.c2s.play.*;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.hit.BlockHitResult;
 
 /**
  * @author Tigermouthbear 1/10/22
@@ -76,55 +67,6 @@ public class MeshStatics {
         return (Material) new net.minecraft.block.Material.Builder((net.minecraft.block.MapColor) mapColor).build();
     }
 
-    // packets
-
-    public static CPacketMoveVehicle createCPacketMoveVehicle(double x, double y, double z, float yaw, float pitch) {
-        // kind of a hack
-        PacketByteBuf packetByteBuf = new PacketByteBuf(Unpooled.buffer());
-        packetByteBuf.writeDouble(x);
-        packetByteBuf.writeDouble(y);
-        packetByteBuf.writeDouble(z);
-        packetByteBuf.writeFloat(yaw);
-        packetByteBuf.writeFloat(pitch);
-        return (CPacketMoveVehicle) new VehicleMoveC2SPacket(packetByteBuf);
-    }
-
-    public static CPacketSteerBoat createCPacketSteerBoat(boolean left, boolean right) {
-        return (CPacketSteerBoat) new BoatPaddleStateC2SPacket(left, right);
-    }
-
-    public static CPacketUseBlock createCPacketUseBlock(Hand hand, BlockPos blockPos, Facing facing, Vec3d vector, boolean insideBlock) {
-        return (CPacketUseBlock) new PlayerInteractBlockC2SPacket(MCEnum.hand(hand), new BlockHitResult((net.minecraft.util.math.Vec3d) vector.add(blockPos), MCEnum.facing(facing), (net.minecraft.util.math.BlockPos) blockPos, insideBlock));
-    }
-
-    public static CPacketUseEntity createCPacketUseEntityAttack(Entity entity, boolean sneaking) {
-        return (CPacketUseEntity) PlayerInteractEntityC2SPacket.attack(((EntityMesh<?>) entity).getMeshValue(), sneaking);
-    }
-
-    public static CPacketUseEntity createCPacketUseEntityInteract(Entity entity, Hand hand, boolean sneaking) {
-        return (CPacketUseEntity) PlayerInteractEntityC2SPacket.interact(((EntityMesh<?>) entity).getMeshValue(), sneaking, MCEnum.hand(hand));
-    }
-
-    public static CPacketUseEntity createCPacketUseEntityInteractAt(Entity entity, Hand hand, Vec3d pos, boolean sneaking) {
-        return (CPacketUseEntity) PlayerInteractEntityC2SPacket.interactAt(((EntityMesh<?>) entity).getMeshValue(), sneaking, MCEnum.hand(hand), (net.minecraft.util.math.Vec3d) pos);
-    }
-
-    public static CPacketUseItem createCPacketUseItem(Hand hand) {
-        return (CPacketUseItem) new PlayerInteractItemC2SPacket(MCEnum.hand(hand));
-    }
-
-    public static CPacketHandSwing createCPacketHandSwing(Hand hand) {
-        return (CPacketHandSwing) new HandSwingC2SPacket(MCEnum.hand(hand));
-    }
-
-    public static CPacketChatMessage createCPacketChatMessage(String message) {
-        return (CPacketChatMessage) new ChatMessageC2SPacket(message);
-    }
-
-    public static CPacketConfirmTeleport createCPacketConfirmTeleport(int id) {
-        return (CPacketConfirmTeleport) new TeleportConfirmC2SPacket(id);
-    }
-
     public static void openChatScreen(String input) {
         MinecraftClient.getInstance().setScreen(new ChatScreen(input));
     }
@@ -151,5 +93,9 @@ public class MeshStatics {
 
     public static void openTitleScreen() {
         MinecraftClient.getInstance().setScreen(new TitleScreen());
+    }
+
+    public static LocationIdentifier EntityAbstractClientPlayer_getSkinId(String playerName) {
+        return (LocationIdentifier) AbstractClientPlayerEntity.getSkinId(playerName);
     }
 }

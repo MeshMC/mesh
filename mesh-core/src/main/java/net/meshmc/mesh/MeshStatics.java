@@ -88,4 +88,8 @@ public class MeshStatics {
     public static void openTitleScreen() {
         throw new RuntimeException();
     }
+
+    public static LocationIdentifier EntityAbstractClientPlayer_getSkinId(String playerName) {
+        throw new RuntimeException();
+    }
 }

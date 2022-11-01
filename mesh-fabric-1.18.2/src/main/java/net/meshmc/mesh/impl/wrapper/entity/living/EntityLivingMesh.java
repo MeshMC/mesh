@@ -535,12 +535,12 @@ public class EntityLivingMesh<T extends LivingEntity> extends EntityMesh<T> impl
     }
 
     @Override
-    public int getElytraRoll() {
+    public int getTicksElytraFlying() {
         return ((EntityLivingAccessor) getMeshValue()).getRoll();
     }
 
     @Override
-    public void setElytraRoll(int value) {
+    public void setTicksElytraFlying(int value) {
         ((EntityLivingAccessor) getMeshValue()).setRoll(value);
     }
 

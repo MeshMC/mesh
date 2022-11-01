@@ -4,9 +4,9 @@
   "package": "net.meshmc.mesh.impl.mixin",
   "refmap": "mesh.mixins.refmap.json",
   "mixins": [
-    "accessors.EntityAccessor",
-    "accessors.EntityLivingAccessor",
-    "accessors.EntityPlayerAccessor",
+    "accessors.entity.EntityAccessor",
+    "accessors.entity.EntityLivingAccessor",
+    "accessors.entity.EntityPlayerAccessor",
     "accessors.network.NetworkManagerAccessor",
     "accessors.packet.CPacketAnimationAccessor",
     "accessors.packet.CPacketChatMessageAccessor",
@@ -48,6 +48,7 @@
     "util.MixinLocationIdentifier"
   ],
   "client": [
+    "accessors.entity.player.EntityClientPlayerAccessor",
     "render.MixinFramebuffer",
     "render.MixinGuiScreen"
   ]

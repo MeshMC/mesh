@@ -42,6 +42,7 @@
   ],
   "client": [
     "accessors.HitResultAccessor",
+    "accessors.entity.player.EntityClientPlayerAccessor",
     "accessors.packet.BlockUpdateS2CPacketAccessor",
     "accessors.packet.BoatPaddleStateC2SPacketAccessor",
     "accessors.packet.ChatMessageC2SPacketAccessor",

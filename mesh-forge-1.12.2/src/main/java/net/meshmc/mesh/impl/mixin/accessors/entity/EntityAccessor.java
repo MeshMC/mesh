@@ -1,4 +1,4 @@
-package net.meshmc.mesh.impl.mixin.accessors;
+package net.meshmc.mesh.impl.mixin.accessors.entity;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;

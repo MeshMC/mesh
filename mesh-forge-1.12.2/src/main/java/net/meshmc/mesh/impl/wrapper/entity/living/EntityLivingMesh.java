@@ -6,7 +6,7 @@ import net.meshmc.mesh.api.entity.living.EntityLiving;
 import net.meshmc.mesh.api.entity.living.player.EntityPlayer;
 import net.meshmc.mesh.api.math.BlockPos;
 import net.meshmc.mesh.api.math.Vec3d;
-import net.meshmc.mesh.impl.mixin.accessors.EntityLivingAccessor;
+import net.meshmc.mesh.impl.mixin.accessors.entity.EntityLivingAccessor;
 import net.meshmc.mesh.impl.util.MCEnum;
 import net.meshmc.mesh.impl.util.Mappings;
 import net.meshmc.mesh.impl.util.MeshEnum;
@@ -537,12 +537,12 @@ public class EntityLivingMesh<T extends EntityLivingBase> extends EntityMesh<T> 
     }
 
     @Override
-    public int getElytraRoll() {
+    public int getTicksElytraFlying() {
         return ((EntityLivingAccessor) getMeshValue()).getTicksElytraFlying();
     }
 
     @Override
-    public void setElytraRoll(int value) {
+    public void setTicksElytraFlying(int value) {
         ((EntityLivingAccessor) getMeshValue()).setTicksElytraFlying(value);
     }
 

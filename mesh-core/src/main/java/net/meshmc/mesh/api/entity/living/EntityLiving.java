@@ -178,8 +178,8 @@ public interface EntityLiving extends Entity {
     int getItemUseTimeLeft();
     void setItemUseTimeLeft(int value);
 
-    int getElytraRoll();
-    void setElytraRoll(int value);
+    int getTicksElytraFlying();
+    void setTicksElytraFlying(int value);
 
     // TODO: IDEK WHY MIXINS HATES THIS, maybe its just me \(*.*)/
     //BlockPos getLastBlockPos();
