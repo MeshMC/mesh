@@ -1,0 +1,20 @@
+{
+  "id": "mesh-api",
+  "name": "Mesh API",
+  "version": "${version}",
+  "description": "Hooks and utilities for cross-version development",
+  "website": "https://meshmc.net/",
+  "authors": [
+    "Tigermouthbear",
+    "Makrennel"
+  ],
+  "initializers": [
+    "net.meshmc.mesh.api.MeshAPI"
+  ],
+  "interfaces": [
+    "net.meshmc.mesh.api.impl"
+  ],
+  "mixins": [
+    "mesh-api.mixins.json"
+  ]
+}

@@ -1,10 +1,12 @@
-subprojects {
+allprojects {
     apply plugin: "java"
+}
 
-    group = "net.meshmc"
-    version = project.meshVersion
-    archivesBaseName = project.name
+group = project.mavenGroup
+version = project.modVersion
+archivesBaseName = project.modid
 
+subprojects {
     repositories {
         mavenCentral()
         maven {
@@ -12,39 +14,39 @@ subprojects {
             url = "https://maven.meshmc.net"
         }
         maven {
-            name = "Minecraft"
-            url = "https://libraries.minecraft.net"
-        }
-        maven {
-            name = "SpongePowered"
-            url = "https://repo.spongepowered.org/repository/maven-public/"
-        }
-        maven {
             name = "Fabric"
             url = "https://maven.fabricmc.net/"
         }
     }
 
-    // copy the main artifacts to root build folder after build
-    if(project.name == "mesh-loader") {
-        tasks.getByName("build").doLast {
-            copy {
-                from "${project.rootProject.rootDir}/${project.name}/build/libs/${project.name}-${project.meshVersion}.jar"
-                into "${project.rootProject.rootDir}/build"
-            }
-        }
-    } else if(project.name != "mesh-core") {
-        // standalone artifacts
-        tasks.getByName("build").doLast {
-            copy {
-                from "${project.rootProject.rootDir}/${project.name}/build/libs/${project.name}-${project.meshVersion}-standalone.jar"
-                into "${project.rootProject.rootDir}/build"
-            }
-        }
-    }
-
-    clean {
-        delete "${project.rootProject.rootDir}/build"
+    dependencies {
+        implementation "net.meshmc:mesh-loader:$loaderVersion"
     }
 }
 
+configurations {
+    embeddedLibs
+    embeddedJars
+}
+
+dependencies {
+    embeddedLibs(project(":core")) {
+        transitive = false
+    }
+
+    subprojects.forEach {
+        if(it.name.matches("v[0-9]+_[0-9]+_([0-9]+|x)")) embeddedJars(it) {
+            transitive = false
+        }
+    }
+}
+
+jar {
+    from {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        configurations.embeddedLibs.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    from(configurations.embeddedJars)
+}
