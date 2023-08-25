@@ -1,0 +1,26 @@
+group = project.mavenGroup
+version = project.modVersion
+archivesBaseName = project.modid + "-" + project.name
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "MeshMC"
+        url = "https://maven.meshmc.net"
+    }
+}
+
+dependencies {
+    implementation "org.apache.logging.log4j:log4j-api:2.17.0"
+    implementation "com.google.guava:guava:31.0.1-jre"
+    implementation "io.netty:netty-all:4.1.77.Final"
+    implementation "com.mojang:authlib:1.5.21"
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("${project.modid}.mesh.json") {
+        expand "version": project.version
+    }
+}

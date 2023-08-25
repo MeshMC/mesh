@@ -1,0 +1,134 @@
+// TODO:
+buildscript {
+    repositories {
+        gradlePluginPortal()
+        maven {
+            name = "Forge"
+            url = "https://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = "SpongePowered"
+            url = "https://repo.spongepowered.org/repository/maven-public/"
+        }
+    }
+    dependencies {
+        classpath "net.minecraftforge.gradle:ForgeGradle:5+"
+        classpath "org.spongepowered:mixingradle:0.7-SNAPSHOT"
+    }
+}
+apply plugin: "net.minecraftforge.gradle"
+apply plugin: "org.spongepowered.mixin"
+
+compileJava {
+    sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+    options.encoding = "UTF-8"
+}
+
+configurations {
+    embeddedLibs
+    coreLibs
+}
+
+minecraft {
+    mappings channel: "stable", version: "39-1.12"
+
+    accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:1.12.2-14.23.5.2854"
+
+    implementation "dev.tigr:simpleevents:1.3"
+
+    coreLibs(project(":core")) {
+        exclude module: "log4j-api"
+        exclude module: "gson"
+        exclude module: "guava"
+        exclude module: "authlib"
+    }
+    implementation configurations.coreLibs
+
+    coreLibs "org.slf4j:slf4j-api:1.7.32"
+
+    embeddedLibs("org.spongepowered:mixin:0.7.11-SNAPSHOT") {
+        exclude module: "commons-io"
+        exclude module: "gson"
+        exclude module: "guava"
+        exclude module: "launchwrapper"
+        exclude module: "log4j-core"
+    }
+    annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
+
+    implementation configurations.embeddedLibs
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+        filesNotMatching("mesh.mixins.json") {
+            expand "version": project.version
+        }
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    }
+}
+
+mixin {
+    defaultObfuscationEnv "searge"
+    add sourceSets.main, "mesh.mixins.refmap.json"
+}
+
+jar {
+    from(sourceSets.main.java)
+    from {
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+        configurations.embeddedLibs.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+
+    exclude "LICENSE.txt", "META-INF/MUMFREY.RSA"
+
+    //noinspection GroovyAssignabilityCheck
+    manifest {
+        attributes(
+                "MixinConfigs": "mesh.mixins.json",
+                "TweakClass": "net.meshmc.mesh.impl.tweaker.MeshTweaker",
+                "TweakOrder": 0,
+                "FMLCorePluginContainsFMLMod": "true",
+                "FMLCorePlugin": "net.meshmc.mesh.impl.mixin.MixinLoader",
+                "ForceLoadAsMod": "true"
+        )
+    }
+}
+
+task standaloneJar(type: Jar) {
+    from {
+        tasks.jar.outputs.collect {
+            it.files.collect {
+                it.isDirectory() ? it : zipTree(it)
+            }
+        }
+    }
+    from {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        configurations.coreLibs.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    archiveClassifier.set("standalone")
+
+    exclude "META-INF/maven", "META-INF/maven/**", "META-INF/versions", "META-INF/versions/**" ,
+            "META-INF/proguard", "META-INF/proguard/**", "META-INF/com.android.tools",
+            "META-INF/com.android.tools/**", "DebugProbesKt.bin"
+
+    //noinspection GroovyAssignabilityCheck
+    manifest {
+        attributes(tasks.jar.manifest.attributes)
+    }
+}
+build.dependsOn("standaloneJar")
