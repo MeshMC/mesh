@@ -2,10 +2,8 @@ package net.meshmc.mesh.impl.wrapper.render;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.meshmc.mesh.api.render.buffer.MatrixStack;
+import org.joml.Matrix4f;
 import org.joml.Quaternionf;
-import org.lwjgl.BufferUtils;
-
-import java.nio.FloatBuffer;
 
 /**
  * @author Tigermouthbear 1/15/22
@@ -39,17 +37,13 @@ public class MatrixStackMesh implements MatrixStack {
     }
 
     @Override
-    public FloatBuffer getProjectionMatrix() {
-        FloatBuffer buffer = BufferUtils.createFloatBuffer(16);
-        RenderSystem.getProjectionMatrix().writeExternal(buffer, false);
-        return buffer;
+    public Matrix4f getProjectionMatrix() {
+        return RenderSystem.getProjectionMatrix();
     }
 
     @Override
-    public FloatBuffer getModelMatrix() {
-        FloatBuffer buffer = BufferUtils.createFloatBuffer(16);
-        matrixStack.peek().getPositionMatrix().write(buffer, false);
-        return buffer;
+    public Matrix4f getModelMatrix() {
+        return matrixStack.peek().getPositionMatrix();
     }
 
     public void setMatrixStack(net.minecraft.client.util.math.MatrixStack matrixStack) {
