@@ -25,3 +25,8 @@ processResources {
         expand "version": project.version
     }
 }
+
+jar {
+    exclude "net/meshmc/mesh/MeshStatics.class"
+    exclude "net/meshmc/mesh/statics/*"
+}

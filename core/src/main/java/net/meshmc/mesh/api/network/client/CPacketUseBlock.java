@@ -15,8 +15,8 @@ import javax.annotation.Nullable;
  * @author Makrennel 2022/02/09
  */
 public interface CPacketUseBlock extends Packet.Client {
-    static CPacketUseBlock createCPacketUseBlock(Hand hand, BlockPos blockPos, Facing facing, Vec3d vector, boolean insideBlock) {
-        return StaticPackets.createCPacketUseBlock(hand, blockPos, facing, vector, insideBlock);
+    static CPacketUseBlock createCPacketUseBlock(Hand hand, BlockPos blockPos, Facing facing, Vec3d vector, boolean insideBlock, int sequence) {
+        return StaticPackets.createCPacketUseBlock(hand, blockPos, facing, vector, insideBlock, sequence);
     }
 
     BlockPos getBlockPos();

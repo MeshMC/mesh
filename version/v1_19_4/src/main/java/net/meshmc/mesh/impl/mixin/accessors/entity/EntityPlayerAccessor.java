@@ -40,4 +40,7 @@ public interface EntityPlayerAccessor {
 
     @Invoker("increaseRidingMotionStats")
     void increaseRidingMotionStats(double x, double y, double z);
+
+    @Invoker("getOffGroundSpeed")
+    float getOffGroundSpeed();
 }

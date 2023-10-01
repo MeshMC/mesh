@@ -12,6 +12,7 @@
     "net.meshmc.mesh.MeshAPI"
   ],
   "interfaces": [
+    "net.meshmc.mesh.impl"
   ],
   "mixins": [
     "mesh.mixins.json"

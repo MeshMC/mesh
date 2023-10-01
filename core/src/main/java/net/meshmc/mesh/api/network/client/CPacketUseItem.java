@@ -9,8 +9,8 @@ import net.meshmc.mesh.util.math.Hand;
  * @author Makrennel 2022/02/09
  */
 public interface CPacketUseItem extends Packet.Client {
-    static CPacketUseItem create(Hand hand) {
-        return StaticPackets.createCPacketUseItem(hand);
+    static CPacketUseItem create(Hand hand, int sequence) {
+        return StaticPackets.createCPacketUseItem(hand, sequence);
     }
 
     Hand getHand();

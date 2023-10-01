@@ -36,7 +36,8 @@ public class StaticPackets {
     // C2S
     // Chat Message
     public static CPacketChatMessage createCPacketChatMessage(String message) {
-        return new CPacketChatMessageMesh(new ChatMessageC2SPacket(message));
+        throw new RuntimeException("createCPacketChatMessage Not Yet Implemented");
+//        return new CPacketChatMessageMesh(new ChatMessageC2SPacket(message));
     }
 
     public static CPacketChatMessage createCPacketChatMessage(ByteBuf buf) {
@@ -133,8 +134,8 @@ public class StaticPackets {
     }
 
     // Use Block
-    public static CPacketUseBlock createCPacketUseBlock(Hand hand, BlockPos blockPos, Facing facing, Vec3d vector, boolean insideBlock) {
-        return new CPacketUseBlockMesh(new PlayerInteractBlockC2SPacket(MCEnum.hand(hand), new BlockHitResult((net.minecraft.util.math.Vec3d) vector, MCEnum.facing(facing), (net.minecraft.util.math.BlockPos) blockPos, insideBlock)));
+    public static CPacketUseBlock createCPacketUseBlock(Hand hand, BlockPos blockPos, Facing facing, Vec3d vector, boolean insideBlock, int sequence) {
+        return new CPacketUseBlockMesh(new PlayerInteractBlockC2SPacket(MCEnum.hand(hand), new BlockHitResult((net.minecraft.util.math.Vec3d) vector, MCEnum.facing(facing), (net.minecraft.util.math.BlockPos) blockPos, insideBlock), sequence));
     }
 
     public static CPacketUseBlock createCPacketUseBlock(ByteBuf buf) {
@@ -159,8 +160,8 @@ public class StaticPackets {
     }
 
     // Use Item
-    public static CPacketUseItem createCPacketUseItem(Hand hand) {
-        return new CPacketUseItemMesh(new PlayerInteractItemC2SPacket(MCEnum.hand(hand)));
+    public static CPacketUseItem createCPacketUseItem(Hand hand, int sequence) {
+        return new CPacketUseItemMesh(new PlayerInteractItemC2SPacket(MCEnum.hand(hand), sequence));
     }
 
     public static CPacketUseItem createCPacketUseItem(ByteBuf buf) {
@@ -208,11 +209,11 @@ public class StaticPackets {
 
     // Player Position Rotation
     public static SPacketPlayerPositionRotation createSPacketPlayerPositionRotation(double x, double y, double z, float yaw, float pitch, Set<SPacketPlayerPositionRotation.Flag> flags, int teleportId, boolean shouldDismount) {
-        Set<PlayerPositionLookS2CPacket.Flag> flagSet = new HashSet<>();
+        Set<PositionFlag> flagSet = new HashSet<>();
         for(SPacketPlayerPositionRotation.Flag flag: flags) {
             flagSet.add(SPacketPlayerPositionRotationMesh.FLAGS[flag.ordinal()]);
         }
-        return new SPacketPlayerPositionRotationMesh(new PlayerPositionLookS2CPacket(x, y, z, yaw, pitch, flagSet, teleportId, shouldDismount));
+        return new SPacketPlayerPositionRotationMesh(new PlayerPositionLookS2CPacket(x, y, z, yaw, pitch, flagSet, teleportId));
     }
 
     public static SPacketPlayerPositionRotation createSPacketPlayerPositionRotation(ByteBuf buf) {

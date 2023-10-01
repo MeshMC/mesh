@@ -115,7 +115,7 @@ public class StaticPackets {
     }
 
     // Use Block
-    public static CPacketUseBlock createCPacketUseBlock(Hand hand, BlockPos blockPos, Facing facing, Vec3d vector, boolean insideBlock) {
+    public static CPacketUseBlock createCPacketUseBlock(Hand hand, BlockPos blockPos, Facing facing, Vec3d vector, boolean insideBlock, int sequence) {
         throw new RuntimeException();
     }
 
@@ -141,7 +141,7 @@ public class StaticPackets {
     }
 
     // Use Item
-    public static CPacketUseItem createCPacketUseItem(Hand hand) {
+    public static CPacketUseItem createCPacketUseItem(Hand hand, int sequence) {
         throw new RuntimeException();
     }
 

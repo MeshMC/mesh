@@ -291,7 +291,7 @@ public class EntityClientPlayerMesh<T extends ClientPlayerEntity> extends Entity
 
     @Override
     public void sendChatMessage(String message) {
-        getMeshValue().sendChatMessage(message);
+        getMeshValue().networkHandler.sendChatMessage(message);
     }
 
     @Override
@@ -382,7 +382,7 @@ public class EntityClientPlayerMesh<T extends ClientPlayerEntity> extends Entity
 
     @Override
     public boolean hasJumpingMount() {
-        return getMeshValue().hasJumpingMount();
+        return getMeshValue().getJumpingMount() != null;
     }
 
     @Override

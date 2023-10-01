@@ -153,12 +153,12 @@ public class EntityPlayerMesh<T extends PlayerEntity> extends EntityLivingMesh<T
 
     @Override
     public float getSpeedInAir() {
-        return getMeshValue().airStrafingSpeed;
+        return ((EntityPlayerAccessor) getMeshValue()).getOffGroundSpeed();
     }
 
     @Override
     public void setSpeedInAir(float value) {
-        getMeshValue().airStrafingSpeed = value;
+//        getMeshValue().airStrafingSpeed = value;
     }
 
     @Override

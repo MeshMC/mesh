@@ -17,6 +17,7 @@ import net.minecraft.client.gui.screen.world.SelectWorldScreen;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
 import net.minecraft.util.Identifier;
+import org.joml.Vector3f;
 
 /**
  * @author Tigermouthbear 1/10/22
@@ -40,7 +41,7 @@ public class MeshStatics {
     }
 
     public static Vec3f createVec3f(float x, float y, float z) {
-        return (Vec3f) new net.minecraft.util.math.Vec3f(x, y, z);
+        return (Vec3f) new Vector3f(x, y, z);
     }
 
     public static Vec3i createVec3i(int x, int y, int z) {
