@@ -79,10 +79,10 @@ public class RenderStateMesh implements RenderState {
         return this;
     }
 
-    @Override
-    public RenderState texture(boolean state) {
-        if(state) RenderSystem.enableTexture();
-        else RenderSystem.disableTexture();
-        return this;
-    }
+//    @Override
+//    public RenderState texture(boolean state) {
+//        if(state) RenderSystem.enableTexture();
+//        else RenderSystem.disableTexture();
+//        return this;
+//    }
 }

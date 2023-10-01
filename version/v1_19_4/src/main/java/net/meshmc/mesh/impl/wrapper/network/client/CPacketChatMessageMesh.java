@@ -1,7 +1,6 @@
 package net.meshmc.mesh.impl.wrapper.network.client;
 
 import net.meshmc.mesh.api.network.client.CPacketChatMessage;
-import net.meshmc.mesh.impl.mixin.accessors.packet.ChatMessageC2SPacketAccessor;
 import net.meshmc.mesh.impl.wrapper.network.PacketMesh;
 import net.minecraft.network.packet.c2s.play.ChatMessageC2SPacket;
 import org.jetbrains.annotations.Nullable;
@@ -20,12 +19,7 @@ public class CPacketChatMessageMesh extends PacketMesh.Client<ChatMessageC2SPack
 
     @Override
     public String getMessage() {
-        return getMeshValue().getChatMessage();
-    }
-
-    @Override
-    public void setMessage(String message) {
-        ((ChatMessageC2SPacketAccessor) getMeshValue()).setMessage(message);
+        return getMeshValue().chatMessage();
     }
 
     @Nullable

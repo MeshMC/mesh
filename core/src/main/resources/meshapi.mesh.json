@@ -1,0 +1,19 @@
+{
+  "id": "meshapi",
+  "name": "MeshAPI",
+  "version": "${version}",
+  "description": "An API for mods using the Mesh Loader.",
+  "website": "https://meshmc.net/",
+  "authors": [
+    "Makrennel",
+    "Tigermouthbear"
+  ],
+  "initializers": [
+    "net.meshmc.mesh.MeshAPI"
+  ],
+  "interfaces": [
+  ],
+  "mixins": [
+    "mesh.mixins.json"
+  ]
+}

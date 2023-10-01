@@ -29,5 +29,5 @@ public interface RenderState {
 
     RenderState scissor(boolean state);
 
-    RenderState texture(boolean state);
+//    RenderState texture(boolean state);
 }

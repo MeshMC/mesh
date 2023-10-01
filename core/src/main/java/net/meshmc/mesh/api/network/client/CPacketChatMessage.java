@@ -13,7 +13,7 @@ public interface CPacketChatMessage extends Packet.Client {
     }
 
     String getMessage();
-    void setMessage(String message);
+//    void setMessage(String message);
 
     @Nullable
     @GameVersion.OnlyOn(value = GameVersion.v1_19, minimumVersion = true)

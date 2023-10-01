@@ -45,7 +45,6 @@
     "accessors.entity.player.EntityClientPlayerAccessor",
     "accessors.packet.BlockUpdateS2CPacketAccessor",
     "accessors.packet.BoatPaddleStateC2SPacketAccessor",
-    "accessors.packet.ChatMessageC2SPacketAccessor",
     "accessors.packet.HandSwingC2SPacketAccessor",
     "accessors.packet.PlayerInputC2SPacketAccessor",
     "accessors.packet.PlayerInteractBlockC2SPacketAccessor",
