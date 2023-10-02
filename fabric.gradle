@@ -1,0 +1,32 @@
+plugins {
+    id "fabric-loom" version '1.3-SNAPSHOT'
+}
+
+group = project.mavenGroup
+version = project.modVersion
+archivesBaseName = project.modid + "-" + project.name
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraftVersion}"
+    mappings "net.fabricmc:yarn:${project.yarnMappings}"
+    modImplementation "net.fabricmc:fabric-loader:${project.fabricLoaderVersion}"
+
+    implementation project(":core")
+}
+
+loom {
+    accessWidenerPath = file("src/main/resources/mesh.accesswidener")
+}
+
+tasks.withType(JavaCompile) {
+    options.release.set(17)
+    options.encoding = "UTF-8"
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}

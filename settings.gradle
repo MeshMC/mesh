@@ -10,7 +10,7 @@ pluginManagement {
 
 rootProject.name = "mesh"
 
-include "mesh-core"
-include "mesh-loader"
-include "mesh-forge-1.12.2"
-include "mesh-fabric-1.18.2"
+include "core"
+//include "mesh-loader"
+include "version:v1_19_4"
+//include "version:v1_12_2"
